@@ -1,3 +1,0 @@
-# MooSharp
-MOOoooooo
-dDDDDDD
