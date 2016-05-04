@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MooSharp.Models.Entities;
 
 namespace MooSharp.Models
 {
@@ -20,6 +21,10 @@ namespace MooSharp.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+		// Every entity class has to be listed here:
+		public DbSet<Assignment> _assignments { get; set; }
+		public DbSet<Milestone> _milestones { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
