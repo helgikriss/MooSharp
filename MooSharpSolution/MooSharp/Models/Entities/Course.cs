@@ -15,18 +15,18 @@ namespace MooSharp.Models.Entities
 		/// <summary>
 		/// The database-generated unique ID of the course.
 		/// </summary>
-		public int _ID { get; set; }
+		public int ID { get; set; }
 
 		/// <summary>
 		/// Contains the course number which can be both alpha and numerical characters.
 		/// Example: "T-220-VLN2".
 		/// </summary>
-		public string _courseNumber { get; set; }
+		public string CourseNumber { get; set; }
 
 		/// <summary>
 		/// Contains the title of the course.
 		/// Example: "Verklegt námskeið 2"
 		/// </summary>
-		public string _title { get; set; }
+		public string Title { get; set; }
 	}
 }

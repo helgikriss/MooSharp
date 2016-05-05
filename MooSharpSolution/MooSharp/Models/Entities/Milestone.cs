@@ -10,25 +10,25 @@
 		/// <summary>
 		/// The database-generated unique ID of the milestone.
 		/// </summary>
-		public int _ID { get; set; }
+		public int ID { get; set; }
 
 		/// <summary>
 		/// The foreign key to the assignment that this milestone is a part of.
 		/// </summary>
-		public int _assignmentID { get; set; }
+		public int AssignmentID { get; set; }
 
 		/// <summary>
 		/// Contains the name of the milestone.
 		/// Example: "Part 1"
 		/// </summary>
-		public string _title { get; set; }
+		public string Title { get; set; }
 
 		/// <summary>
 		/// Determines how much this milestone weighs of the entire assignment.
 		/// Example: If the milestone is 15% of the grade of the assignment then
 		/// this property contains the value 15.
 		/// </summary>
-		public int _weight { get; set; }
+		public int Weight { get; set; }
 
 		// TODO: Add input/output property.
 	}

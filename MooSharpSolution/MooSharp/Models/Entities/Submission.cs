@@ -16,35 +16,35 @@ namespace MooSharp.Models.Entities
 		/// <summary>
 		/// The database-generated unique ID of the submission.
 		/// </summary>
-		public int _ID { get; set; }
+		public int ID { get; set; }
 
 		/// <summary>
 		/// The foreign key to the milestone that this submission is a part of.
 		/// </summary>
-		public int _milestoneID { get; set; }
+		public int MilestoneID { get; set; }
 
 		/// <summary>
 		/// Contains the date and time of submission.
 		/// Example: 1/1/1970 00:00:00
 		/// </summary>
-		public DateTime _submissionDateTime { get; set; }
+		public DateTime SubmissionDateTime { get; set; }
 
 		/// <summary>
 		/// Contains the path to the submitted file.
 		/// Example: "~\submissions\user\hello.cpp"
 		/// </summary>
-		public string _submissionPath { get; set; }
+		public string SubmissionPath { get; set; }
 
 		/// <summary>
 		/// Contains the status of the submission after it has been compiled, run and checked.
 		/// status can contain for example "Accepted", "Wrong Answer", "Memory Error", etc.
 		/// </summary>
-		public string _status { get; set; }
+		public string Status { get; set; }
 
 		/// <summary>
 		/// Contains a list of all the outputs that were obtained from running some input on it.
 		/// Each item in the list is an output from a single time the program was run.
 		/// </summary>
-		public List<string> _outputs { get; set; }
+		public List<string> Outputs { get; set; }
 	}
 }
