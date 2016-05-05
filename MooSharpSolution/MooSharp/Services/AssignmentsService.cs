@@ -1,44 +1,52 @@
-﻿using System;
+﻿using MooSharp.Models;
+using MooSharp.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using MooSharp.Models;
-using MooSharp.Models.ViewModels;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MooSharp.Services
 {
-    public class AssignmentsService
-    {
+	public class AssignmentsService
+	{
 		private ApplicationDbContext _db;
 
-		public AssignmentsService() {
+		public AssignmentsService()
+		{
 			_db = new ApplicationDbContext();
 		}
 
-        public List<AssignmentViewModel> GetAssignmentsByCourseId(int courseID) {
-			// TODO: Finish GetAssignmentsByCourseId() method.
+		public List<AssignmentViewModel> GetAssignmentsInCourse(int courseID)
+		{
+			// TODO:
 			return null;
-        }
+		}
 
-        public AssignmentViewModel GetAssignmentById(int assignmentID) {
-            var assignment = _db.Assignments.SingleOrDefault(x => x.ID == assignmentID);
-            if (assignment == null) {
-                // TODO: Throw exception.
-            }
+		public AssignmentViewModel GetAssignmentByID(int assignmentID)
+		{
+			var assignment = _db.Assignments.SingleOrDefault(x => x.ID == assignmentID);
+			if (assignment == null)
+			{
+				// TODO: kasta villu!
+			}
 
-            var milestones = _db.Milestones
-                .Where(x => x.AssignmentID == assignmentID)
-                .Select(x => new MilestoneViewModel {
-                    Title = x.Title
-                })
-                .ToList();
+			var milestones = _db.Milestones
+				.Where(x => x.AssignmentID == assignmentID)
+				.Select(x => new MilestoneViewModel
+				{
+					Title = x.Title
+				})
+				.ToList();
 
-            var viewModel = new AssignmentViewModel {
-                Title = assignment.Title,
-                Milestones = milestones
-            };
+			var viewModel = new AssignmentViewModel
+			{
+				Title      = assignment.Title,
+				Milestones = milestones
+			};
 
 			return viewModel;
 		}
-    }
+
+	}
 }

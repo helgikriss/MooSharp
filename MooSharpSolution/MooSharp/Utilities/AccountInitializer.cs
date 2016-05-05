@@ -19,7 +19,7 @@ namespace MooSharp.Utilities
 			IdentityManager manager = new IdentityManager();
 
 			if (!manager.RoleExists("Administrators")){
-				manager.CreateRole("Administators");
+				manager.CreateRole("Administrators");
 			}
 
 			if (!manager.RoleExists("Teachers")) {

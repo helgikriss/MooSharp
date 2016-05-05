@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MooSharp.Models.ViewModels
 {
-    public class AssignmentViewModel
-    {
+	public class AssignmentViewModel
+	{
 		public string Title { get; set; }
-		public List<MilestoneViewModel> Milestones { get; set; }
 
-		// TODO: Finish all AssignmentViewModel properties and add summary to them.
+		public List<MilestoneViewModel> Milestones { get; set; }
 	}
 }
