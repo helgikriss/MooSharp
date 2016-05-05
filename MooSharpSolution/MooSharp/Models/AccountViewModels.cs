@@ -83,7 +83,6 @@ namespace MooSharp.Models
 
     public class ResetPasswordViewModel
     {
-        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
