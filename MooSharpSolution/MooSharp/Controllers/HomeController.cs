@@ -17,7 +17,7 @@ namespace MooSharp.Controllers
 
             return View();
         }
-
+		[Authorize(Roles = "Administrators")]
         public ActionResult Contact() {
             ViewBag.Message = "Your contact page.";
 
