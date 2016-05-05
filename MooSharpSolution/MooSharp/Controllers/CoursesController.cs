@@ -9,6 +9,7 @@ namespace MooSharp.Controllers
     public class CoursesController : Controller
     {
 		// TODO: Finish CoursesController.
+
         // GET: Courses
         public ActionResult Index()
         {
