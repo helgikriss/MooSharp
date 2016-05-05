@@ -24,6 +24,8 @@ namespace MooSharp.Models
 		// Every entity class has to be listed here:
 		public DbSet<Assignment> _assignments { get; set; }
 		public DbSet<Milestone> _milestones { get; set; }
+		public DbSet<Course> _courses { get; set; }
+		public DbSet<Submission> _submissions { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
