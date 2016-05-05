@@ -7,7 +7,7 @@ namespace MooSharp.Models.ViewModels
 {
 	public class MilestoneViewModel
 	{
-		public string _title { get; set; }
+		public string Title { get; set; }
 
 		// TODO: Finish all MilestoneViewModel properties and add summary to them.
 	}
