@@ -22,10 +22,10 @@ namespace MooSharp.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 		// Every entity class has to be listed here:
-		public DbSet<Assignment> _assignments { get; set; }
-		public DbSet<Milestone> _milestones { get; set; }
-		public DbSet<Course> _courses { get; set; }
-		public DbSet<Submission> _submissions { get; set; }
+		public DbSet<Assignment> Assignments { get; set; }
+		public DbSet<Milestone> Milestones { get; set; }
+		public DbSet<Course> Courses { get; set; }
+		public DbSet<Submission> Submissions { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
