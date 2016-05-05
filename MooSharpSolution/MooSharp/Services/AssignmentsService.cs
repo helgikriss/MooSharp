@@ -21,21 +21,21 @@ namespace MooSharp.Services
         }
 
         public AssignmentViewModel GetAssignmentById(int assignmentID) {
-            var assignment = _db._assignments.SingleOrDefault(x => x._ID == assignmentID);
+            var assignment = _db.Assignments.SingleOrDefault(x => x.ID == assignmentID);
             if (assignment == null) {
                 // TODO: Throw exception.
             }
 
-            var milestones = _db._milestones
-                .Where(x => x._assignmentID == assignmentID)
+            var milestones = _db.Milestones
+                .Where(x => x.AssignmentID == assignmentID)
                 .Select(x => new MilestoneViewModel {
-                    _title = x._title
+                    Title = x.Title
                 })
                 .ToList();
 
             var viewModel = new AssignmentViewModel {
-                _title = assignment._title,
-                _milestones = milestones
+                Title = assignment.Title,
+                Milestones = milestones
             };
 
 			return viewModel;
