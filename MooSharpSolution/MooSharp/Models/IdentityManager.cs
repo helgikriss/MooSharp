@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SecurityWebAppTest.Models
+namespace MooSharp.Models
 {
     public class IdentityManager
     {
