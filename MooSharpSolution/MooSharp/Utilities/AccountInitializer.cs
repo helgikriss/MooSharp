@@ -33,14 +33,39 @@ namespace MooSharp.Utilities
 			if (!manager.UserExists("admin@moosharp.is")) {
 				ApplicationUser admin = new ApplicationUser();
 				admin.UserName = "admin@moosharp.is";
-				manager.CreateUser(admin, "hopur24");
+				manager.CreateUser(admin, "admin");
 			}
 
-			var user = manager.GetUser("admin@moosharp.is");
+			var userAdmin = manager.GetUser("admin@moosharp.is");
 
-			if (!manager.UserIsInRole(user.Id, "Administrators")) {
-				manager.AddUserToRole(user.Id, "Administrators");
+			if (!manager.UserIsInRole(userAdmin.Id, "Administrators")) {
+				manager.AddUserToRole(userAdmin.Id, "Administrators");
 			}
+
+			if (!manager.UserExists("teacher@moosharp.is")) {
+				ApplicationUser teacher = new ApplicationUser();
+				teacher.UserName = "teacher@moosharp.is";
+				manager.CreateUser(teacher, "teacher");
+			}
+
+			var userTeacher = manager.GetUser("teacher@moosharp.is");
+
+			if (!manager.UserIsInRole(userTeacher.Id, "Teachers")) {
+				manager.AddUserToRole(userTeacher.Id, "Teachers");
+			}
+
+			if (!manager.UserExists("student@moosharp.is")) {
+				ApplicationUser student = new ApplicationUser();
+				student.UserName = "student@moosharp.is";
+				manager.CreateUser(student, "student");
+			}
+
+			var userStudent = manager.GetUser("student@moosharp.is");
+
+			if (!manager.UserIsInRole(userStudent.Id, "Students")) {
+				manager.AddUserToRole(userStudent.Id, "Students");
+			}
+
 		}
 	}
 }
