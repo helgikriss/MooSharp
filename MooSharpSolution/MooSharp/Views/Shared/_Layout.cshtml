@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Content/temp.css")
 
 </head>
 <body>
@@ -30,8 +31,17 @@
         </div>
     </div>
     <div class="container body-content">
-        @RenderBody()
-        <hr />
+        <div class="row">
+            <!--left-->
+            <div class="col-md-3" id="leftCol">
+                @RenderSection("SideBar", required: false)
+            </div><!--/left-->
+            <!--right-->
+            <div class="col-md-9">
+                @RenderBody()
+                <hr />
+            </div><!--/right-->
+        </div><!--/row-->
         <footer>
             <p>&copy; @DateTime.Now.Year - MooSharp</p>
         </footer>
@@ -39,5 +49,36 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        /* activate sidebar */
+        $('#sidebar').affix({
+            offset: {
+                top: 235
+            }
+        });
+
+        /* activate scrollspy menu */
+        var $body = $(document.body);
+        var navHeight = $('.navbar').outerHeight(true) + 10;
+
+        $body.scrollspy({
+            target: '#leftCol',
+            offset: navHeight
+        });
+
+        /* smooth scrolling sections */
+        $('a[href*=#]:not([href=#])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top - 50
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
