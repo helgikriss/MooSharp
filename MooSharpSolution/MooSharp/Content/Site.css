@@ -20,8 +20,9 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+   /* max-width: 280px;*/
 }
+
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
 /****** LOGIN MODAL ******/
