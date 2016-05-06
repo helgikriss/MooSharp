@@ -6,11 +6,9 @@ using System.Web.Mvc;
 
 namespace MooSharp.Controllers
 {
-    public class UsersController : Controller
+    public class TeachersController : Controller
     {
-		// TODO: Finish UsersController.
-
-        // GET: Users
+        // GET: Teachers
         public ActionResult Index()
         {
             return View();
