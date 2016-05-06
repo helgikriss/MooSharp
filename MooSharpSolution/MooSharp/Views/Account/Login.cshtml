@@ -19,8 +19,7 @@
                 <section id="loginForm">
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
                     @Html.AntiForgeryToken()
-                    <h4>Login</h4>
-                    <hr />
+                    <h1>Login</h1><br />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Username" })
                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
