@@ -20,21 +20,22 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    /* max-width: 280px; */
 }
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
 /****** LOGIN MODAL ******/
 .loginmodal-container {
   padding: 30px;
-  max-width: 350px;
+  max-width: 450px;
   width: 100% !important;
   background-color: #F7F7F7;
-  margin: 0 auto;
+  margin: auto auto;
+  margin-top: 150px;
   border-radius: 2px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-  font-family: roboto;
+  font-family: roboto;  
 }
 
 .loginmodal-container h1 {
@@ -90,7 +91,7 @@ textarea {
   border: 0px;
   color: #fff;
   text-shadow: 0 1px rgba(0,0,0,0.1); 
-  background-color: #4d90fe;
+  background-color: #696969;
   padding: 17px 0px;
   font-family: roboto;
   font-size: 14px;
@@ -101,7 +102,7 @@ textarea {
   /* border: 1px solid #2f5bb7; */
   border: 0px;
   text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: #357ae8;
+  background-color: #808080;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
 
@@ -118,3 +119,5 @@ textarea {
 .login-help{
   font-size: 12px;
 }
+
+
