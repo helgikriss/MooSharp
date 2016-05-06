@@ -1,7 +1,7 @@
 ﻿@using MooSharp.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Welcome to Moosharp";
 }
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
 
@@ -11,14 +11,15 @@
     });
 </script>
 
-<h2>@ViewBag.Title.</h2>
+    <h2>@ViewBag.Title.</h2>
+    <p>Please log in to access MooSharp.</p>
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="loginmodal-container">
                 <section id="loginForm">
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
                     @Html.AntiForgeryToken()
-                    <h4>Use a local account to log in.</h4>
+                    <h4>Login</h4>
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Username" })
