@@ -21,6 +21,12 @@ namespace MooSharp.Controllers
 			if (manager.UserIsInRole(id, "Administrators")) {
 				return RedirectToAction("About", "Home");
 			}
+			if (manager.UserIsInRole(id, "Students")) {
+				return RedirectToAction("Contact", "Home");
+			}
+			if(manager.UserIsInRole(id, "Teachers")) {
+				return RedirectToAction("About", "Home");
+			}
 			return View();
 		}
 
@@ -31,7 +37,7 @@ namespace MooSharp.Controllers
 			return View();
 		}
 
-		[Authorize(Roles = "Administrators")]
+		[Authorize(Roles = "Students")]
 		public ActionResult Contact()
 		{
 			ViewBag.Message = "Your contact page.";
