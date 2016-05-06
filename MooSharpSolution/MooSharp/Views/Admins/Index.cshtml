@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Admin home page";
+    ViewBag.Title = "Admin Home Page";
 }
 
 @section SideBar {
@@ -11,9 +11,7 @@
     <li>@Html.ActionLink("Add users from Centris", "AddUsersFromCentris", "Admins")</li>
     <hr />
 }
-<h2>Admin Home Page</h2>
-
-@Html.ActionLink("Create", "CreateCourse","Admins")
+<h2>@ViewBag.Title</h2>
 
 <h2 id="sec0">Content</h2>
 <p>
