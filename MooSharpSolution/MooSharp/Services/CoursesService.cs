@@ -23,6 +23,7 @@ namespace MooSharp.Services
 			};
 
 			_db.Courses.Add(cour);
+			_db.SaveChanges();
 		}
 	}
 }

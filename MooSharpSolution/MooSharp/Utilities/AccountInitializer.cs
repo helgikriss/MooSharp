@@ -66,8 +66,6 @@ namespace MooSharp.Utilities
 			if (!manager.UserIsInRole(userStudent.Id, "Students")) {
 				manager.AddUserToRole(userStudent.Id, "Students");
 			}
-
-
 		}
 	}
 }
