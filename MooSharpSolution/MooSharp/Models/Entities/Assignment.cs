@@ -13,7 +13,7 @@
 		/// <summary>
 		/// The foreign key to the course that this assignment is a part of.
 		/// </summary>
-		public int CourseID { get; set; }
+		public virtual int CourseID { get; set; }
 
 		/// <summary>
 		/// Contains the name of the assignment.
