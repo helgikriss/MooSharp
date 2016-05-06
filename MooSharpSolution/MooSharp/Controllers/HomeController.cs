@@ -19,13 +19,13 @@ namespace MooSharp.Controllers
 			string id = User.Identity.GetUserId().ToString();
 
 			if (manager.UserIsInRole(id, "Administrators")) {
-				return RedirectToAction("About", "Home");
+				return RedirectToAction("Index", "Admins");
 			}
 			if (manager.UserIsInRole(id, "Students")) {
-				return RedirectToAction("Contact", "Home");
+				return RedirectToAction("Index", "Students");
 			}
 			if(manager.UserIsInRole(id, "Teachers")) {
-				return RedirectToAction("About", "Home");
+				return RedirectToAction("Index", "Teachers");
 			}
 			return View();
 		}

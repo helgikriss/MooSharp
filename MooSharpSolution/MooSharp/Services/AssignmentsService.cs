@@ -1,4 +1,5 @@
 ﻿using MooSharp.Models;
+using MooSharp.Models.Entities;
 using MooSharp.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -48,5 +49,16 @@ namespace MooSharp.Services
 			return viewModel;
 		}
 
+		public int CreateAssignment(AssignmentViewModel model) {
+			var assignment = new Assignment() {
+				CourseID = model.CourseID,
+				Title = model.Title,
+				Description = model.Description
+				
+			};
+			_db.Assignments.Add(assignment);
+
+			return assignment.ID;
+		}
 	}
 }

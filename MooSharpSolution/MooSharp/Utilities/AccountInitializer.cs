@@ -1,4 +1,5 @@
 ﻿using MooSharp.Models;
+using MooSharp.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +66,7 @@ namespace MooSharp.Utilities
 			if (!manager.UserIsInRole(userStudent.Id, "Students")) {
 				manager.AddUserToRole(userStudent.Id, "Students");
 			}
+
 
 		}
 	}

@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "CreateCourse";
+}
+
+<h2>CreateCourse</h2>
+
+@using (Html.BeginForm("CreateCourse", "Admins")) {
+    <input type="text" name="coursenumber" placeholder="Course Number" />
+    <input type="text" name="coursename" placeholder="Course Name" />
+    <input type="submit" class="btn btn-default" />
+}
