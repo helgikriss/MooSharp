@@ -3,14 +3,13 @@
     ViewBag.Title = "Admin home page";
 }
 
-@section SideBar{
-    <ul class="nav nav-stacked" id="sidebar">
-        <li><a href="#sec0">Section 0</a></li>
-        <li><a href="#sec1">Section 1</a></li>
-        <li><a href="#sec2">Section 2</a></li>
-        <li><a href="#sec3">Section 3</a></li>
-        <li><a href="#sec4">Section 4</a></li>
-    </ul>
+@section SideBar {
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <hr />
+    <li>@Html.ActionLink("Add Course", "AddCourse", "Admins")</li>
+    <li>@Html.ActionLink("Add User", "AddUser", "Admins")</li>
+    <li>@Html.ActionLink("Add users from Centris", "AddUsersFromCentris", "Admins")</li>
+    <hr />
 }
 <h2>Admin Home Page</h2>
 

@@ -34,7 +34,9 @@
         <div class="row">
             <!--left-->
             <div class="col-md-3" id="leftCol">
-                @RenderSection("SideBar", required: false)
+                <ul class="nav nav-stacked" id="sidebar">
+                    @RenderSection("SideBar", required: false)
+                </ul>
             </div><!--/left-->
             <!--right-->
             <div class="col-md-9">
