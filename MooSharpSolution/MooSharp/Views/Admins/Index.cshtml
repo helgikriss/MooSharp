@@ -4,15 +4,15 @@
 }
 
 @section SideBar {
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <h4>@Html.ActionLink("Home", "Index", "Home")</h4>
     <hr />
-    <li>@Html.ActionLink("Add Course", "AddCourse", "Admins")</li>
+    <li>@Html.ActionLink("Add Course", "CreateCourse", "Admins")</li>
     <li>@Html.ActionLink("Add User", "AddUser", "Admins")</li>
     <li>@Html.ActionLink("Add users from Centris", "AddUsersFromCentris", "Admins")</li>
     <hr />
 }
 <h2>@ViewBag.Title</h2>
-
+<hr />
 <h2 id="sec0">Content</h2>
 <p>
     At Bootply we like to build simple Bootstrap templates that utilize the code Bootstap CSS without a lot of customization. Sure you can

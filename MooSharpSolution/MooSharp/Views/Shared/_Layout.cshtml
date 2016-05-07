@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Content/temp.css")
+    @Styles.Render("~/Content/temp.css")
 
 </head>
 <body>
@@ -18,7 +18,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("MooSharp", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="~/home/index"><img src="~/Static/img/moosharp-large.png" alt="moosharp logo" height="40px" /></a>
+                <!-- @Html.ActionLink("MooSharp", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" }) -->
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -55,7 +56,7 @@
         /* activate sidebar */
         $('#sidebar').affix({
             offset: {
-                top: 235
+                top: 30
             }
         });
 
