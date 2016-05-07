@@ -31,7 +31,7 @@ textarea {
   width: 100% !important;
   background-color: #F7F7F7;
   margin: auto auto;
-  margin-top: 50%;
+  margin-top: 150px;
   border-radius: 2px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   overflow: hidden;
@@ -119,25 +119,21 @@ textarea {
 .login-help{
   font-size: 12px;
 }
+/*Login changes*/
+#loginForm {
+    font-family: Arial;
+}
+#loginForm h1 {
+    font-family: Arial;
+}
 
+#loginForm input[type=submit] {
+    font-family: Arial;
+}
+#loginForm label {
+    font-family: Arial;
+    font-weight: normal;
+    margin-left: 10px;
+}
 /*Youtube background video on login screen*/
 
-div#youtube-background{
-    /*position: fixed; 
-    z-index: -99; 
-    width: 100%; 
-    height: 100%
-
-    opacity:0.8;*/
-    background-color:#ccc;
-    position:fixed;
-    width:100%;
-    height:100%;
-    top:0px;
-    left:0px;
-    z-index:1000;
-}
-
-div#img-box{
-    height: 50px;
-}
