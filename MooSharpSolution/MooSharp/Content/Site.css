@@ -41,7 +41,13 @@ textarea {
 .loginmodal-container h1 {
   text-align: center;
   font-size: 1.8em;
-  font-family: roboto;
+  font-family: Arial;
+}
+
+.loginmodal-container h3 {
+  text-align: center;
+  font-size: 1.2em;
+  font-family: Arial;
 }
 
 .loginmodal-container input[type=submit] {
@@ -123,10 +129,6 @@ textarea {
 #loginForm {
     font-family: Arial;
 }
-#loginForm h1 {
-    font-family: Arial;
-}
-
 #loginForm input[type=submit] {
     font-family: Arial;
 }

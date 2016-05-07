@@ -49,7 +49,7 @@ namespace MooSharp.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Username")]
         //[EmailAddress]
         public string Email { get; set; }
 
