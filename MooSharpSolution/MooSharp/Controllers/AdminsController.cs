@@ -1,4 +1,5 @@
 ﻿using MooSharp.Models.ViewModels;
+using MooSharp.Models.ViewModels.Admins;
 using MooSharp.Services;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ namespace MooSharp.Controllers
     {
 		private CoursesService _coursesService = new CoursesService();
 		// GET: Admins
-		public ActionResult Index()
-        {
-            return View();
+		public ActionResult Index() {
+			var viewmodel = new AdminIndexViewModel() {
+				AllCourses = _coursesService.GetAllCourses()
+			};
+            return View(viewmodel);
         }
 
 		public ActionResult CreateCourse() {
