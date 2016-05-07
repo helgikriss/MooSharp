@@ -3,15 +3,26 @@
 @{
     ViewBag.Title = "Log in";
 }
+
+@{ 
+    var r = new Random();
+    var start = r.Next(2846);
+    var link = "https://youtube.com/embed/ht2TigJp88w?start=" + start + "&autoplay=1&controls=0&showinfo=0&autohide=1&iv_load_policy=3";
+}
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
 
 <script type="text/javascript">
-    $(window).load(function(){
+    $('.navbar').hide();
+    $(window).load(function () {
         $('#login-modal').modal('show');
     });
 </script>
 
-<h2>@ViewBag.Title.</h2>
+    <div id="youtube-background">
+    <iframe frameborder="0" height="100%" width="100%"
+            src="@link"></iframe>
+    </div>
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="loginmodal-container">
