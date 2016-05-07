@@ -26,7 +26,8 @@ namespace MooSharp.Controllers
 			}
 			var course = _coursesService.GetCourseById(Convert.ToInt32(id));
 			if (course == null) {
-				return HttpNotFound();
+				// return HttpNotFound();
+				throw new HttpException(404, "Not found");
 			}
 			return View(course);
 		}

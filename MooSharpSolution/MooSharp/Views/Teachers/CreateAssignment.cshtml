@@ -9,7 +9,7 @@
 @using (Html.BeginForm("CreateCourse", "Admins", new { @class = "form form-control" })) {
     <input type="text" id="assignmentname" name="assignmentname" placeholder="Assignment Name" /> <br />
     <input type="text" id="courseid" name="courseid" hidden />
-    <input type="text" id="assignmentdescription" name="assignmentdescription" placeholder="Assignment Description" />
+    <textarea id="assignmentdescription" name="assignmentdescription" placeholder="Assignment Description"></textarea>
     <input type="submit" class="btn btn-default" value="Add Assignment" />
 }
 
