@@ -28,12 +28,6 @@ namespace MooSharp.Services
 
 		public CourseViewModel GetCourseById(int id) {
 			var course = _db.Courses.Find(id);
-			// dabs gerði þetta svona:
-			// var course = _db.Courses.SingleOrDefault(x => x.ID == id);
-
-			if(course == null) {
-				return null;
-			}
 
 			var assignments = _db.Assignments
 				.Where(x => x.CourseID == id)
@@ -69,6 +63,14 @@ namespace MooSharp.Services
 				viewmodels.Add(viewmodel);
 			}
 			return viewmodels;
+		}
+
+		public bool CourseIsInDbById(int id) {
+			var course = _db.Courses.Find(id);
+			if (course == null) {
+				return false;
+			}
+			return true;
 		}
 	}
 }

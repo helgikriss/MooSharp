@@ -19,7 +19,7 @@
 
 <h4>Course Number: @Model.CourseNumber</h4>
 <h4>Model ID: @Model.ID</h4>
-<li>@Html.ActionLink("Create Assignment", "CreateAssignment", "Teachers", new { id = "8" }, null)</li>
+<li>@Html.ActionLink("Create Assignment", "CreateAssignment", "Teachers", new { courseID = @Model.ID }, null)</li>
 <table class="table table-striped">
     <thead>
         <tr>

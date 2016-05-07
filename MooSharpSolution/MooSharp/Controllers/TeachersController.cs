@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -24,27 +25,37 @@ namespace MooSharp.Controllers
 			if (!id.HasValue) {
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			var course = _coursesService.GetCourseById(Convert.ToInt32(id));
-			if (course == null) {
-				// return HttpNotFound();
+			if (!_coursesService.CourseIsInDbById(Convert.ToInt32(id))) {
 				throw new HttpException(404, "Not found");
 			}
+			var course = _coursesService.GetCourseById(Convert.ToInt32(id));
+
 			return View(course);
 		}
 
-		public ActionResult CreateAssignment() {
-			// TODO: Create AssignmentIdViewModel with courseID to send into CreateAssignment view
-			return View();
+		public ActionResult CreateAssignment(int? courseID) {
+			if (!courseID.HasValue) {
+				Debug.WriteLine(courseID);
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			if (!_coursesService.CourseIsInDbById(Convert.ToInt32(courseID))) {
+				throw new HttpException(404, "Not found");
+			}
+			var courseIdViewModel = new CourseIdViewModel {
+				ID = Convert.ToInt32(courseID)
+			};
+			return View(courseIdViewModel);
 		}
 
 		[HttpPost]
 		public ActionResult CreateAssignment(FormCollection collection) {
+
 			var assignment = new CreateAssignmentViewModel() {
 				Title = collection["assignmentname"],
 				CourseID = Convert.ToInt32(collection["courseid"]),
 				Description = collection["assignmentdescription"]
 			};
-			int assignmentID = _assignmentsService.InitialCreateAssignment(assignment);
+			_assignmentsService.CreateAssignment(assignment);
 
 			return RedirectToAction("Index");
 		}
