@@ -4,4 +4,13 @@
     ViewBag.Title = "CourseDetails";
 }
 
-<h2>@Model.Title</h2>
+<h2>Title: @Model.Title</h2>
+
+<h4>Course Number: @Model.CourseNumber</h4>
+<h4>Model ID: @Model.ID</h4>
+
+<ul>
+    @for (int i = 0; i < Model.Assignments.Count; i++) {
+        <li> @Model.Assignments[i].Title</li>
+    }
+</ul>
