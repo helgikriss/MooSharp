@@ -31,37 +31,39 @@ namespace MooSharp.Utilities
 				manager.CreateRole("Students");
 			}
 
-			if (!manager.UserExists("admin@moosharp.is")) {
+			if (!manager.UserExists("admin")) {
 				ApplicationUser admin = new ApplicationUser();
-				admin.UserName = "admin@moosharp.is";
+				admin.UserName = "admin";
 				manager.CreateUser(admin, "admin");
 			}
 
-			var userAdmin = manager.GetUser("admin@moosharp.is");
+			var userAdmin = manager.GetUser("admin");
 
 			if (!manager.UserIsInRole(userAdmin.Id, "Administrators")) {
 				manager.AddUserToRole(userAdmin.Id, "Administrators");
 			}
 
-			if (!manager.UserExists("teacher@moosharp.is")) {
+			if (!manager.UserExists("teacher")) {
 				ApplicationUser teacher = new ApplicationUser();
-				teacher.UserName = "teacher@moosharp.is";
+				teacher.UserName = "teacher";
+				teacher.Email = "teacher@moosharp.is";
 				manager.CreateUser(teacher, "teacher");
 			}
 
-			var userTeacher = manager.GetUser("teacher@moosharp.is");
+			var userTeacher = manager.GetUser("teacher");
 
 			if (!manager.UserIsInRole(userTeacher.Id, "Teachers")) {
 				manager.AddUserToRole(userTeacher.Id, "Teachers");
 			}
 
-			if (!manager.UserExists("student@moosharp.is")) {
+			if (!manager.UserExists("student")) {
 				ApplicationUser student = new ApplicationUser();
-				student.UserName = "student@moosharp.is";
+				student.UserName = "student";
+				student.Email = "student@moosharp.is";
 				manager.CreateUser(student, "student");
 			}
 
-			var userStudent = manager.GetUser("student@moosharp.is");
+			var userStudent = manager.GetUser("student");
 
 			if (!manager.UserIsInRole(userStudent.Id, "Students")) {
 				manager.AddUserToRole(userStudent.Id, "Students");

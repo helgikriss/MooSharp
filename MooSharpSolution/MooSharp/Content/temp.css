@@ -1,0 +1,118 @@
+﻿/*
+A Bootstrap 3.1 affix sidebar template
+from http://bootply.com
+
+This CSS code should follow the 'bootstrap.css'
+in your HTML file.
+
+license: MIT
+author: bootply.com
+*/
+.navbar-default {
+  background-color: #4b4b4b;
+  border-color: #2e2e2e;
+}
+.navbar-default .navbar-brand {
+  color: #d8d8d8;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #848484;
+}
+.navbar-default .navbar-text {
+  color: #d8d8d8;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #d8d8d8;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #848484;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #848484;
+  background-color: #2e2e2e;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #848484;
+  background-color: #2e2e2e;
+}
+.navbar-default .navbar-toggle {
+  border-color: #2e2e2e;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #2e2e2e;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #d8d8d8;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #d8d8d8;
+}
+.navbar-default .navbar-link {
+  color: #d8d8d8;
+}
+.navbar-default .navbar-link:hover {
+  color: #848484;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #d8d8d8;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #848484;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #848484;
+    background-color: #2e2e2e;
+  }
+}
+
+
+body {
+ padding-top:80px;
+}
+
+@media screen and (min-width: 768px) {
+  #masthead h1 {
+    font-size: 50px;
+  }
+}
+
+.navbar-bright {
+ background-color:#111155;
+ color:#fff;
+}
+
+.affix-top,.affix{
+ position: static;
+}
+
+@media (min-width: 979px) {
+  #sidebar.affix-top {
+    position: static;
+  	margin-top:30px;
+  	width:228px;
+  }
+  
+  #sidebar.affix {
+    position: fixed;
+    top:70px;
+    width:228px;
+  }
+}
+
+#sidebar li.active {
+  border:0 #eee solid;
+  border-right-width:5px;
+}
