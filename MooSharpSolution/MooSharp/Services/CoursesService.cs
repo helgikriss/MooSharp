@@ -25,6 +25,35 @@ namespace MooSharp.Services
 			_db.Courses.Add(cour);
 			_db.SaveChanges();
 		}
+
+		public CourseViewModel GetCourseById(int id) {
+			var course = _db.Courses.Find(id);
+			// dabs gerði þetta svona:
+			// var course = _db.Courses.SingleOrDefault(x => x.ID == id);
+
+			if(course == null) {
+				return null;
+			}
+
+			var assignments = _db.Assignments
+				.Where(x => x.CourseID == id)
+				.Select(x => new AssignmentInCourseViewModel {
+					ID = x.ID,
+					Title = x.Title,
+					Description = x.Description
+				})
+				.ToList();
+
+			var courseViewModel = new CourseViewModel() {
+				ID = course.ID,
+				Title = course.Title,
+				CourseNumber = course.CourseNumber,
+				Assignments = assignments
+			};
+
+			return courseViewModel;
+		}
+		
 		public List<CourseViewModel> GetAllCourses() {
 			var courses = _db.Courses.ToList();
 
