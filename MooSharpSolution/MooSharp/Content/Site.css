@@ -156,6 +156,6 @@ div#youtube-background{
 }
 
 div#img-box{
-    height: 1px;
-    left: 77px;
+    float: left;
+    padding-top: 10px;
 }
