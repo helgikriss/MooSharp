@@ -25,10 +25,15 @@
     </div>
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
         <div class="modal-dialog">
-            <div class="loginmodal-container">
+            <div class="loginmodal-container">            
                 <section id="loginForm">
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
                     @Html.AntiForgeryToken()
+
+                    <div id="img-box">
+                    <a href="~/home/index"><img src="~/Static/img/moosharp-small.png" alt="moosharp logo" height="60px" /></a>
+                    </div>
+
                     <h1>Login</h1>
                     <br />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
