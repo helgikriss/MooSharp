@@ -1,4 +1,5 @@
-﻿
+﻿@model MooSharp.Models.ViewModels.Admins.AdminIndexViewModel
+
 @{
     ViewBag.Title = "Admin Home Page";
 }
@@ -14,37 +15,27 @@
 
 <h2>@ViewBag.Title</h2>
 <hr />
-<h2 id="sec0">Content</h2>
-
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading"><h3>Courses <button class="btn btn-default" onclick="window.location.href='CreateCourse/'">Create Course</button> </h3></div>
             <div class="panel-body">
                 <table class="table table-striped">
+                    <thead>
                         <tr>
                             <th>Course</th>
                             <th>Crouse Number</th>
                             <th>Teacher</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td> Forritun</td>
-                            <td> FORR-V-2016</td>
-                            <td> Reyndir some Tard</td>
-                        </tr>
-                        <tr>
-                            <td> Gagnaskipan</td>
-                            <td> GAGN-V-2016</td>
-                            <td> Hrafn Loftsson </td>
-                        </tr>
-                        <tr>
-                            <td> Forritun </td>
-                            <td> FORR-H-2015</td>
-                            <td> Hrafn Loftsson</td>
-                        </tr>
-
+                    <tbody>                        
+                        @for (var i = 0; i < Model.AllCourses.Count; i++) {
+                            <tr>
+                                <td>@Model.AllCourses[i].Title</td>
+                                <td>@Model.AllCourses[i].CourseNumber</td>
+                                <td>#</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

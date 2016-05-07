@@ -19,10 +19,8 @@ namespace MooSharp.Models.ViewModels
 		/// Contains the title of the course.
 		/// Example: "Verklegt námskeið 2"
 		/// </summary>
-<<<<<<< HEAD
+		
 		public string Title { get; set; }
-=======
-		public string Title { get; set; }.
->>>>>>> 3ea9d6a313145681425b15cb282b258ecbbc64cc
+
 	}
 }

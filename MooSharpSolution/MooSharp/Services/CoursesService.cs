@@ -29,11 +29,7 @@ namespace MooSharp.Services
 			var courses = _db.Courses.ToList();
 			var viewmodels = new List<CourseViewModel>();
 
-<<<<<<< HEAD
-			foreach(Course c in courses) {
-=======
 			foreach (Course c in courses) {
->>>>>>> 3ea9d6a313145681425b15cb282b258ecbbc64cc
 				var viewmodel = new CourseViewModel() {
 					CourseNumber = c.CourseNumber,
 					Title = c.Title,
