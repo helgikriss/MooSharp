@@ -3,16 +3,20 @@
 @{
     ViewBag.Title = "Log in";
 }
+@{  
+    var r = new Random();
+    var start = r.Next(2846);
+}
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
 
 <script type="text/javascript">
     $(window).load(function(){
         $('#login-modal').modal('show');
+        
     });
 </script>
 
-<h2>@ViewBag.Title.</h2>
-    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
         <div class="modal-dialog">
             <div class="loginmodal-container">
                 <section id="loginForm">
@@ -45,3 +49,4 @@
             @section Scripts {
                 @Scripts.Render("~/bundles/jqueryval")
             }
+

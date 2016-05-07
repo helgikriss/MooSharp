@@ -119,5 +119,24 @@ textarea {
 .login-help{
   font-size: 12px;
 }
+/*Login changes*/
+#loginForm {
+    font-family: Arial;
+}
+#loginForm h1 {
+    font-family: Arial;
+}
 
+<<<<<<< master
+=======
+#loginForm input[type=submit] {
+    font-family: Arial;
+}
+#loginForm label {
+    font-family: Arial;
+    font-weight: normal;
+    margin-left: 10px;
+}
+/*Youtube background video on login screen*/
+>>>>>>> local
 
