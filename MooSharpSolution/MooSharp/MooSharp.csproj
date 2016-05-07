@@ -233,6 +233,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Static\img\moosharp-banner.png" />
     <Content Include="Static\img\moosharp-large.png" />
     <Content Include="Static\img\moosharp-small.png" />
     <Content Include="Web.config">
