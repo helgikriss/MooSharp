@@ -5,11 +5,11 @@ using System.Web;
 
 namespace MooSharp.Models.ViewModels
 {
-	public class CourseViewModel
+	public class AssignmentInCourseViewModel
 	{
 		public int ID { get; set; }
-		public string CourseNumber { get; set; }
 		public string Title { get; set; }
-		public List<AssignmentInCourseViewModel> Assignments { get; set; }
+		public string Description { get; set; }
+
 	}
 }
