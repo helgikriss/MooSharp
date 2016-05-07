@@ -9,10 +9,11 @@ using System.Web.Mvc;
 
 namespace MooSharp.Controllers
 {
-    public class AdminsController : Controller
+	[Authorize(Roles = "Administrators")]
+	public class AdminsController : Controller
     {
 		private CoursesService _coursesService = new CoursesService();
-		// GET: Admins
+		
 		public ActionResult Index() {
 			var viewmodel = new AdminIndexViewModel() {
 				AllCourses = _coursesService.GetAllCourses()

@@ -26,8 +26,7 @@ namespace MooSharp.Services
 			_db.SaveChanges();
 		}
 		public List<CourseViewModel> GetAllCourses() {
-			var courses = _db.Courses
-				.ToList();
+			var courses = _db.Courses.ToList();
 
 
 			var viewmodels = new List<CourseViewModel>();
