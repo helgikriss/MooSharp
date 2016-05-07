@@ -50,7 +50,6 @@ namespace MooSharp.Models
     {
         [Required]
         [Display(Name = "Username")]
-        //[EmailAddress]
         public string Email { get; set; }
 
         [Required]
