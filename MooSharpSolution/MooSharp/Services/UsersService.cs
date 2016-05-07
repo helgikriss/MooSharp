@@ -17,15 +17,15 @@ namespace MooSharp.Services
  
  		public List<UserViewModel> GetAllUsers() {
 			var users = _db.Users.ToList();
-			
+			var manager = new IdentityManager();
 			var viewmodels = new List<UserViewModel>();
-			
+
 			foreach (ApplicationUser user in users) {
 				var viewmodel = new UserViewModel() {
 					userId = user.Id,
 					email = user.Email,
 					username = user.UserName,
-					role = _db.Roles.Where(x => x.Id == user.Id).Select(X => X.Name).ToString()
+					role = manager.GetUserRoles(user.Id).FirstOrDefault()
 				};
 				viewmodels.Add(viewmodel);
 			}

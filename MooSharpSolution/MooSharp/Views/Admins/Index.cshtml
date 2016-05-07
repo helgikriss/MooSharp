@@ -45,21 +45,31 @@
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><h3>Hello.</h3></div>
+            <div class="panel-heading"><h3>Courses <a href="@Url.Content("~/Admins/CreateCourse")"><button class="btn btn-default">Create Course</button></a> </h3></div>
             <div class="panel-body">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
-                Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
-                dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
-                Aliquam in felis sit amet augue.
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.AllUsers.Count; i++) {
+                            <tr>
+                                <td>@Model.AllUsers[i].username</td>
+                                <td>@Model.AllUsers[i].email</td>
+                                <td>@Model.AllUsers[i].role</td>
+                            </tr>}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-<hr>
-<h4><a href="http://www.bootply.com/Gygh9swISB">Edit on Bootply</a></h4>
-<hr>
-
 @section Copyright {
+    <hr />
     <p>&copy; @DateTime.Now.Year - MooSharp</p>
 }
