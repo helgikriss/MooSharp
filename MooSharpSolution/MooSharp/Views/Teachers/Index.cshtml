@@ -3,5 +3,15 @@
     ViewBag.Title = "Index";
 }
 
+@section SideBar {
+    <h4>@Html.ActionLink("Home", "Index", "Home")</h4>
+    <hr />
+    @for (var i = 0; i < 5; i++) {
+        <li> @Html.ActionLink("link " + @i, "Index", "Teachers") </li>
+    }
+    <hr />
+}
+
 <h2>Index</h2>
+
 
