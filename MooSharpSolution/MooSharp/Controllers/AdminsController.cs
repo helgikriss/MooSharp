@@ -30,7 +30,6 @@ namespace MooSharp.Controllers
 		/// <summary>
 		/// Returns Index view with AdminIndexViewModel.
 		/// </summary>
-		/// <returns></returns>
 		public ActionResult Index() {
 			var viewmodel = new AdminIndexViewModel() {
 				AllCourses = _coursesService.GetAllCourses(),
@@ -42,7 +41,6 @@ namespace MooSharp.Controllers
 		/// <summary>
 		/// Returns a view with a form to be filled out to create a course
 		/// </summary>
-		/// <returns></returns>
 		public ActionResult CreateCourse() {
 			return View();
 		}
@@ -66,7 +64,6 @@ namespace MooSharp.Controllers
 		/// <summary>
 		/// Returns CreateUser view.
 		/// </summary>
-		/// <returns></returns>
 		public ActionResult CreateUser() {
 			return View();
 		}
@@ -75,8 +72,6 @@ namespace MooSharp.Controllers
 		/// Takes in CreateUserViewModel that has been filled in by Admin and creates
 		/// a new user with that information.
 		/// </summary>
-		/// <param name="viewModel"></param>
-		/// <returns></returns>
 		[HttpPost]
 		public ActionResult CreateUser(CreateUserViewModel viewModel) {
 			// TODO: taka a móti forminu úr CreatUser og senda ViewModel í UserService CreateUser fallið
