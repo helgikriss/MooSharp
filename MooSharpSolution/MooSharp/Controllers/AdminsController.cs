@@ -13,10 +13,13 @@ namespace MooSharp.Controllers
 	public class AdminsController : Controller
     {
 		private CoursesService _coursesService = new CoursesService();
-		
+		private UsersService _usersService = new UsersService();
+
 		public ActionResult Index() {
 			var viewmodel = new AdminIndexViewModel() {
-				AllCourses = _coursesService.GetAllCourses()
+				AllCourses = _coursesService.GetAllCourses(),
+				AllUsers = _usersService.GetAllUsers()
+
 			};
             return View(viewmodel);
         }
