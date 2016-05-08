@@ -17,7 +17,10 @@ namespace MooSharp.Services
 			_db = new ApplicationDbContext();
 			_manager = new IdentityManager();
 		}
- 
+		/// <summary>
+		/// GetAllUsers() gets a list of all users in the database and their roles
+		/// and returns it in a viewmodel for the view to use.
+		/// </summary>
  		public List<UserViewModel> GetAllUsers() {
 			var users = _db.Users.ToList();
 			var viewmodels = new List<UserViewModel>();
@@ -33,20 +36,18 @@ namespace MooSharp.Services
 			}
 			return viewmodels;
 		}
+		/// <summary>
+		///  This function takes in a viewmodel from a form, filled out with user information.
+		///  username, email, password, and role is used .
+		///  username, email and password is used to create the user in the database, then the role is added to the user.
+		/// </summary>
 
 		public bool CreateUser(CreateUserViewModel viewModel) {
 			// get the values from viewModel and write it down to DB.
 			if (_manager.UserExists(viewModel.UserName)) {
 				return false;
 			}
-			/*
-			CreateUserViewModel testModel = new CreateUserViewModel {
-				UserName = "TestUser",
-				Email = "test@test.is",
-				Password = "asdfg",
-				ConfirmPassword = "asdfgh",
-				Roles = "Students"
-			};*/
+
 			ApplicationUser newUser = new ApplicationUser();
 			newUser.UserName = viewModel.UserName;
 			newUser.Email = viewModel.Email;

@@ -25,11 +25,17 @@ namespace MooSharp.Controllers
 			};
             return View(viewmodel);
         }
-
+		/// <summary>
+		/// Returns a view with a form to be filled out to create a course
+		/// </summary>
+		/// <returns></returns>
 		public ActionResult CreateCourse() {
 			return View();
 		}
-
+		/// <summary>
+		/// Createcourse gets a viewmodel with information about a new course and 
+		/// sends that info to CourseService to be added
+		/// </summary>
 		[HttpPost]
 		public ActionResult CreateCourse(FormCollection collection) {
 
@@ -47,17 +53,6 @@ namespace MooSharp.Controllers
 		}
 
 		[HttpPost]
-		/*public ActionResult CreateUser(FormCollection collection) {
-			// TODO: taka a móti forminu úr CreatUser og senda ViewModel í UserService CreateUser fallið
-			var user = new CreateUserViewModel() {
-				userName = collection["username"],
-				email = collection["email"],
-				password =  collection["password"],
-				confirmPassword = collection["confirmPassword"],
-				roles = collection["roles"]
-			};
-			return View();
-		}*/
 		public ActionResult CreateUser(CreateUserViewModel viewModel) {
 			// TODO: taka a móti forminu úr CreatUser og senda ViewModel í UserService CreateUser fallið
 			if (ModelState.IsValid) {
