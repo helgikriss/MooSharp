@@ -24,7 +24,7 @@ namespace MooSharp.Services
 		/// <summary>
 		/// Takes in CreateCourseViewModel and saves it to the database.
 		/// </summary>
-		public void Create(CreateCourseViewModel course) {
+		public bool Create(CreateCourseViewModel course) {
 			var cour = new Course() {
 				CourseNumber = course.CourseNumber,
 				Title = course.Name
