@@ -39,38 +39,26 @@ namespace MooSharp.Services
 			if (_manager.UserExists(viewModel.UserName)) {
 				return false;
 			}
-
+			/*
 			CreateUserViewModel testModel = new CreateUserViewModel {
 				UserName = "TestUser",
 				Email = "test@test.is",
 				Password = "asdfg",
-				ConfirmPassword = "asdfg",
+				ConfirmPassword = "asdfgh",
 				Roles = "Students"
-			};
-			ApplicationUser newUser = new ApplicationUser();
-			newUser.UserName = testModel.UserName;
-			newUser.Email = testModel.Email;
-
-			if(_manager.CreateUser(newUser, testModel.Password)) {
-				var User = _manager.GetUser(testModel.UserName);
-				if (!_manager.UserIsInRole(User.Id, testModel.Roles)) {
-					_manager.AddUserToRole(User.Id, testModel.Roles);
-				}
-				return true;
-			}
-			return false;
-			
-			/*
+			};*/
 			ApplicationUser newUser = new ApplicationUser();
 			newUser.UserName = viewModel.UserName;
 			newUser.Email = viewModel.Email;
 
-			_manager.CreateUser(newUser, viewModel.Password);
-
-			var User = _manager.GetUser(viewModel.UserName);
-			if (!_manager.UserIsInRole(User.Id, viewModel.Roles)) {
-				_manager.AddUserToRole(User.Id, viewModel.Roles);
-			}*/
+			if(_manager.CreateUser(newUser, viewModel.Password)) {
+				var User = _manager.GetUser(viewModel.UserName);
+				if (!_manager.UserIsInRole(User.Id, viewModel.Roles)) {
+					_manager.AddUserToRole(User.Id, viewModel.Roles);
+				}
+				return true;
+			}
+			return false;
 		}
 	}
 }
