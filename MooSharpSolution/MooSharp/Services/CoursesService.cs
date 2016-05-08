@@ -8,6 +8,10 @@ using MooSharp.Models.Entities;
 
 namespace MooSharp.Services
 {
+	/// <summary>
+	/// This class handles all service regarding Courses.
+	/// For example to create and get courses.
+	/// </summary>
 	public class CoursesService
 	{
 		private ApplicationDbContext _db;
