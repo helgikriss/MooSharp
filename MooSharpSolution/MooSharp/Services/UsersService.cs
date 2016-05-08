@@ -25,7 +25,7 @@ namespace MooSharp.Services
 					userId = user.Id,
 					email = user.Email,
 					username = user.UserName,
-					role = manager.GetUserRoles(user.Id).FirstOrDefault()
+					roles = manager.GetUserRoles(user.Id).ToList()
 				};
 				viewmodels.Add(viewmodel);
 			}
