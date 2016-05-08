@@ -10,7 +10,7 @@ namespace MooSharp.Models.ViewModels
 	{
 		public string Title { get; set; }
 
-		public int CourseID { get; set; }
+		public string CourseID { get; set; }
 
 		public string Description { get; set; }
 

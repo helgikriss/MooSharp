@@ -43,7 +43,10 @@ namespace MooSharp.Services
 			var viewModel = new AssignmentViewModel
 			{
 				Title      = assignment.Title,
-				Milestones = milestones
+				CourseID = assignment.CourseID.ToString(),
+				Description = assignment.Description
+				
+				//TODO: Milestones = milestones,
 			};
 
 			return viewModel;

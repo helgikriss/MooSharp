@@ -72,14 +72,7 @@ namespace MooSharp.Controllers
 			}
 			var assignment = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
 
-			var viewModel = new AssignmentViewModel() {
-				CourseID = assignment.CourseID,
-				Description = assignment.Description,
-				Milestones = assignment.Milestones,
-				Title = assignment.Title
-			};
-
-			return View(viewModel);
+			return View(assignment);
 		}
 	}
 }
