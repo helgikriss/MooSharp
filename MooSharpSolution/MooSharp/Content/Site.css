@@ -1,8 +1,13 @@
-﻿body {
+﻿@font-face
+{
+    font-family: 'Roboto'; 
+    src: url('Roboto-Regular.ttf'); 
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     font-family: Roboto;
-    font: bolder;
 }
 
 /* Set padding to keep content from hitting the edges */

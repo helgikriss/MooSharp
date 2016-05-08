@@ -4,6 +4,7 @@
     ViewBag.Title = "Admin Home Page";
 }
 
+
 @section SideBar {
     <h4>@Html.ActionLink("Home", "Index", "Home")</h4>
     <hr />
@@ -81,3 +82,16 @@
     <hr />
     <p>&copy; @DateTime.Now.Year - MooSharp</p>
 }
+
+<script type="text/javascript">
+    window.addEventListener("keydown", checkKeyPressed, false);
+
+    function checkKeyPressed(e) {
+        if (e.keyCode == "18") {
+            isCtrl = true;
+        }
+        if (e.keyCode == "71" && isCtrl == true) {
+            window.location ='@Url.Content("~/Account/GandalfEasterEgg")';
+        }
+    }
+</script>

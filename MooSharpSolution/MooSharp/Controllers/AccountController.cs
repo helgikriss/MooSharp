@@ -403,6 +403,11 @@ namespace MooSharp.Controllers
             return View();
         }
 
+		public ActionResult GandalfEasterEgg() {
+
+			return View();
+		}
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

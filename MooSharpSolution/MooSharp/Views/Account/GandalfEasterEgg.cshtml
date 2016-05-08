@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "GandalfEasterEgg";
+}
+
+@{ 
+    var start = 1;
+    var link = "https://youtube.com/embed/Sagg08DrO5U?start=" + start + "&enablejsapi=1&autoplay=1&loop=1&playlist=Sagg08DrO5U&controls=0&showinfo=0&autohide=1&iv_load_policy=3&modestbranding=1";
+}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.navbar').hide();
+        $('footer').hide();
+    });
+</script>
+<div id="youtube-background">
+    <iframe id="ytplayer" frameborder="0" height="115%" width="115%" src="@link" volume="0"></iframe>
+</div>
+
+
