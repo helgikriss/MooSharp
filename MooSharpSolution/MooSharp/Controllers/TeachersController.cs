@@ -58,9 +58,28 @@ namespace MooSharp.Controllers
 				CourseID = Convert.ToInt32(collection["courseid"]),
 				Description = collection["assignmentdescription"]
 			};
-			_assignmentsService.CreateAssignment(assignment);
+			var id = _assignmentsService.CreateAssignment(assignment);
 
-			return RedirectToAction("Index");
+			return RedirectToAction("AssignmentDetails", new { assignmentID = id });
+		}
+
+		public ActionResult AssignmentDetails(int? assignmentID) {
+			if (!assignmentID.HasValue) {
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			if (!_assignmentsService.AssignmentIsInDbById(Convert.ToInt32(assignmentID))) {
+				throw new HttpException(404, "Not found");
+			}
+			var assignment = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
+
+			var viewModel = new AssignmentViewModel() {
+				CourseID = assignment.CourseID,
+				Description = assignment.Description,
+				Milestones = assignment.Milestones,
+				Title = assignment.Title
+			};
+
+			return View(viewModel);
 		}
 	}
 }
