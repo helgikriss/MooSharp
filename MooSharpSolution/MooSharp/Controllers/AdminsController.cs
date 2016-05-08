@@ -10,46 +10,76 @@ using System.Web.Mvc;
 
 namespace MooSharp.Controllers
 {
+	/// <summary>
+	/// This class handles all control for Admins.
+	/// Example: Create course, create user.
+	/// </summary>
 	[AccessDeniedAttribute(Roles = "Administrators")]
 	[Authorize(Roles = "Administrators")]
 	public class AdminsController : Controller
     {
+		/// <summary>
+		/// Instance of CoursesService for Admin to be able to work with Courses.
+		/// </summary>
 		private CoursesService _coursesService = new CoursesService();
+		/// <summary>
+		/// Instance of UsersService for Admin to be able to work with Users.
+		/// </summary>
 		private UsersService _usersService = new UsersService();
 
+		/// <summary>
+		/// Returns Index view with AdminIndexViewModel.
+		/// </summary>
 		public ActionResult Index() {
 			var viewmodel = new AdminIndexViewModel() {
 				AllCourses = _coursesService.GetAllCourses(),
 				AllUsers = _usersService.GetAllUsers()
-
 			};
             return View(viewmodel);
         }
 
+		/// <summary>
+		/// Returns a view with a form to be filled out to create a course
+		/// </summary>
 		public ActionResult CreateCourse() {
 			return View();
 		}
 
+		/// <summary>
+		/// Createcourse gets a viewmodel with information about a new course and 
+		/// sends that info to CourseService to be added
+		/// </summary>
 		[HttpPost]
-		public ActionResult CreateCourse(FormCollection collection) {
+		public ActionResult CreateCourse(CreateCourseViewModel viewModel) {
 
-			var course = new CreateCourseViewModel() {
-				CourseNumber = collection["coursenumber"],
-				Name = collection["coursename"]
-			};
-			_coursesService.Create(course);
-
-			return RedirectToAction("Index");
+			if (ModelState.IsValid) {
+				_coursesService.Create(viewModel);
+				return RedirectToAction("Index");
+			}
+			return View(viewModel);
 		}
 
+		/// <summary>
+		/// Returns CreateUser view.
+		/// </summary>
 		public ActionResult CreateUser() {
 			return View();
 		}
 
+		/// <summary>
+		/// Takes in CreateUserViewModel that has been filled in by Admin and creates
+		/// a new user with that information.
+		/// </summary>
 		[HttpPost]
-		public ActionResult CreateUser(FormCollection collection) {
-
-			return View();
+		public ActionResult CreateUser(CreateUserViewModel viewModel) {
+			// TODO: taka a móti forminu úr CreatUser og senda ViewModel í UserService CreateUser fallið
+			if (ModelState.IsValid) {
+				if (_usersService.CreateUser(viewModel)) {
+					return RedirectToAction("Index");
+				}
+				// TODO: Add error here if creating user has failed.
+			}
+			return View(viewModel); // TODO: Try if this return works as it should.
 		}
 	}
 }

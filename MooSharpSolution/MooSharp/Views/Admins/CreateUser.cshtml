@@ -14,39 +14,39 @@
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("CreateUser", "Admins", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+@using (Html.BeginForm("CreateUser", "Admins", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.userName, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(model => model.UserName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.userName, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control"})
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.email, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(model => model.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control"})
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.password, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(model => model.Password, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.PasswordFor(model => model.password, new { @class = "form-control" })
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.confirmPassword, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(model => model.ConfirmPassword, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.PasswordFor(model => model.confirmPassword, new { @class = "form-control" })
+            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control"})
         </div>
     </div>
     <div class="form-group">
         <label for="roles" class="col-md-2 control-label" id="role-label">Roles</label>
         <div class="col-md-10">
-            <select class="form-control"id="roles">
+            <select class="form-control" id="roles" name="roles">
                 <option value="Administrators">Administrator</option>
                 <option value="Teachers">Teacher</option>
                 <option value="Students">Student</option>
