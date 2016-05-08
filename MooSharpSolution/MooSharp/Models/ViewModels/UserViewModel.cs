@@ -10,6 +10,6 @@ namespace MooSharp.Models.ViewModels
 		public string userId { get; set; }
  		public string username { get; set; }
  		public string email { get; set; }
- 		public string role { get; set; }
+ 		public List<string> roles { get; set; }
 	}
 }
