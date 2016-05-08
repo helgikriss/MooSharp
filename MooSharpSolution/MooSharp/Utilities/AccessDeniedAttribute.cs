@@ -15,7 +15,7 @@ namespace MooSharp.Utilities
 				base.HandleUnauthorizedRequest(context);
 			}
 			else {
-				context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+				context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "AccessDenied" }));
 			}
 		}
 	}

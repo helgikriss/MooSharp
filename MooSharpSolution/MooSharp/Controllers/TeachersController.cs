@@ -7,10 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using MooSharp.Models.ViewModels;
 using MooSharp.Services;
+using MooSharp.Utilities;
 
 namespace MooSharp.Controllers
 {
-    public class TeachersController : Controller
+	[AccessDeniedAttribute(Roles = "Teachers")]
+	[Authorize(Roles = "Teachers")]
+	public class TeachersController : Controller
     {
 		private AssignmentsService _assignmentsService = new AssignmentsService();
 		private CoursesService _coursesService = new CoursesService();

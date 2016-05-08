@@ -68,6 +68,29 @@ namespace MooSharp.Utilities
 			if (!manager.UserIsInRole(userStudent.Id, "Students")) {
 				manager.AddUserToRole(userStudent.Id, "Students");
 			}
+
+			/// <summary>
+			/// Gandalf SuperUser created for testing, user can access all controllers
+			/// </summary>
+
+			if (!manager.UserExists("gandalf")) {
+				ApplicationUser gandalf = new ApplicationUser();
+				gandalf.UserName = "gandalf";
+				gandalf.Email = "gandalf@moosharp.is";
+				manager.CreateUser(gandalf, "gandalf");
+			}
+
+			var userGandalf = manager.GetUser("gandalf");
+
+			if (!manager.UserIsInRole(userGandalf.Id, "Students")) {
+				manager.AddUserToRole(userGandalf.Id, "Students");
+			}
+			if (!manager.UserIsInRole(userGandalf.Id, "Teachers")) {
+				manager.AddUserToRole(userGandalf.Id, "Teachers");
+			}
+			if (!manager.UserIsInRole(userGandalf.Id, "Administrators")) {
+				manager.AddUserToRole(userGandalf.Id, "Administrators");
+			}
 		}
 	}
 }

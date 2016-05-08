@@ -163,3 +163,49 @@ div#img-box{
     margin-right: auto;
     width: 100px;
 }
+
+/****** ACCESS DENIED MODAL ******/
+#access-modal {
+    margin-top: 33%;
+    text-align: center;
+}
+#access-buttons button {
+    width: 100%;
+    margin-top: 5px;
+}
+
+#access-buttons a {
+    display: block;
+    width: 100%;
+    color: black;
+}
+
+/****** SIDEBAR ******/
+
+.navbar-bright {
+ background-color:#111155;
+ color:#fff;
+}
+
+.affix-top,.affix{
+ position: static;
+}
+
+@media (min-width: 979px) {
+  #sidebar.affix-top {
+    position: static;
+  	margin-top:13px;
+  	width:228px;
+  }
+  
+  #sidebar.affix {
+    position: fixed;
+    top:63px;
+    width:228px;
+  }
+}
+
+#sidebar li.active {
+  border:0 #eee solid;
+  border-right-width:5px;
+}

@@ -285,6 +285,7 @@
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Teachers\CreateAssignment.cshtml" />
     <Content Include="Views\Teachers\CourseDetails.cshtml" />
+    <Content Include="Views\Home\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
