@@ -6,7 +6,9 @@ using System.Web.Mvc;
 
 namespace MooSharp.Controllers
 {
-    public class StudentsController : Controller
+	[AccessDeniedAttribute(Roles = "Students")]
+	[Authorize(Roles = "Students")]
+	public class StudentsController : Controller
     {
         // GET: Students
         public ActionResult Index()
