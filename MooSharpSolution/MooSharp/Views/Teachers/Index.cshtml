@@ -13,6 +13,9 @@
     <hr />
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-@Html.ActionLink("Create Course", "CreateAssignment", "Teachers");
+@section Copyright {
+    <hr />
+    <p>&copy; @DateTime.Now.Year - MooSharp</p>
+}
