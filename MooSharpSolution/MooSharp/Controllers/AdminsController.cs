@@ -1,6 +1,7 @@
 ﻿using MooSharp.Models.ViewModels;
 using MooSharp.Models.ViewModels.Admins;
 using MooSharp.Services;
+using MooSharp.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace MooSharp.Controllers
 {
+	[AccessDeniedAttribute(Roles = "Administrators")]
 	[Authorize(Roles = "Administrators")]
 	public class AdminsController : Controller
     {
