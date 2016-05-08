@@ -79,15 +79,7 @@ author: bootply.com
   }
 }
 
-body {
- padding-top:80px;
-}
 
-@media screen and (min-width: 768px) {
-  #masthead h1 {
-    font-size: 50px;
-  }
-}
 
 .navbar-bright {
  background-color:#111155;
@@ -101,13 +93,13 @@ body {
 @media (min-width: 979px) {
   #sidebar.affix-top {
     position: static;
-  	margin-top:30px;
+  	margin-top:13px;
   	width:228px;
   }
   
   #sidebar.affix {
     position: fixed;
-    top:70px;
+    top:63px;
     width:228px;
   }
 }
