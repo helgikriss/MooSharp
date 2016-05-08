@@ -58,7 +58,8 @@ namespace MooSharp.Services
 			_db.Assignments.Add(assignment);
 			_db.SaveChanges();
 
-			return _db.Assignments.LastOrDefault().ID;
+			var id = Convert.ToInt32(_db.Assignments.ToList().LastOrDefault().ID);
+			return id;
 		}
 
 		public bool AssignmentIsInDbById(int id) {
