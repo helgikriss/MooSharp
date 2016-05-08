@@ -7,8 +7,8 @@
 @section SideBar {
     <h4>@Html.ActionLink("Home", "Index", "Home")</h4>
     <hr />
-    <li>@Html.ActionLink("Add Course", "CreateCourse", "Admins")</li>
-    <li>@Html.ActionLink("Add User", "AddUser", "Admins")</li>
+    <li>@Html.ActionLink("Create Course", "CreateCourse", "Admins")</li>
+    <li>@Html.ActionLink("Create User", "CreateUser", "Admins")</li>
     <li>@Html.ActionLink("Add users from Centris", "AddUsersFromCentris", "Admins")</li>
     <hr />
 }
@@ -45,7 +45,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><h3>Users <a href="@Url.Content("~/Admins/AddUser")"><button class="btn btn-default">Create User</button></a> </h3></div>
+            <div class="panel-heading"><h3>Users <a href="@Url.Content("~/Admins/CreateUser")"><button class="btn btn-default">Create User</button></a> </h3></div>
             <div class="panel-body">
                 <table class="table table-striped">
                     <thead>
