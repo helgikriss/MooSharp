@@ -103,7 +103,7 @@ textarea {
   border: 0px;
   color: #fff;
   text-shadow: 0 1px rgba(0,0,0,0.1); 
-  background-color: #696969;
+  background-color: #4b4b4b;
   padding: 17px 0px;
   font-size: 14px;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
@@ -113,7 +113,7 @@ textarea {
   /* border: 1px solid #2f5bb7; */
   border: 0px;
   text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: #808080;
+  background-color: #656565;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
 
@@ -213,4 +213,13 @@ div#img-box{
 #sidebar li.active {
   border:0 #eee solid;
   border-right-width:5px;
+}
+
+.navbar-default {
+    background-color:#;
+}
+
+.navbar-default {
+    background-color: #4b4b4b;
+    border-color: #2e2e2e;
 }
