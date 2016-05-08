@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: Roboto;
+    font: bolder;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -36,18 +38,17 @@ textarea {
   border-radius: 2px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  font-family: Roboto;
 }
 
 .loginmodal-container h1 {
   text-align: center;
   font-size: 1.8em;
-  font-family: Arial;
 }
 
 .loginmodal-container h3 {
   text-align: center;
   font-size: 1.2em;
-  font-family: Arial;
 }
 
 .loginmodal-container input[type=submit] {
@@ -83,7 +84,7 @@ textarea {
 .loginmodal {
   text-align: center;
   font-size: 14px;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Roboto';
   font-weight: 700;
   height: 36px;
   padding: 0 8px;
@@ -99,7 +100,6 @@ textarea {
   text-shadow: 0 1px rgba(0,0,0,0.1); 
   background-color: #696969;
   padding: 17px 0px;
-  font-family: roboto;
   font-size: 14px;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
@@ -127,13 +127,13 @@ textarea {
 }
 /*Login changes*/
 #loginForm {
-    font-family: Arial;
+    font-family: Roboto;
 }
 #loginForm input[type=submit] {
-    font-family: Arial;
+    font-family: Roboto;
 }
 #loginForm label {
-    font-family: Arial;
+    font-family: Roboto;
     font-weight: normal;
     margin-left: 10px;
 }
