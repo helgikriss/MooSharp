@@ -17,7 +17,10 @@ namespace MooSharp.Services
 			_db = new ApplicationDbContext();
 			_manager = new IdentityManager();
 		}
- 
+		/// <summary>
+		/// GetAllUsers() gets a list of all users in the database and their roles
+		/// and returns it in a viewmodel for the view to use.
+		/// </summary>
  		public List<UserViewModel> GetAllUsers() {
 			var users = _db.Users.ToList();
 			var viewmodels = new List<UserViewModel>();
@@ -33,6 +36,11 @@ namespace MooSharp.Services
 			}
 			return viewmodels;
 		}
+		/// <summary>
+		///  This function takes in a viewmodel from a form, filled out with user information.
+		///  username, email, password, and role is used .
+		///  username, email and password is used to create the user in the database, then the role is added to the user.
+		/// </summary>
 
 		public bool CreateUser(CreateUserViewModel viewModel) {
 			// get the values from viewModel and write it down to DB.
@@ -40,37 +48,18 @@ namespace MooSharp.Services
 				return false;
 			}
 
-			CreateUserViewModel testModel = new CreateUserViewModel {
-				UserName = "TestUser",
-				Email = "test@test.is",
-				Password = "asdfg",
-				ConfirmPassword = "asdfg",
-				Roles = "Students"
-			};
-			ApplicationUser newUser = new ApplicationUser();
-			newUser.UserName = testModel.UserName;
-			newUser.Email = testModel.Email;
-
-			if(_manager.CreateUser(newUser, testModel.Password)) {
-				var User = _manager.GetUser(testModel.UserName);
-				if (!_manager.UserIsInRole(User.Id, testModel.Roles)) {
-					_manager.AddUserToRole(User.Id, testModel.Roles);
-				}
-				return true;
-			}
-			return false;
-			
-			/*
 			ApplicationUser newUser = new ApplicationUser();
 			newUser.UserName = viewModel.UserName;
 			newUser.Email = viewModel.Email;
 
-			_manager.CreateUser(newUser, viewModel.Password);
-
-			var User = _manager.GetUser(viewModel.UserName);
-			if (!_manager.UserIsInRole(User.Id, viewModel.Roles)) {
-				_manager.AddUserToRole(User.Id, viewModel.Roles);
-			}*/
+			if(_manager.CreateUser(newUser, viewModel.Password)) {
+				var User = _manager.GetUser(viewModel.UserName);
+				if (!_manager.UserIsInRole(User.Id, viewModel.Roles)) {
+					_manager.AddUserToRole(User.Id, viewModel.Roles);
+				}
+				return true;
+			}
+			return false;
 		}
 	}
 }
