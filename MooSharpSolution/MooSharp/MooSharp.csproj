@@ -204,6 +204,7 @@
     <Compile Include="Services\SubmissionsService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\AccessDeniedAttribute.cs" />
     <Compile Include="Utilities\AccountInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
