@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "AccessDenied";
+}
+
+@{
+    var r = new Random();
+    var start = r.Next(5600);
+    var link = "https://youtube.com/embed/ht2TigJp88w?start=" + start + "&enablejsapi=1&autoplay=1&loop=1&playlist=ht2TigJp88w&controls=0&showinfo=0&autohide=1&iv_load_policy=3&modestbranding=1";
+    //var link = "https://youtube.com/embed/bzmAaJtnKtQ?start=" + start + "&enablejsapi=1&autoplay=1&loop=1&playlist=ht2TigJp88w&controls=0&showinfo=0&autohide=1&iv_load_policy=3&modestbranding=1";
+}
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $('.navbar').hide();
+    $('footer').hide();
+    $(window).load(function () {
+        $('#login-modal').modal('show');
+        document.getElementById("#ytplayer").muted = true;
+    });
+</script>
+
+<div id="youtube-background">
+    <iframe id="ytplayer" frameborder="0" height="115%" width="115%" src="@link" volume="0"></iframe>
+</div>
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container" id="access-modal">
+            <section id="loginForm">
+                    <h2>AccessDenied</h2>
+                    <p>You are not authorized on this page. You can either log in to gain access or go back to your homepage. </p>
+                    <div id="access-buttons">
+                        <button type="button" class="btn btn-default">@Html.ActionLink("Go back to home page", "Index", "Home")</button>
+                        <button type="button" class="btn btn-default">@Html.ActionLink("Log in to gain access", "Login", "Account")</button>
+                    </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

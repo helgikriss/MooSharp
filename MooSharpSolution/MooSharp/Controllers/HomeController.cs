@@ -44,5 +44,11 @@ namespace MooSharp.Controllers
 
 			return View();
 		}
+
+		public ActionResult AccessDenied() {
+			ViewBag.Message = "Your contact page.";
+
+			return View();
+		}
 	}
 }
