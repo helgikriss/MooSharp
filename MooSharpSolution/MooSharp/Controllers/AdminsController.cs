@@ -47,9 +47,25 @@ namespace MooSharp.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult CreateUser(FormCollection collection) {
-
+		/*public ActionResult CreateUser(FormCollection collection) {
+			// TODO: taka a móti forminu úr CreatUser og senda ViewModel í UserService CreateUser fallið
+			var user = new CreateUserViewModel() {
+				userName = collection["username"],
+				email = collection["email"],
+				password =  collection["password"],
+				confirmPassword = collection["confirmPassword"],
+				roles = collection["roles"]
+			};
 			return View();
+		}*/
+		public ActionResult CreateUser(CreateUserViewModel viewModel) {
+			// TODO: taka a móti forminu úr CreatUser og senda ViewModel í UserService CreateUser fallið
+			if (ModelState.IsValid) {
+				if (_usersService.CreateUser(viewModel)) {
+					return RedirectToAction("Index");
+				}
+			}
+			return View(viewModel);
 		}
 	}
 }
