@@ -155,9 +155,13 @@ div#youtube-background{
     z-index:1000;
 }
 
-div#img-box {
-    float: left;
-    padding-top: 10px;
+/*Mooshark logo centering on login screen*/
+div#img-box{
+    /*float: left;*/
+    /*padding-top: 10px;*/
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
 }
 
 /****** ACCESS DENIED MODAL ******/
