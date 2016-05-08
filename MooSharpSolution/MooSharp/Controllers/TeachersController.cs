@@ -44,22 +44,16 @@ namespace MooSharp.Controllers
 			if (!_coursesService.CourseIsInDbById(Convert.ToInt32(courseID))) {
 				throw new HttpException(404, "Not found");
 			}
-			var courseIdViewModel = new CourseIdViewModel {
-				ID = Convert.ToInt32(courseID)
+
+			var CreateAssignmentViewModel = new CreateAssignmentViewModel {
+				CourseID = Convert.ToInt32(courseID)
 			};
-			return View(courseIdViewModel);
+			return View(CreateAssignmentViewModel);
 		}
 
 		[HttpPost]
-		public ActionResult CreateAssignment(FormCollection collection) {
-
-			var assignment = new CreateAssignmentViewModel() {
-				Title = collection["assignmentname"],
-				CourseID = Convert.ToInt32(collection["courseid"]),
-				Description = collection["assignmentdescription"]
-			};
-			var id = _assignmentsService.CreateAssignment(assignment);
-
+		public ActionResult CreateAssignment(CreateAssignmentViewModel viewModel) {
+			var id = _assignmentsService.CreateAssignment(viewModel);
 			return RedirectToAction("AssignmentDetails", new { assignmentID = id });
 		}
 
