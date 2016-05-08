@@ -19,13 +19,12 @@
 
 <h4>Course Number: @Model.CourseNumber</h4>
 <h4>Model ID: @Model.ID</h4>
-<li>@Html.ActionLink("Create Assignment", "CreateAssignment", "Teachers", new { courseID = @Model.ID }, null)</li>
+<a href="@Url.Action("CreateAssignment", "Teachers", new { courseID = Model.ID })"><button class="btn btn-default">Create New Assignment</button></a> 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Assignment Name</th>
             <th>Description</th>
-
         </tr>
     </thead>
     <tbody>
@@ -38,3 +37,8 @@
 
     </tbody>
 </table>
+
+@section Copyright {
+    <hr />
+    <p>&copy; @DateTime.Now.Year - MooSharp</p>
+}

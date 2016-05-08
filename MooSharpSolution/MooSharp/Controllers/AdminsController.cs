@@ -41,5 +41,15 @@ namespace MooSharp.Controllers
 
 			return RedirectToAction("Index");
 		}
+
+		public ActionResult CreateUser() {
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult CreateUser(FormCollection collection) {
+
+			return View();
+		}
 	}
 }

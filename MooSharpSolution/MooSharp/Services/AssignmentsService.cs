@@ -43,13 +43,16 @@ namespace MooSharp.Services
 			var viewModel = new AssignmentViewModel
 			{
 				Title      = assignment.Title,
-				Milestones = milestones
+				CourseID = assignment.CourseID.ToString(),
+				Description = assignment.Description
+				
+				//TODO: Milestones = milestones,
 			};
 
 			return viewModel;
 		}
 
-		public void CreateAssignment(CreateAssignmentViewModel model) {
+		public int CreateAssignment(CreateAssignmentViewModel model) {
 			var assignment = new Assignment() {
 				Title = model.Title,
 				CourseID = model.CourseID,
@@ -57,6 +60,17 @@ namespace MooSharp.Services
 			};
 			_db.Assignments.Add(assignment);
 			_db.SaveChanges();
+
+			var id = Convert.ToInt32(_db.Assignments.ToList().LastOrDefault().ID);
+			return id;
+		}
+
+		public bool AssignmentIsInDbById(int id) {
+			var assignment = _db.Assignments.Find(id);
+			if (assignment == null) {
+				return false;
+			}
+			return true;
 		}
 	}
 }
