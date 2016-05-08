@@ -29,6 +29,13 @@ select,
 textarea {
     /* max-width: 280px; */
 }
+/****** TEACHER HOME PAGE ******/
+.table-borderless tbody tr td {
+    border: none;
+}
+.coursetile-left {
+    font-weight: bold;
+}
 
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
