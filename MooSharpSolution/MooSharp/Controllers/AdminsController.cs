@@ -37,15 +37,13 @@ namespace MooSharp.Controllers
 		/// sends that info to CourseService to be added
 		/// </summary>
 		[HttpPost]
-		public ActionResult CreateCourse(FormCollection collection) {
+		public ActionResult CreateCourse(CreateCourseViewModel viewModel) {
 
-			var course = new CreateCourseViewModel() {
-				CourseNumber = collection["coursenumber"],
-				Name = collection["coursename"]
-			};
-			_coursesService.Create(course);
-
-			return RedirectToAction("Index");
+			if (ModelState.IsValid) {
+				_coursesService.Create(viewModel);
+				return RedirectToAction("Index");
+			}
+			return View(viewModel);
 		}
 
 		public ActionResult CreateUser() {

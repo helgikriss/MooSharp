@@ -5,6 +5,7 @@ using System.Web;
 using MooSharp.Models.ViewModels;
 using MooSharp.Models;
 using MooSharp.Models.Entities;
+using MooSharp.Models.ViewModels.Admins;
 
 namespace MooSharp.Services
 {
@@ -16,7 +17,7 @@ namespace MooSharp.Services
 			_db = new ApplicationDbContext();
 		}
 		//TODO: Write code here
-		public void Create(CreateCourseViewModel course) {
+		public bool Create(CreateCourseViewModel course) {
 			var cour = new Course() {
 				CourseNumber = course.CourseNumber,
 				Title = course.Name
@@ -24,6 +25,7 @@ namespace MooSharp.Services
 
 			_db.Courses.Add(cour);
 			_db.SaveChanges();
+			return true;
 		}
 
 		public CourseViewModel GetCourseById(int id) {
