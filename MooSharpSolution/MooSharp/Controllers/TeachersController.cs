@@ -23,8 +23,11 @@ namespace MooSharp.Controllers
         }
 
 		public ActionResult CourseDetails(int? id) {
-			if (!id.HasValue || !_coursesService.CourseIsInDbById(Convert.ToInt32(id))) {
-				throw new Exception("Not found");
+			if (!id.HasValue) {
+				throw new HttpException(400, "Bad Request");
+			}
+			if (!_coursesService.CourseIsInDbById(Convert.ToInt32(id))) {
+				throw new HttpException(404, "Not Found");
 			}
 
 			var course = _coursesService.GetCourseById(Convert.ToInt32(id));
@@ -33,8 +36,11 @@ namespace MooSharp.Controllers
 		}
 
 		public ActionResult CreateAssignment(int? courseID) {
-			if (!courseID.HasValue || !_coursesService.CourseIsInDbById(Convert.ToInt32(courseID))) {
-				throw new Exception("Not found");
+			if (!courseID.HasValue) {
+				throw new HttpException(400, "Bad Request");
+			}
+			if (!_coursesService.CourseIsInDbById(Convert.ToInt32(courseID))) {
+				throw new HttpException(404, "Not Found");
 			}
 
 			var CreateAssignmentViewModel = new CreateAssignmentViewModel {
