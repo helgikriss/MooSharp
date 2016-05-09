@@ -18,6 +18,11 @@ namespace MooSharp.Models.ViewModels.Teachers
 
 		[Required]
 		[Display(Name = "Weight")]
+		[Range(0,100)]
 		public int Weight { get; set; }
+
+		[Required]
+		[Display(Name = "Description")]
+		public string Description { get; set; }
 	}
 }
