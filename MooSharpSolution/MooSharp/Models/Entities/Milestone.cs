@@ -29,10 +29,11 @@
 		/// this property contains the value 15.
 		/// </summary>
 		public int Weight { get; set; }
-		/// <summary>
+		
+        /// <summary>
 		/// Describes the milestone.
 		/// </summary>
-		//public string Description { get; set; }
+		public string Description { get; set; }
 
 		// TODO: Add input/output property.
 	}
