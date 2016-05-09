@@ -24,9 +24,7 @@ namespace MooSharp.Services
 			};
 			_db.Milestones.Add(milestone);
 			_db.SaveChanges();
-
-			var id = Convert.ToInt32(_db.Assignments.ToList().LastOrDefault().ID);
-			return id;
+			return model.AssignmentID;
 		}
 		public bool MilestoneIsInDbById(int id) {
 			var milestone = _db.Milestones.Find(id);

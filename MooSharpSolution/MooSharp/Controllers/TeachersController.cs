@@ -82,7 +82,7 @@ namespace MooSharp.Controllers
 		[HttpPost]
 		public ActionResult CreateMilestone(CreateMilestoneViewModel viewModel) {
 			var id = _milestoneService.CreateMilestone(viewModel);
-			return RedirectToAction("AssignmentDetails", new { assignmentID = viewModel.AssignmentID });
+			return RedirectToAction("AssignmentDetails", new { assignmentID = id });
 		}
 	}
 }

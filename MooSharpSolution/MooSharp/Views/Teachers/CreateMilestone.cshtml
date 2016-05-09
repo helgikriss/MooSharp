@@ -1,7 +1,41 @@
-﻿
+﻿@model MooSharp.Models.ViewModels.Teachers.CreateMilestoneViewModel
 @{
     ViewBag.Title = "CreateMilestone";
 }
 
+@section SideBar {
+    <h4>@Html.ActionLink("Home", "Index", "Home")</h4>
+    <hr />
+    <li>@Html.ActionLink("Forritun", "CourseDetails", "Teachers", new { id = "3" }, null)</li>
+    @for (var i = 0; i < 3; i++) {
+        <li> @Html.ActionLink("link " + @i, "Index", "Teachers") </li>
+    }
+    <hr />
+}
 <h2>CreateMilestone</h2>
 
+<div class="col-lg-10   ">
+    @using (Html.BeginForm("CreateAssignment", "Teachers", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "10" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Add Assignment" />
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.CourseID, new { @class = "form-control", @rows = "10", @type = "hidden" })
+        </div>
+    }
+</div>
