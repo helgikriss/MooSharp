@@ -18,6 +18,7 @@ namespace MooSharp.Services
 
 		public int CreateMilestone(CreateMilestoneViewModel model) {
 			var milestone = new Milestone() {
+				//Description = model.Description,
 				AssignmentID = model.AssignmentID,
 				Title = model.Title,
 				Weight = model.Weight
