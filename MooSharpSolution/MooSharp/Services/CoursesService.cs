@@ -71,7 +71,7 @@ namespace MooSharp.Services
 		public List<CourseViewModel> GetAllCourses() {
 			var courses = _db.Courses.ToList();
 
-			var viewmodels = new List<CourseViewModel>();
+			var viewModels = new List<CourseViewModel>();
 
 			foreach (Course c in courses) {
 				var viewmodel = new CourseViewModel() {
@@ -79,9 +79,9 @@ namespace MooSharp.Services
 					Title = c.Title,
 					ID = c.ID
 				};
-				viewmodels.Add(viewmodel);
+				viewModels.Add(viewmodel);
 			}
-			return viewmodels;
+			return viewModels;
 		}
 
 		/// <summary>
