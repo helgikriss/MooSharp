@@ -81,7 +81,7 @@ namespace MooSharp.Controllers
 		// TODO: Eftir að klara utfæra CreateMilestone POST fallið í MilestoneService
 		[HttpPost]
 		public ActionResult CreateMilestone(CreateMilestoneViewModel viewModel) {
-
+			// TODO: gera IsValid check á viewmodel
 			var id = _milestoneService.CreateMilestone(viewModel);
 			return RedirectToAction("AssignmentDetails", new { assignmentID = id });
 		}

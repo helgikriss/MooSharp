@@ -52,12 +52,29 @@ namespace MooSharp.Services
 
 			return viewModel;
 		}
-
+		/// <summary>
+		/// CreateAssignment takes in a viewmodel that has string value for date and time.
+		/// The function splits donw the date to format it the way SQL Server wants it's DATETIME
+		/// input to have.
+		/// Parses all the information, create's a new assignment and writes it down to the DB
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
 		public int CreateAssignment(CreateAssignmentViewModel model) {
+
+			char[] delimiters = { '-', ':' };
+			string[] OpeningDateSplit = model.OpeningDate.Split(delimiters[0]);
+			string[] ClosingDateSplit = model.ClosingDate.Split(delimiters[0]);
+
+			string Opening = OpeningDateSplit[0] + "/" + OpeningDateSplit[1] + "/" + OpeningDateSplit[2] + " " + model.OpeningTime + ":00.00";
+			string Closing = ClosingDateSplit[0] + "/" + ClosingDateSplit[1] + "/" + ClosingDateSplit[2] + " " + model.OpeningTime + ":00.00";
+
 			var assignment = new Assignment() {
 				Title = model.Title,
 				CourseID = model.CourseID,
-				Description = model.Description
+				Description = model.Description,
+				OpeningTime = Convert.ToDateTime(Opening),
+				ClosingTime = Convert.ToDateTime(Closing)
 			};
 			_db.Assignments.Add(assignment);
 			_db.SaveChanges();

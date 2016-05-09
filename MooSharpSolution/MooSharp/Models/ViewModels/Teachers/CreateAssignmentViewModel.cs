@@ -6,10 +6,9 @@ using System.Web;
 
 namespace MooSharp.Models.ViewModels
 {
-	public class CreateAssignmentViewModel
-	{
+	public class CreateAssignmentViewModel {
 		[Required]
-		[Display(Name ="ID")]
+		[Display(Name = "ID")]
 		public int ID { get; set; }
 		[Required]
 		[Display(Name = "Title")]
@@ -21,5 +20,23 @@ namespace MooSharp.Models.ViewModels
 
 		[Display(Name = "Description")]
 		public string Description { get; set; }
+
+		[Required]
+		[Display(Name = "Opening Date")]
+		public string OpeningDate { get; set; }
+
+		[RegularExpression("([01]?[0-9]|2[0-3]):[0-5][0-9]", ErrorMessage = "The time has to be in 24 hour format, f.e. 13:37")]
+		[Required]
+		[Display(Name = "Opening time")]
+		public string OpeningTime { get; set; }
+
+		[Required]
+		[Display(Name = "Closing Date")]
+		public string ClosingDate { get; set; }
+
+		[RegularExpression("([01]?[0-9]|2[0-3]):[0-5][0-9]", ErrorMessage = "The time has to be in 24 hour format, f.e. 13:37")]
+		[Required]
+		[Display(Name = "Closing time")]
+		public string ClosingTime { get; set; }
 	}
 }
