@@ -258,18 +258,27 @@ div#img-box{
 
 tr {
     color: white;
-    border: groove;
+    border: thin;
 }
 tr th
 {
     color: white;
 }
 
-/*
+
 body {
-    background-color: #D8D8D8;
+    background-color: #C8C8C8  ;
 }
-*/
+
+.btn-default {
+    color: white;
+    background-color: #A0A0A0;
+}
+
+.btn-default:hover{
+    background-color: #606060;
+    color: white;
+}
 
 /* Fill Form layout*/
 
