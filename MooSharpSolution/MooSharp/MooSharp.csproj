@@ -295,6 +295,7 @@
     <Content Include="Views\Admins\CreateUser.cshtml" />
     <Content Include="Views\Account\GandalfEasterEgg.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Teachers\CreateMilestone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
