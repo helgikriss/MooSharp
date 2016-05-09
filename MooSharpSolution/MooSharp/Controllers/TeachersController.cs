@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MooSharp.Handlers;
 using MooSharp.Models.ViewModels;
 using MooSharp.Services;
 using MooSharp.Utilities;
@@ -13,7 +8,6 @@ using MooSharp.Models.ViewModels.Teachers;
 
 namespace MooSharp.Controllers
 {
-	[CustomHandleErrorAttribute]
 	[AccessDeniedAttribute(Roles = "Teachers")]
 	[Authorize(Roles = "Teachers")]
 	public class TeachersController : Controller
@@ -56,18 +50,23 @@ namespace MooSharp.Controllers
 		}
 
 		public ActionResult AssignmentDetails(int? assignmentID) {
-			if (!assignmentID.HasValue || !_assignmentsService.AssignmentIsInDbById(Convert.ToInt32(assignmentID))) {
-				throw new Exception("Not found");
+			if (!assignmentID.HasValue) {
+				//return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				throw new HttpException(400, "Bad Request");
+			}
+			if (!_assignmentsService.AssignmentIsInDbById(Convert.ToInt32(assignmentID))) {
+				//throw new Exception("Not found");
+				throw new HttpException(404, "Not Found");
 			}
 
-			var assignmentViewModel = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
+				var assignmentViewModel = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
 
 			return View(assignmentViewModel);
 		}
 		
 		public ActionResult CreateMilestone(int? assignmentID) {
 			if (!assignmentID.HasValue) {
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				throw new HttpException(400, "Bad Request");
 			}
 			if (!_assignmentsService.AssignmentIsInDbById(Convert.ToInt32(assignmentID))) {
 				throw new HttpException(404, "Not found");

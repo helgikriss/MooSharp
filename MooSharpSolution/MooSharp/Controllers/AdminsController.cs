@@ -1,4 +1,6 @@
-﻿using MooSharp.Models.ViewModels;
+﻿using Microsoft.AspNet.Identity;
+using MooSharp.Models;
+using MooSharp.Models.ViewModels;
 using MooSharp.Models.ViewModels.Admins;
 using MooSharp.Services;
 using MooSharp.Utilities;

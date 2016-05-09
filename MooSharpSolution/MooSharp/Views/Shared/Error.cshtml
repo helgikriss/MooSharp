@@ -1,9 +1,81 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
 @{
-    ViewBag.Title = "Error";
+    ViewBag.Title = (!String.IsNullOrEmpty(ViewBag.StatusCode)) ? ViewBag.StatusCode : "500 Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
 
+    <h1 class="error">@(!String.IsNullOrEmpty(ViewBag.StatusCode) ? ViewBag.StatusCode : "500 Error"):</h1>
+
+    <p>hello</p>
+
+@{
+    var r = new Random();
+    var start = r.Next(450);
+    var link = "https://youtube.com/embed/GquEnoqZAK0?start=" + start + "&enablejsapi=1&autoplay=1&loop=1&playlist=GquEnoqZAK0&controls=0&showinfo=0&autohide=1&iv_load_policy=3&modestbranding=1";
+    //var link = "https://youtube.com/embed/bzmAaJtnKtQ?start=" + start + "&enablejsapi=1&autoplay=1&loop=1&playlist=ht2TigJp88w&controls=0&showinfo=0&autohide=1&iv_load_policy=3&modestbranding=1";
+}
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $('.navbar').hide();
+    $('footer').hide();
+    $(window).load(function () {
+        $('#login-modal').modal('show');
+        document.getElementById("#ytplayer").muted = true;
+    });
+</script>
+
+<div id="youtube-background">
+    <iframe id="ytplayer" frameborder="0" height="120%" width="120%" src="@link" volume="0"></iframe>
+</div>
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container" id="access-modal">
+            <section id="loginForm">
+
+                @if (ViewBag.Title == "400 Error") {
+                    <h2>@ViewBag.Title (Bad Request)</h2>
+                    <p>The request could not be understood by the server due to malformed syntax.</p>
+                    <div id="access-buttons">
+                        <button type="button" class="btn btn-default">@Html.ActionLink("Back to Home Page", "Index", "Home")</button>
+                    </div>
+                }
+                else if (ViewBag.Title == "401 Error") {
+                    <h2>@ViewBag.Title (Unauthorized)</h2>
+                    <p>You aren't authenticated, please try logging in.</p>
+                    <div id="access-buttons">
+                        <button type="button" class="btn btn-default">@Html.ActionLink("Log in", "Login", "Account")</button>
+                    </div>
+                }
+                else if (ViewBag.Title == "403 Error") {
+                    <h2>@ViewBag.Title (Forbidden)</h2>
+                    <p>You are not authorized to access this page.</p>
+                    <div id="access-buttons">
+                        <button type="button" class="btn btn-default">@Html.ActionLink("Back to Home Page", "Index", "Home")</button>
+                        <button type="button" class="btn btn-default">@Html.ActionLink("Log in to gain access", "Login", "Account")</button>
+                    </div>
+                }
+                else if (ViewBag.Title == "404 Error") {
+                    <h2>@ViewBag.Title (Not Found)</h2>
+                    <p>The page you requested could not be found, please check that the url you entered is correct and try again.</p>
+                    <div id="access-buttons">
+                        <button type="button" class="btn btn-default">@Html.ActionLink("Back to Home Page", "Index", "Home")</button>
+                    </div>
+                }
+                else if (ViewBag.Title == "500 Error") {
+                    <h2>@ViewBag.Title (Internal Server Error)</h2>
+                    <p>The server encountered an unexpected condition which prevented it from fulfilling the request.</p>
+                    <div id="access-buttons">
+                        <button type="button" class="btn btn-default">@Html.ActionLink("Back to Home Page", "Index", "Home")</button>
+                    </div>
+                }
+
+            </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
