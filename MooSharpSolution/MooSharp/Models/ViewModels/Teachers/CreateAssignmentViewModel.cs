@@ -30,6 +30,7 @@ namespace MooSharp.Models.ViewModels
 		[Display(Name = "Opening time")]
 		public string OpeningTime { get; set; }
 
+		// TODO: Bera þarf saman opening og closing date/times
 		[Required]
 		[Display(Name = "Closing Date")]
 		public string ClosingDate { get; set; }
