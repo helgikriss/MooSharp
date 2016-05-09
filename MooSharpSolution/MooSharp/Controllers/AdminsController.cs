@@ -79,9 +79,11 @@ namespace MooSharp.Controllers
 				if (_usersService.CreateUser(viewModel)) {
 					return RedirectToAction("Index");
 				}
-				// TODO: Add error here if creating user has failed.
+				else {
+					ModelState.AddModelError("", "Creating User has failed, please try again.");
+				}
 			}
-			return View(viewModel); // TODO: Try if this return works as it should.
+			return View(viewModel);
 		}
 	}
 }
