@@ -5,9 +5,14 @@ using System.Web;
 using MooSharp.Models.ViewModels;
 using MooSharp.Models;
 using MooSharp.Models.Entities;
+using MooSharp.Models.ViewModels.Admins;
 
 namespace MooSharp.Services
 {
+	/// <summary>
+	/// This class handles all service regarding Courses.
+	/// For example to create and get courses.
+	/// </summary>
 	public class CoursesService
 	{
 		private ApplicationDbContext _db;
@@ -19,7 +24,7 @@ namespace MooSharp.Services
 		/// <summary>
 		/// Takes in CreateCourseViewModel and saves it to the database.
 		/// </summary>
-		public void Create(CreateCourseViewModel course) {
+		public bool Create(CreateCourseViewModel course) {
 			var cour = new Course() {
 				CourseNumber = course.CourseNumber,
 				Title = course.Name
@@ -27,6 +32,7 @@ namespace MooSharp.Services
 
 			_db.Courses.Add(cour);
 			_db.SaveChanges();
+			return true;
 		}
 
 		/// <summary>

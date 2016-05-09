@@ -42,6 +42,7 @@ namespace MooSharp.Services
 
 			var viewModel = new AssignmentViewModel
 			{
+				ID = assignment.ID,
 				Title      = assignment.Title,
 				CourseID = assignment.CourseID.ToString(),
 				Description = assignment.Description

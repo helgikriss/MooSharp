@@ -1,4 +1,4 @@
-﻿
+﻿@model MooSharp.Models.ViewModels.Admins.CreateCourseViewModel
 @{
     ViewBag.Title = "CreateCourse";
 }
@@ -14,21 +14,29 @@
 <h2>CreateCourse</h2>
 <hr />
 <div class="col-lg-6">
-    @using (Html.BeginForm("CreateCourse", "Admins", new { @class = "form form-control" })) {
+    @using (Html.BeginForm("CreateCourse", "Admins", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+        @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
-            <label for="coursenumber">Course Number</label>
-            <input type="text" class="form-control" id="coursenumber" name="coursenumber" placeholder="Course Number">
+            @Html.LabelFor(model => model.CourseNumber, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.CourseNumber, new { @class = "form-control" })
+            </div>
         </div>
         <div class="form-group">
-            <label for="course_name">Course Name</label>
-            <input type="text" class="form-control" id="course_name" name="coursename" placeholder="Course Name">
+            @Html.LabelFor(model => model.Name, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+            </div>
         </div>
 
-        <input type="submit" class="btn btn-default" value="Add Course"/>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Create Course" />
+            </div>
+        </div>
     }
 </div>
 
-@section Copyright {
-    <hr />
-    <p>&copy; @DateTime.Now.Year - MooSharp</p>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
