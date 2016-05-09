@@ -60,16 +60,16 @@ namespace MooSharp.Controllers
 				throw new Exception("Not found");
 			}
 
-			var assignment = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
+			var assignmentViewModel = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
 
-			return View(assignment);
+			return View(assignmentViewModel);
 		}
 		
 		public ActionResult CreateMilestone(int? assignmentID) {
 			if (!assignmentID.HasValue) {
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			if (!_milestoneService.MilestoneIsInDbById(Convert.ToInt32(assignmentID))) {
+			if (!_assignmentsService.AssignmentIsInDbById(Convert.ToInt32(assignmentID))) {
 				throw new HttpException(404, "Not found");
 			}
 
@@ -81,6 +81,7 @@ namespace MooSharp.Controllers
 		// TODO: Eftir að klara utfæra CreateMilestone POST fallið í MilestoneService
 		[HttpPost]
 		public ActionResult CreateMilestone(CreateMilestoneViewModel viewModel) {
+
 			var id = _milestoneService.CreateMilestone(viewModel);
 			return RedirectToAction("AssignmentDetails", new { assignmentID = id });
 		}
