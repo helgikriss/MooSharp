@@ -30,6 +30,12 @@
             </div>
         </div>
         <div class="form-group">
+            @Html.LabelFor(model => model.Weight, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", @type = "range", @min = "0", @max = "10" })
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" class="btn btn-default" value="Add Assignment" />
             </div>
