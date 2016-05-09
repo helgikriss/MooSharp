@@ -15,7 +15,7 @@
 		/// <summary>
 		/// The foreign key to the assignment that this milestone is a part of.
 		/// </summary>
-		public int AssignmentID { get; set; }
+		public virtual int AssignmentID { get; set; }
 
 		/// <summary>
 		/// Contains the name of the milestone.

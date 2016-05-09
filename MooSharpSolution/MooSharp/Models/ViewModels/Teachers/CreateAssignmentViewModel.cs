@@ -9,6 +9,9 @@ namespace MooSharp.Models.ViewModels
 	public class CreateAssignmentViewModel
 	{
 		[Required]
+		[Display(Name ="ID")]
+		public int ID { get; set; }
+		[Required]
 		[Display(Name = "Title")]
 		public string Title { get; set; }
 
