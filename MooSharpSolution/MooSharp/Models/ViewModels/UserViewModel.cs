@@ -8,8 +8,11 @@ namespace MooSharp.Models.ViewModels
 	public class UserViewModel
 	{
 		public string userId { get; set; }
- 		public string username { get; set; }
- 		public string email { get; set; }
- 		public List<string> roles { get; set; }
+
+        public string username { get; set; }
+
+        public string email { get; set; }
+
+        public List<string> roles { get; set; }
 	}
 }
