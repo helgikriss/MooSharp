@@ -35,6 +35,6 @@
 		/// </summary>
 		public string Description { get; set; }
 
-		// TODO: Add input/output property.
+		// TODO: Add input/output property eða a það heima i TestCases töflu ?.
 	}
 }
