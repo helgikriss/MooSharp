@@ -1,4 +1,5 @@
 ﻿using MooSharp.Models;
+using MooSharp.Models.Entities;
 using MooSharp.Models.ViewModels.Teachers;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,17 @@ namespace MooSharp.Services
 			_db = new ApplicationDbContext();
 		}
 
-		public int CreateMilestone(CreateMilestoneViewModel viewModel) {
-			return 0;
+		public int CreateMilestone(CreateMilestoneViewModel model) {
+			var milestone = new Milestone() {
+				AssignmentID = model.AssignmentID,
+				Title = model.Title,
+				Weight = model.Weight
+			};
+			_db.Milestones.Add(milestone);
+			_db.SaveChanges();
+
+			var id = Convert.ToInt32(_db.Assignments.ToList().LastOrDefault().ID);
+			return id;
 		}
 		public bool MilestoneIsInDbById(int id) {
 			var milestone = _db.Milestones.Find(id);
