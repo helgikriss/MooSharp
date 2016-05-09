@@ -9,6 +9,10 @@ namespace MooSharp.Models.ViewModels
 	{
 		public string Title { get; set; }
 
-		// TODO: Finish all MilestoneViewModel properties and add summary to them.
-	}
+        public string Description { get; set; }
+
+        public int ID { get; set; }
+
+        public int Weight { get; set; }
+    }
 }

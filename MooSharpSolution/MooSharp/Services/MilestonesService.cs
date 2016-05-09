@@ -1,5 +1,6 @@
 ﻿using MooSharp.Models;
 using MooSharp.Models.Entities;
+using MooSharp.Models.ViewModels;
 using MooSharp.Models.ViewModels.Teachers;
 using System;
 using System.Collections.Generic;
@@ -35,5 +36,25 @@ namespace MooSharp.Services
 			}
 			return true;
 		}
-	}
+
+        public MilestoneViewModel GetMilestonetByID(int milestoneID)
+        {
+            var milestone = _db.Milestones.SingleOrDefault(x => x.ID == milestoneID);
+            if (milestone == null)
+            {
+                throw new Exception("Not found");
+            }
+
+            var viewModel = new MilestoneViewModel {
+                //ID, Title, description etc...
+
+                Title = milestone.Title,
+                Description = milestone.Description,
+                Weight = milestone.Weight,
+                ID = milestone.ID
+            };
+
+            return viewModel;
+        }
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MooSharp.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,10 +13,12 @@ namespace MooSharp.Utilities
 		protected override void HandleUnauthorizedRequest(AuthorizationContext context) {
 
 			if (!context.HttpContext.User.Identity.IsAuthenticated) {
-				base.HandleUnauthorizedRequest(context);
+				throw new HttpException(401, "Unauthorized");
+				//base.HandleUnauthorizedRequest(context);
 			}
 			else {
-				context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "AccessDenied" }));
+				throw new HttpException(403, "Forbidden");
+				//context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "AccessDenied" }));
 			}
 		}
 	}

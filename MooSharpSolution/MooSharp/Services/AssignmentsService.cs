@@ -20,17 +20,30 @@ namespace MooSharp.Services
 
 		public List<AssignmentViewModel> GetAssignmentsInCourse(int courseID)
 		{
-			// TODO:
-			return null;
-		}
+            var assignmentsInCourse = _db.Assignments.Where(x => x.CourseID == courseID).ToList();
+
+            var viewModels = new List<AssignmentViewModel>();
+
+            foreach (Assignment a in assignmentsInCourse) {
+                var viewModel = new AssignmentViewModel()
+                {
+                    CourseID = a.CourseID,
+                    Description = a.Description,
+                    Title = a.Title,
+                    ID = a.ID
+                };
+                viewModels.Add(viewModel);   
+            }
+            return viewModels;
+        }
 
 		public AssignmentViewModel GetAssignmentByID(int assignmentID)
 		{
 			var assignment = _db.Assignments.SingleOrDefault(x => x.ID == assignmentID);
 			if (assignment == null)
 			{
-				// TODO: kasta villu!
-			}
+                throw new Exception("Not found");
+            }
 
 			var milestones = _db.Milestones
 				.Where(x => x.AssignmentID == assignmentID)
@@ -43,8 +56,8 @@ namespace MooSharp.Services
 			var viewModel = new AssignmentViewModel
 			{
 				ID = assignment.ID,
-				Title      = assignment.Title,
-				CourseID = assignment.CourseID.ToString(),
+				Title = assignment.Title,
+				CourseID = assignment.CourseID,
 				Description = assignment.Description
 				
 				//TODO: Milestones = milestones,
