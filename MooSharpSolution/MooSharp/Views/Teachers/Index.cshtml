@@ -17,37 +17,30 @@
 <hr />
 <h3>Courses</h3>
 <hr />
-<div class="row">
-    @for (var i = 1; i <= 4; i++) {
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <table class="table table-borderless">
-                        <tbody>                        
-                                <tr>
-                                    <td class="coursetile-left">Name</td>
-                                    <td>Course @i</td>
-                                </tr>
-                                <tr>
-                                    <td class="coursetile-left">Active</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td class="coursetile-left">Finished</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td class="coursetile-left">Students</td>
-                                    <td>198</td>
-                                </tr>
-                        </tbody>
-                    </table>
-                    <a href="@Url.Action("CreateAssignment", "Teachers")"><button class="btn btn-default">Create Assignment</button></a>
+<!--<div class="well">-->
+    <div class="row">
+        @for (var i = 0; i < 4; i++) {
+
+            <div class="col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3>Forritun</h3></div>
+                    <div class="panel-body">
+                        <ul>
+                            <li><strong>Active: </strong> 2</li>
+                            <li><strong>Finished: </strong> 1</li>
+                            <li><strong>Students: </strong> 198</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+
+        }
+    </div>
+<!--</div>-->
+        
+
+
+
 
 
     @section Copyright {
