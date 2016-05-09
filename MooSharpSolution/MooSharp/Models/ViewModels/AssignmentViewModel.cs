@@ -8,6 +8,7 @@ namespace MooSharp.Models.ViewModels
 {
 	public class AssignmentViewModel
 	{
+		public int ID { get; set; }
 		public string Title { get; set; }
 
 		public string CourseID { get; set; }
