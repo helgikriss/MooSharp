@@ -63,7 +63,23 @@ namespace MooSharp.Services
 
 			return courseViewModel;
 		}
-		
+		/*public List<CourseViewModel> GetCoursesByUser(int userId) {
+			var courses = _db.Courses.Where()
+			
+			var viewModels = new List<CourseViewModel>();
+
+			foreach (Course c in courses) {
+				var viewmodel = new CourseViewModel() {
+					CourseNumber = c.CourseNumber,
+					Title = c.Title,
+					ID = c.ID
+				};
+				viewModels.Add(viewmodel);
+			}
+			return viewModels;
+
+		}*/
+
 		/// <summary>
 		/// Returns a list of CourseViewModel that contains all Courses
 		/// in the database.
@@ -93,6 +109,31 @@ namespace MooSharp.Services
 				return false;
 			}
 			return true;
+		}
+
+		public bool ConnectUserToCourse(ConnectUserToCourseViewModel viewModel) {
+			if (UserConnectedToCourse(viewModel)) {
+				return false;
+			}
+
+			var newConnection = new CourseUsers() {
+				CourseID = viewModel.CourseID,
+				UserID = viewModel.UserID,
+				Role = viewModel.Role
+			};
+
+			_db.CourseUsers.Add(newConnection);
+			_db.SaveChanges();
+			return true;
+		}
+
+		public bool UserConnectedToCourse(ConnectUserToCourseViewModel connection) {
+			var result = _db.CourseUsers.Find(connection.CourseID, connection.UserID);
+
+			if (result != null) {
+				return true;
+			}
+			return false;
 		}
 	}
 }

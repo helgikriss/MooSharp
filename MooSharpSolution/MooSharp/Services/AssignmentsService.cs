@@ -126,6 +126,31 @@ namespace MooSharp.Services
 			return userAssignmentViewModels;
 		}
 
+		public List<AssignmentViewModel> GetFinishedAssignments(int userID) {
+			//var userAssignments = _db.Assignments.Where(JOIN USERID WITH COURSES HERE).ToList();
+			var userAssignments = new List<Assignment>();
+			var userAssignmentViewModels = new List<AssignmentViewModel>();
+
+			foreach (Assignment a in userAssignments) {
+				//Creates a viewmodel class for each assignment
+				var viewModel = new AssignmentViewModel() {
+					CourseID = a.CourseID,
+					Description = a.Description,
+					Title = a.Title,
+					ID = a.ID
+				};
+
+				//Compares current date with the closing date of each assignment and adds current assignments to list.
+				var result = DateTime.Compare(a.ClosingTime, DateTime.Today);
+
+				if (result < 0) {
+					userAssignmentViewModels.Add(viewModel);
+				}
+			}
+
+			return userAssignmentViewModels;
+		}
+
 		public bool AssignmentIsInDbById(int id) {
 			var assignment = _db.Assignments.Find(id);
 			if (assignment == null) {
