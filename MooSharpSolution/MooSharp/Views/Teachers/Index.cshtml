@@ -20,27 +20,24 @@
 <hr />
 <!--<div class="well">-->
     <div class="row">
-        @foreach (CourseViewModel course in Model.MyCourses) {
+        @foreach(CourseViewModel course in Model.MyCourses) {
 
             <div class="col-lg-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h4>@course.Title</h4></div>
+                    <div class="panel-heading"><h3>@course.Title</h3></div>
                     <div class="panel-body">
                         <ul>
-                            <li><strong>Course number </strong> @course.CourseNumber</li>
+                            <li><strong>Course number:   </strong> @course.CourseNumber</li>
                         </ul>
                         <a href="@Url.Action("CreateAssignment", "Teachers", new { courseID = course.ID })"></a> 
                     </div>
                 </div>
             </div>
-
+            
         }
     </div>
 <!--</div>-->
         
-
-
-
 
 
     @section Copyright {
