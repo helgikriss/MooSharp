@@ -49,7 +49,11 @@ namespace MooSharp.Services
 				.Where(x => x.AssignmentID == assignmentID)
 				.Select(x => new MilestoneViewModel
 				{
-					Title = x.Title
+					Title = x.Title,
+					Description = x.Description,
+					Weight = x.Weight,
+					ID = x.ID
+				
 				})
 				.ToList();
 
@@ -58,9 +62,9 @@ namespace MooSharp.Services
 				ID = assignment.ID,
 				Title = assignment.Title,
 				CourseID = assignment.CourseID,
-				Description = assignment.Description
+				Description = assignment.Description,
+				Milestones = milestones
 				
-				//TODO: Milestones = milestones,
 			};
 
 			return viewModel;

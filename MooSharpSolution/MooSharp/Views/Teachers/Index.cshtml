@@ -16,7 +16,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><a href="@Url.Action("CourseDetails", "Teachers", new { id = course.ID })"><h4>@course.Title</h4></a></div>
                     <div class="panel-body">
-                            <p><strong>Course number:</strong> </p>
+                            <p><strong>Course number</strong> </p>
                             <p>@course.CourseNumber</p>
                         <a href="@Url.Action("CreateAssignment", "Teachers", new { courseID = course.ID })"><button class="btn btn-default">Create assignment</button></a> 
                     </div>

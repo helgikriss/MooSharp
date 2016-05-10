@@ -218,12 +218,12 @@
     <Compile Include="Utilities\AccountInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\skin\theme1.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap-changes.css" />
-    <Content Include="Content\Dark.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -308,10 +308,8 @@
     <Content Include="Views\Teachers\CreateMilestone.cshtml" />
     <Content Include="Views\Manage\ChangeTheme.cshtml" />
     <Content Include="Views\Admins\ConnectUserToCourse.cshtml" />
+    <Content Include="Views\Admins\AdminSideBar.cshtml" />
     <Content Include="Views\Admins\ConnectTeacherToCourse.cshtml" />
-    <Content Include="Views\Navigation\TeacherSideBar.cshtml" />
-    <Content Include="Views\Navigation\StudentSideBar.cshtml" />
-    <Content Include="Views\Navigation\AdminSideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
