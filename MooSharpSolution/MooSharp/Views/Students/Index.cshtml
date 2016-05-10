@@ -15,10 +15,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><h4>@assignment.Title</h4></div>
                 <div class="panel-body">
-                    <ul>
-                        <li><strong>Description</strong> @assignment.Description</li>
-                        <li><strong>Course</strong> @Model.MyCourses.Where(x => x.ID == assignment.CourseID).FirstOrDefault().Title</li>
-                    </ul>
+                    <div>
+                        <p><strong>Description</strong></p>
+                            <p> @assignment.Description</p>
+                        <p><strong>Course</strong></p>
+                            <p> @Model.MyCourses.Where(x => x.ID == assignment.CourseID).FirstOrDefault().Title</p>
+                    </div>
                 </div>
             </div>
         </div>
