@@ -9,8 +9,8 @@ namespace MooSharp.Models.ViewModels.Teachers
 	{
 		public List<CourseViewModel> MyCourses { get; set; }
 
-		public List<AssignmentViewModel> ActiveAssignments { get; set; }
+		public List<AssignmentViewModel> ActiveAssignmentsInCourse { get; set; }
 
-		public List<AssignmentViewModel> FinishedAssignments { get; set; }
+		public List<AssignmentViewModel> FinishedAssignmentsInCourse { get; set; }
 	}
 }

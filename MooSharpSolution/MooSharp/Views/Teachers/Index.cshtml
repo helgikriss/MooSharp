@@ -1,4 +1,5 @@
-﻿
+﻿@using MooSharp.Models.ViewModels
+@model MooSharp.Models.ViewModels.Teachers.TeacherIndexViewModel
 @{
     ViewBag.Title = "Teachers home page";
 }
@@ -19,17 +20,16 @@
 <hr />
 <!--<div class="well">-->
     <div class="row">
-        @for (var i = 0; i < 4; i++) {
+        @foreach (CourseViewModel course in Model.MyCourses) {
 
             <div class="col-lg-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h3>Forritun</h3></div>
+                    <div class="panel-heading"><h4>@course.Title</h4></div>
                     <div class="panel-body">
                         <ul>
-                            <li><strong>Active: </strong> 2</li>
-                            <li><strong>Finished: </strong> 1</li>
-                            <li><strong>Students: </strong> 198</li>
+                            <li><strong>Course number </strong> @course.CourseNumber</li>
                         </ul>
+                        <a href="@Url.Action("CreateAssignment", "Teachers", new { courseID = course.ID })"></a> 
                     </div>
                 </div>
             </div>
