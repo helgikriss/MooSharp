@@ -94,5 +94,16 @@ namespace MooSharp.Services
 			}
 			return true;
 		}
+
+		public void ConnectUserToCourse(ConnectUserToCourseViewModel viewModel) {
+			var newConnection = new CourseUsers() {
+				CourseID = viewModel.CourseID,
+				UserID = viewModel.UserID,
+				role = viewModel.role
+			};
+
+			_db.CourseUsers.Add(newConnection);
+			_db.SaveChanges();
+		}
 	}
 }

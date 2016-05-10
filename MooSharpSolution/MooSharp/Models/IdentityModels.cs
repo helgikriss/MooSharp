@@ -25,6 +25,7 @@ namespace MooSharp.Models
 		public DbSet<Milestone>  Milestones  { get; set; }
 		public DbSet<Course>     Courses     { get; set; }
 		public DbSet<Submission> Submissions { get; set; }
+		public DbSet<CourseUsers> CourseUsers { get; set; }
 
 		public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
