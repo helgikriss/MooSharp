@@ -4,16 +4,6 @@
     ViewBag.Title = "CourseDetails";
 }
 
-@section SideBar {
-    <h4>@Html.ActionLink("Home", "Index", "Home")</h4>
-    <hr />
-    <h4>My Courses</h4>
-    <li>@Html.ActionLink("Forritun", "CourseDetails", "Teachers", new { id = "3" }, null)</li>
-    <li>@Html.ActionLink("Add User", "AddUser", "Teacher")</li>
-    <li>@Html.ActionLink("Add users from Centris", "AddUsersFromCentris", "Teacher")</li>
-    <hr />
-}
-
 <h1> @Model.Title</h1>
 <hr />
 

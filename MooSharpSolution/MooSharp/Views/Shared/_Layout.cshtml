@@ -36,12 +36,12 @@
                 </div>
         </div>
     </div>
-    <div class="container body-content"> 
+    <div class="container body-content">
         <div class="row">
             <!--left-->
             <div class="col-md-3" id="leftCol">
                 <ul class="nav nav-stacked" id="sidebar">
-                    @RenderSection("SideBar", required: false)
+                    @Html.Action("SideBar", "Navigation")
                 </ul>
             </div><!--/left-->
             <!--right-->

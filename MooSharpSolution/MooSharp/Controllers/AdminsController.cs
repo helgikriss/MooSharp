@@ -100,6 +100,8 @@ namespace MooSharp.Controllers
 		public ActionResult ConnectUserToCourse(ConnectUserToCourseViewModel viewModel) {
 
 			if (!_coursesService.ConnectUserToCourse(viewModel.UserID, viewModel.CourseID)) {
+				viewModel.AllCourses = _coursesService.GetAllCourses();
+				viewModel.AllUsers = _usersService.GetAllUsers();
 				ModelState.AddModelError("", "User is already connected to this course");
 				return View(viewModel);
 			}
