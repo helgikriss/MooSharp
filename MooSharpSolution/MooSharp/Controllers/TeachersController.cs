@@ -5,6 +5,7 @@ using MooSharp.Models.ViewModels;
 using MooSharp.Services;
 using MooSharp.Utilities;
 using MooSharp.Models.ViewModels.Teachers;
+using Microsoft.AspNet.Identity;
 
 namespace MooSharp.Controllers
 {
@@ -19,6 +20,9 @@ namespace MooSharp.Controllers
         // GET: Teachers
         public ActionResult Index()
         {
+			var viewModel = new TeacherIndexViewModel() {
+				MyCourses = _coursesService.GetCoursesByUser("0b3e3e67-62b0-431f-8d34-30c76c8573af")
+			};
             return View();
         }
 
