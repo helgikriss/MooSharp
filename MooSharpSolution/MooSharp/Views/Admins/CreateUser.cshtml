@@ -4,12 +4,7 @@
 }
 
 @section SideBar {
-    <h4>@Html.ActionLink("Home", "Index", "Home")</h4>
-    <hr />
-    <li>@Html.ActionLink("Create Course", "CreateCourse", "Admins")</li>
-    <li>@Html.ActionLink("Create User", "CreateUser", "Admins")</li>
-    <li>@Html.ActionLink("Add users from Centris", "AddUsersFromCentris", "Admins")</li>
-    <hr />
+    @Html.Partial("AdminSideBar")
 }
 
 <h2>@ViewBag.Title.</h2>
