@@ -63,7 +63,6 @@ namespace MooSharp.Services
 		///  username, email, password, and role is used .
 		///  username, email and password is used to create the user in the database, then the role is added to the user.
 		/// </summary>
-
 		public bool CreateUser(CreateUserViewModel viewModel) {
 			// get the values from viewModel and write it down to DB.
 			if (_manager.UserExists(viewModel.UserName)) {
@@ -82,6 +81,89 @@ namespace MooSharp.Services
 				return true;
 			}
 			return false;
+		}
+
+		public List<UserViewModel> GetUsersByCourse(int courseID) {
+			if (_db.Courses.Find(courseID) == null) {
+				throw new HttpException(400, "Bad Request");
+			}
+
+			var users = (from user in _db.Users
+						 join connection in _db.CourseUsers on user.Id equals connection.UserID
+						 where courseID == connection.CourseID
+						 select user).ToList();
+
+			var viewModels = new List<UserViewModel>();
+
+			foreach (ApplicationUser u in users) {
+				var role = _manager.GetUserRoles(u.Id).ToList();
+				var viewmodel = new UserViewModel() {
+					username = u.UserName,
+					email = u.Email,
+					roles = role,
+					userId = u.Id
+				};
+				viewModels.Add(viewmodel);
+			}
+			return viewModels;
+		}
+
+		public List<UserViewModel> GetTeachersByCourse(int courseID) {
+			if (_db.Courses.Find(courseID) == null) {
+				throw new HttpException(400, "Bad Request");
+			}
+
+			var users = (from user in _db.Users
+						 join connection in _db.CourseUsers on user.Id equals connection.UserID
+						 where courseID == connection.CourseID
+						 select user).ToList();
+
+			var viewModels = new List<UserViewModel>();
+
+			foreach (ApplicationUser u in users) {
+				var role = _manager.GetUserRoles(u.Id).ToList();
+				foreach (string r in role) {
+					if (r == "Teachers") {
+						var viewmodel = new UserViewModel() {
+							username = u.UserName,
+							email = u.Email,
+							roles = role,
+							userId = u.Id
+						};
+						viewModels.Add(viewmodel);
+					}
+				}
+			}
+			return viewModels;
+		}
+
+		public List<UserViewModel> GetStudentsByCourse(int courseID) {
+			if (_db.Courses.Find(courseID) == null) {
+				throw new HttpException(400, "Bad Request");
+			}
+
+			var users = (from user in _db.Users
+						 join connection in _db.CourseUsers on user.Id equals connection.UserID
+						 where courseID == connection.CourseID
+						 select user).ToList();
+
+			var viewModels = new List<UserViewModel>();
+
+			foreach (ApplicationUser u in users) {
+				var role = _manager.GetUserRoles(u.Id).ToList();
+				foreach (string r in role) {
+					if (r == "Students") {
+						var viewmodel = new UserViewModel() {
+							username = u.UserName,
+							email = u.Email,
+							roles = role,
+							userId = u.Id
+						};
+						viewModels.Add(viewmodel);
+					}
+				}
+			}
+			return viewModels;
 		}
 	}
 }
