@@ -22,6 +22,10 @@ namespace MooSharp.Models.Entities
 		/// The foreign key to the milestone that this submission is a part of.
 		/// </summary>
 		public virtual int MilestoneID { get; set; }
+		/// <summary>
+		/// The foreign key to the user that submitted this submission.
+		/// </summary>
+		public virtual string UserID { get; set; }
 
 		/// <summary>
 		/// Contains the date and time of submission.
