@@ -85,5 +85,23 @@ namespace MooSharp.Controllers
 			}
 			return View(viewModel);
 		}
+
+		public ActionResult ConnectUserToCourse() {
+
+			return View();
+		}
+		[HttpPost]
+		public ActionResult ConnectUserToCourse(ConnectUserToCourseViewModel viewModel) {
+			var newViewModel = new ConnectUserToCourseViewModel {
+				CourseID = 2,
+				UserID = "0b3e3e67-62b0-431f-8d34-30c76c8573af",
+				Role = "Teacher"
+			};
+			if (!_coursesService.ConnectUserToCourse(newViewModel);) {
+				ModelState.AddModelError("", "User is already connected to this course");
+			}
+
+			return View();
+		}
 	}
 }
