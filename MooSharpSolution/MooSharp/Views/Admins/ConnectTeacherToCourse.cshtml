@@ -10,10 +10,11 @@
 <h2>Connect a Teacher to @Model.CourseTitle</h2>
 <hr />
 <div class="col-lg-6">
-    @using (Html.BeginForm("ConnectUserToCourse", "Admins", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+    @using (Html.BeginForm("ConnectTeacherToCourse", "Admins", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
+            <input value="@Model.CourseID" name="courseID" hidden />
             <label for="UserID" class="col-md-4 control-label" id="userlistlabel">User</label>
             <div class="col-md-8">
                 <select id="UserID" name="UserID" class="form-control">
