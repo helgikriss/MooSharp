@@ -12,9 +12,7 @@ namespace MooSharp.Models.Entities {
 
 		[Key, ForeignKey("User"), Column(Order = 1)]
 		public string UserID { get; set; }
-
-		public string Role { get; set; }
-
+		
 		public virtual Course Course { get; set; }
 
 		public virtual ApplicationUser User { get; set; }

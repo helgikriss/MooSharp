@@ -99,8 +99,36 @@ namespace MooSharp.Controllers
 		[HttpPost]
 		public ActionResult ConnectUserToCourse(ConnectUserToCourseViewModel viewModel) {
 
-			if (!_coursesService.ConnectUserToCourse(viewModel)) {
+			if (!_coursesService.ConnectUserToCourse(viewModel.UserID, viewModel.CourseID)) {
 				ModelState.AddModelError("", "User is already connected to this course");
+				return View(viewModel);
+			}
+
+			return RedirectToAction("Index");
+		}
+
+		public ActionResult ConnectTeacherToCourse(int? courseID) {
+			if (!courseID.HasValue) {
+				throw new HttpException(400, "Bad Request");
+			}
+			if (!_coursesService.CourseIsInDbById(Convert.ToInt32(courseID))) {
+				throw new HttpException(404, "Not Found");
+			}
+			var id = Convert.ToInt32(courseID);
+
+			var viewModel = new ConnectTeacherToCourseViewModel() {
+				CourseID = id,
+				CourseTitle = _coursesService.GetCourseById(id).Title,
+				AllTeachers = _usersService.GetAllTeachers()
+			};
+
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult ConnectTeacherToCourse(ConnectTeacherToCourseViewModel viewModel) {
+			if (!_coursesService.ConnectUserToCourse(viewModel.UserID, viewModel.CourseID)) {
+				ModelState.AddModelError("", "Teacher is already connected to this course");
 				return View(viewModel);
 			}
 

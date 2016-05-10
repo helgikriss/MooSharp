@@ -6,6 +6,7 @@ using MooSharp.Models.ViewModels;
 using MooSharp.Models;
 using MooSharp.Models.Entities;
 using MooSharp.Models.ViewModels.Admins;
+using System.Diagnostics;
 
 namespace MooSharp.Services
 {
@@ -16,9 +17,12 @@ namespace MooSharp.Services
 	public class CoursesService
 	{
 		private ApplicationDbContext _db;
+		private IdentityManager _manager;
+		private UsersService _usersService;
 
 		public CoursesService() {
 			_db = new ApplicationDbContext();
+			_manager = new IdentityManager();
 		}
 		
 		/// <summary>
@@ -90,7 +94,90 @@ namespace MooSharp.Services
 				viewModels.Add(viewmodel);
 			}
 			return viewModels;
+		}
 
+		public List<UserViewModel> GetUsersByCourse(int courseID) {
+			if(_db.Courses.Find(courseID) == null) {
+				throw new HttpException(400, "Bad Request");
+			}
+
+			var users = (from user in _db.Users
+						 join connection in _db.CourseUsers on user.Id equals connection.UserID
+						 where courseID == connection.CourseID
+						 select user).ToList();
+
+			var viewModels = new List<UserViewModel>();
+
+			foreach (ApplicationUser u in users) {
+				var role = _manager.GetUserRoles(u.Id).ToList();
+				var viewmodel = new UserViewModel() {
+					username = u.UserName,
+					email = u.Email,
+					roles = role,
+					userId = u.Id
+				};
+				viewModels.Add(viewmodel);
+			}
+			return viewModels;
+		}
+
+		public List<UserViewModel> GetTeachersByCourse(int courseID) {
+			if (_db.Courses.Find(courseID) == null) {
+				throw new HttpException(400, "Bad Request");
+			}
+
+			var users = (from user in _db.Users
+						 join connection in _db.CourseUsers on user.Id equals connection.UserID
+						 where courseID == connection.CourseID
+						 select user).ToList();
+
+			var viewModels = new List<UserViewModel>();
+
+			foreach (ApplicationUser u in users) {
+				var role = _manager.GetUserRoles(u.Id).ToList();
+				foreach (string r in role) {
+					if (r == "Teachers") {
+						Debug.WriteLine(r);
+						var viewmodel = new UserViewModel() {
+							username = u.UserName,
+							email = u.Email,
+							roles = role,
+							userId = u.Id
+						};
+						viewModels.Add(viewmodel);
+					}
+				}
+			}
+			return viewModels;
+		}
+
+		public List<UserViewModel> GetStudentsByCourse(int courseID) {
+			if (_db.Courses.Find(courseID) == null) {
+				throw new HttpException(400, "Bad Request");
+			}
+
+			var users = (from user in _db.Users
+						 join connection in _db.CourseUsers on user.Id equals connection.UserID
+						 where courseID == connection.CourseID
+						 select user).ToList();
+
+			var viewModels = new List<UserViewModel>();
+
+			foreach (ApplicationUser u in users) {
+				var role = _manager.GetUserRoles(u.Id).ToList();
+				foreach (string r in role) {
+					if (r == "Students") {
+						var viewmodel = new UserViewModel() {
+							username = u.UserName,
+							email = u.Email,
+							roles = role,
+							userId = u.Id
+						};
+						viewModels.Add(viewmodel);
+					}
+				}
+			}
+			return viewModels;
 		}
 
 		/// <summary>
@@ -106,7 +193,9 @@ namespace MooSharp.Services
 				var viewmodel = new CourseViewModel() {
 					CourseNumber = c.CourseNumber,
 					Title = c.Title,
-					ID = c.ID
+					ID = c.ID,
+					Students = GetStudentsByCourse(c.ID),
+					Teachers = GetTeachersByCourse(c.ID)
 				};
 				viewModels.Add(viewmodel);
 			}
@@ -124,15 +213,17 @@ namespace MooSharp.Services
 			return true;
 		}
 
-		public bool ConnectUserToCourse(ConnectUserToCourseViewModel viewModel) {
-			if (UserConnectedToCourse(viewModel)) {
+		/// <summary>
+		/// Returns true if connecting user to course was successful, false otherwise.
+		/// </summary>
+		public bool ConnectUserToCourse(string userID, int courseID) {
+			if (UserConnectedToCourse(userID, courseID)) {
 				return false;
 			}
 
 			var newConnection = new CourseUsers() {
-				CourseID = viewModel.CourseID,
-				UserID = viewModel.UserID,
-				Role = viewModel.Role
+				CourseID = courseID,
+				UserID = userID
 			};
 
 			_db.CourseUsers.Add(newConnection);
@@ -140,8 +231,11 @@ namespace MooSharp.Services
 			return true;
 		}
 
-		public bool UserConnectedToCourse(ConnectUserToCourseViewModel connection) {
-			var result = _db.CourseUsers.Find(connection.CourseID, connection.UserID);
+		/// <summary>
+		/// Returns true if user is connected to course, false otherwise.
+		/// </summary>
+		public bool UserConnectedToCourse(string userID, int courseID) {
+			var result = _db.CourseUsers.Find(courseID, userID);
 
 			if (result != null) {
 				return true;

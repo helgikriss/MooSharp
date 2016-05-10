@@ -28,7 +28,17 @@
                             <tr>
                                 <td>@Model.AllCourses[i].Title</td>
                                 <td>@Model.AllCourses[i].CourseNumber</td>
-                                <td>#</td>
+                                <td>
+                                    @if (Model.AllCourses[i].Teachers.Count == 0) {
+                                        using (Html.BeginForm("ConnectTeacherToCourse", "Admins", FormMethod.Get, new { @class = "form form-horizontal", role = "form" })) {
+                                        <div class="form-group">
+                                                <input value="@Model.AllCourses[i].ID" name="courseID" hidden />
+                                                <input type="submit" class="btn btn-default" value="Add Teacher to Course" />
+                                        </div>}}
+                                    else {
+                                        @Model.AllCourses[i].Teachers[0].username
+                                    }
+                                </td>
                             </tr>
                         }
                     </tbody>

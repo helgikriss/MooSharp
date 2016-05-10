@@ -8,9 +8,8 @@ using System.Web;
 
 namespace MooSharp.Services
 {
-    public class UsersService
-	{
-        private ApplicationDbContext _db;
+	public class UsersService {
+		private ApplicationDbContext _db;
 		private IdentityManager _manager;
 
 		public UsersService() {
@@ -21,7 +20,7 @@ namespace MooSharp.Services
 		/// GetAllUsers() gets a list of all users in the database and their roles
 		/// and returns it in a viewmodel for the view to use.
 		/// </summary>
- 		public List<UserViewModel> GetAllUsers() {
+		public List<UserViewModel> GetAllUsers() {
 			var users = _db.Users.ToList();
 			var viewmodels = new List<UserViewModel>();
 
@@ -36,6 +35,29 @@ namespace MooSharp.Services
 			}
 			return viewmodels;
 		}
+
+		public List<UserViewModel> GetAllTeachers() {
+			var users = _db.Users.ToList();
+			var viewModels = new List<UserViewModel>();
+
+			foreach (ApplicationUser user in users) {
+				var role = _manager.GetUserRoles(user.Id).ToList();
+				foreach (string r in role) {
+					if (r == "Teachers") {
+						var viewmodel = new UserViewModel() {
+
+							userId = user.Id,
+							email = user.Email,
+							username = user.UserName,
+							roles = _manager.GetUserRoles(user.Id).ToList()
+						};
+						viewModels.Add(viewmodel);
+					}
+				}
+			}
+			return viewModels;
+		}
+
 		/// <summary>
 		///  This function takes in a viewmodel from a form, filled out with user information.
 		///  username, email, password, and role is used .

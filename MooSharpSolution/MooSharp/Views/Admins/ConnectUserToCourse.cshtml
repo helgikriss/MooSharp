@@ -28,22 +28,11 @@
             <div class="col-md-8">
                 <select id="UserID" name="UserID" class="form-control">
                     @for (var i = 0; i < Model.AllUsers.Count; i++) {
-                        <option value="@Model.AllUsers[i].userId">@Model.AllUsers[i].username</option>
+                        <option value="@Model.AllUsers[i].userId">@Model.AllUsers[i].username (@Model.AllUsers[i].roles.FirstOrDefault())</option>
                     }
                 </select>
             </div>
         </div>
-        <div class="form-group">
-            <label for="roles" class="col-md-2 control-label" id="role-label">Role</label>
-            <div class="col-md-10">
-                <select class="form-control" id="Role" name="Role">
-                    <option value="Administrators">Administrator</option>
-                    <option value="Teachers">Teacher</option>
-                    <option value="Students">Student</option>
-                </select>
-            </div>
-        </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" class="btn btn-default" value="Connect User to Course" />
