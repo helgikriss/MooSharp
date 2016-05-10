@@ -1,7 +1,61 @@
-﻿
+﻿@model MooSharp.Models.ViewModels.Admins.ConnectUserToCourseViewModel
 @{
     ViewBag.Title = "ConnectUserToCourse";
 }
+@section SideBar {
+    <h4>@Html.ActionLink("Home", "Index", "Home")</h4>
+    <hr />
+    <li>@Html.ActionLink("Add Course", "CreateCourse", "Admins")</li>
+    <li>@Html.ActionLink("Add User", "AddUser", "Admins")</li>
+    <li>@Html.ActionLink("Add users from Centris", "AddUsersFromCentris", "Admins")</li>
+    <hr />
+}
 
 <h2>ConnectUserToCourse</h2>
+<hr />
+<div class="col-lg-6">
+@using (Html.BeginForm("ConnectUserToCourse", "Admins", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="courselist" class="col-md-4 control-label" id="courselistlabel">Course</label>
+            <div class="col-md-8">
+                <select id="CourseID" name="CourseID" class="form-control">
+                    @for (int i = 0; i < Model.AllCourses.Count; i++) {
+                        <option value="@Model.AllCourses[i].ID">@Model.AllCourses[i].Title</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="userlist" class="col-md-4 control-label" id="userlistlabel">User</label>
+            <div class="col-md-8">
+                <select id="UserID" name="UserID" class="form-control">
+                    @for (var i = 0; i < Model.AllUsers.Count; i++) {
+                        <option value="@Model.AllUsers[i].userId">@Model.AllUsers[i].username</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="roles" class="col-md-2 control-label" id="role-label">Role</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Role" name="Role">
+                    <option value="Administrators">Administrator</option>
+                    <option value="Teachers">Teacher</option>
+                    <option value="Students">Student</option>
+                </select>
+            </div>
+        </div>
 
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Connect User to Course" />
+            </div>
+        </div>
+        }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
