@@ -1,4 +1,5 @@
-﻿using MooSharp.Utilities;
+﻿using MooSharp.Services;
+using MooSharp.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace MooSharp.Controllers
 	[Authorize(Roles = "Students")]
 	public class StudentsController : Controller
     {
+		private AssignmentsService _assignmentsService = new AssignmentsService();
         // GET: Students
         public ActionResult Index()
         {
             return View();
         }
+
     }
 }

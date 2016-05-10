@@ -96,6 +96,38 @@ namespace MooSharp.Services
 			return id;
 		}
 
+		/// <summary>
+		/// Takes in the ID of the user, checks which courses he is connected to and returns
+		/// all active assignments in those courses.
+		/// </summary>
+		public List<AssignmentViewModel> GetActiveAssignments(int userID) {
+			//var userAssignments = _db.Assignments.Where(JOIN USERID WITH COURSES HERE).ToList();
+			var userAssignments = new List<Assignment>();
+			var userAssignmentViewModels = new List<AssignmentViewModel>();
+
+			foreach(Assignment a in userAssignments) {
+				//Creates a viewmodel class for each assignment
+				var viewModel = new AssignmentViewModel() {
+					CourseID = a.CourseID,
+					Description = a.Description,
+					Title = a.Title,
+					ID = a.ID
+				};
+
+				//Compares current date with the closing date of each assignment and adds current assignments to list.
+				var result = DateTime.Compare(a.ClosingTime, DateTime.Today);
+
+				if(result == 0) {
+					userAssignmentViewModels.Add(viewModel);
+				}
+				else if(result > 0){
+					userAssignmentViewModels.Add(viewModel);
+				}
+			}
+
+			return userAssignmentViewModels;
+		}
+
 		public bool AssignmentIsInDbById(int id) {
 			var assignment = _db.Assignments.Find(id);
 			if (assignment == null) {
