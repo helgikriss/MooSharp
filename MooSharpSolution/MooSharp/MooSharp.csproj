@@ -249,6 +249,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Services\favicon.ico" />
+    <Content Include="Static\img\favicon.png" />
     <Content Include="Static\img\moosharp-banner.png" />
     <Content Include="Static\img\moosharp-large.png" />
     <Content Include="Static\img\moosharp-small.png" />
@@ -295,15 +297,18 @@
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Teachers\CreateAssignment.cshtml" />
     <Content Include="Views\Teachers\CourseDetails.cshtml" />
-    <Content Include="Views\Home\AccessDenied.cshtml" />
     <Content Include="Views\Teachers\AssignmentDetails.cshtml" />
     <Content Include="Views\Admins\CreateUser.cshtml" />
     <Content Include="Views\Account\GandalfEasterEgg.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\Teachers\CreateMilestone.cshtml" />
+    <Content Include="Views\Manage\ChangeTheme.cshtml" />
+    <Content Include="Views\Admins\ConnectUserToCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ChangeThemeViewMode\" />
+    <Folder Include="Views\ErrorPages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
