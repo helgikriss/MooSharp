@@ -88,20 +88,23 @@ namespace MooSharp.Controllers
 
 		public ActionResult ConnectUserToCourse() {
 
-			return View();
+			var viewModel = new ConnectUserToCourseViewModel() {
+				AllCourses = _coursesService.GetAllCourses(),
+				AllUsers = _usersService.GetAllUsers()
+			};
+
+			return View(viewModel);
 		}
+
 		[HttpPost]
 		public ActionResult ConnectUserToCourse(ConnectUserToCourseViewModel viewModel) {
-			var newViewModel = new ConnectUserToCourseViewModel {
-				CourseID = 2,
-				UserID = "0b3e3e67-62b0-431f-8d34-30c76c8573af",
-				Role = "Teacher"
-			};
-			if (!_coursesService.ConnectUserToCourse(newViewModel)) {
+
+			if (!_coursesService.ConnectUserToCourse(viewModel)) {
 				ModelState.AddModelError("", "User is already connected to this course");
+				return View(viewModel);
 			}
 
-			return View();
+			return RedirectToAction("Index");
 		}
 	}
 }
