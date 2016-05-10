@@ -15,13 +15,20 @@ namespace MooSharp.Controllers
 	[Authorize(Roles = "Students")]
 	public class StudentsController : Controller
     {
+		private CoursesService _coursesService = new CoursesService();
 		private AssignmentsService _assignmentsService = new AssignmentsService();
 		private SubmissionsService _submissionsService = new SubmissionsService();
 		private MilestonesService _milestonesService = new MilestonesService();
         // GET: Students
         public ActionResult Index()
         {
-            return View();
+			var viewModel = new StudentIndexViewModel() {
+				ActiveAssignments = _assignmentsService.GetActiveAssignments(User.Identity.GetUserId()),
+				FinishedAssignments = _assignmentsService.GetFinishedAssignments(User.Identity.GetUserId()),
+				MyCourses = _coursesService.GetCoursesByUser(User.Identity.GetUserId())
+				
+			};
+            return View(viewModel);
         }
 
 		public ActionResult CreateSubmission(int? milestoneID) {

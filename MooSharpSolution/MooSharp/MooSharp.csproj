@@ -198,6 +198,7 @@
     <Compile Include="Models\ViewModels\Admins\ConnectUserToCourseViewModel.cs" />
     <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Models\ViewModels\Students\CreateSubmissionViewModel.cs" />
+    <Compile Include="Models\ViewModels\Students\StudentIndexViewModel.cs" />
     <Compile Include="Models\ViewModels\SubmissionViewModel.cs" />
     <Compile Include="Models\ViewModels\Teachers\CreateAssignmentViewModel.cs" />
     <Compile Include="Models\ViewModels\Admins\CreateCourseViewModel.cs" />

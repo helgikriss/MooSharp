@@ -124,9 +124,12 @@ namespace MooSharp.Services
 			return userAssignmentViewModels;
 		}
 
-		public List<AssignmentViewModel> GetFinishedAssignments(int userID) {
-			//var userAssignments = _db.Assignments.Where(JOIN USERID WITH COURSES HERE).ToList();
-			var userAssignments = new List<Assignment>();
+		public List<AssignmentViewModel> GetFinishedAssignments(string userID) {
+			var userAssignments = (from assignment in _db.Assignments
+								   join connection in _db.CourseUsers on assignment.CourseID equals connection.CourseID
+								   where userID == connection.UserID
+								   select assignment).ToList();
+
 			var userAssignmentViewModels = new List<AssignmentViewModel>();
 
 			foreach (Assignment a in userAssignments) {
