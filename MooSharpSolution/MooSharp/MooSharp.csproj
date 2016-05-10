@@ -191,10 +191,10 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\Admins\AdminIndexViewModel.cs" />
-    <Compile Include="Models\ViewModels\Admins\ConnectUserToCourseViewModel.cs" />
     <Compile Include="Models\ViewModels\Admins\CreateUserViewModel.cs" />
     <Compile Include="Models\ViewModels\AssignmentInCourseViewModel.cs" />
     <Compile Include="Models\ViewModels\AssignmentViewModel.cs" />
+    <Compile Include="Models\ViewModels\ConnectUserToCourseViewModel.cs" />
     <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Models\ViewModels\Students\CreateSubmissionViewModel.cs" />
     <Compile Include="Models\ViewModels\SubmissionViewModel.cs" />
@@ -202,6 +202,7 @@
     <Compile Include="Models\ViewModels\Admins\CreateCourseViewModel.cs" />
     <Compile Include="Models\ViewModels\MilestoneViewModel.cs" />
     <Compile Include="Models\ViewModels\Teachers\CreateMilestoneViewModel.cs" />
+    <Compile Include="Models\ViewModels\Teachers\TeacherIndexViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AssignmentsService.cs" />
@@ -248,6 +249,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Services\favicon.ico" />
+    <Content Include="Static\img\favicon.png" />
     <Content Include="Static\img\moosharp-banner.png" />
     <Content Include="Static\img\moosharp-large.png" />
     <Content Include="Static\img\moosharp-small.png" />
@@ -294,16 +297,18 @@
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Teachers\CreateAssignment.cshtml" />
     <Content Include="Views\Teachers\CourseDetails.cshtml" />
-    <Content Include="Views\Home\AccessDenied.cshtml" />
     <Content Include="Views\Teachers\AssignmentDetails.cshtml" />
     <Content Include="Views\Admins\CreateUser.cshtml" />
     <Content Include="Views\Account\GandalfEasterEgg.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\Teachers\CreateMilestone.cshtml" />
+    <Content Include="Views\Manage\ChangeTheme.cshtml" />
     <Content Include="Views\Admins\ConnectUserToCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ChangeThemeViewMode\" />
+    <Folder Include="Views\ErrorPages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
