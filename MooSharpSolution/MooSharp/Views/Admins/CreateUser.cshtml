@@ -3,10 +3,6 @@
     ViewBag.Title = "Create User";
 }
 
-@section SideBar {
-    @Html.Partial("AdminSideBar")
-}
-
 <h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("CreateUser", "Admins", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {

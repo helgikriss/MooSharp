@@ -4,16 +4,6 @@
     ViewBag.Title = "Teachers home page";
 }
 
-@section SideBar {
-    <h4>@Html.ActionLink("Home", "Index", "Home")</h4>
-    <hr />
-    <li>@Html.ActionLink("Forritun", "CourseDetails", "Teachers", new { id = "3" }, null)</li>
-    @for (var i = 0; i < 3; i++) {
-        <li> @Html.ActionLink("link " + @i, "Index", "Teachers") </li>
-    }
-    <hr />
-}
-
 <h2>@ViewBag.Title</h2>
 <hr />
 <h3>Courses</h3>

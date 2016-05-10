@@ -175,6 +175,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MilestonesController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\SubmissionsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
@@ -223,6 +224,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap-changes.css" />
+    <Content Include="Content\Dark.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -307,8 +309,10 @@
     <Content Include="Views\Teachers\CreateMilestone.cshtml" />
     <Content Include="Views\Manage\ChangeTheme.cshtml" />
     <Content Include="Views\Admins\ConnectUserToCourse.cshtml" />
-    <Content Include="Views\Admins\AdminSideBar.cshtml" />
     <Content Include="Views\Admins\ConnectTeacherToCourse.cshtml" />
+    <Content Include="Views\Navigation\TeacherSideBar.cshtml" />
+    <Content Include="Views\Navigation\StudentSideBar.cshtml" />
+    <Content Include="Views\Navigation\AdminSideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
