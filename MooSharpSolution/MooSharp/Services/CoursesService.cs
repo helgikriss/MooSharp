@@ -23,6 +23,7 @@ namespace MooSharp.Services
 		public CoursesService() {
 			_db = new ApplicationDbContext();
 			_manager = new IdentityManager();
+			_usersService = new UsersService();
 		}
 		
 		/// <summary>
@@ -96,90 +97,6 @@ namespace MooSharp.Services
 			return viewModels;
 		}
 
-		public List<UserViewModel> GetUsersByCourse(int courseID) {
-			if(_db.Courses.Find(courseID) == null) {
-				throw new HttpException(400, "Bad Request");
-			}
-
-			var users = (from user in _db.Users
-						 join connection in _db.CourseUsers on user.Id equals connection.UserID
-						 where courseID == connection.CourseID
-						 select user).ToList();
-
-			var viewModels = new List<UserViewModel>();
-
-			foreach (ApplicationUser u in users) {
-				var role = _manager.GetUserRoles(u.Id).ToList();
-				var viewmodel = new UserViewModel() {
-					username = u.UserName,
-					email = u.Email,
-					roles = role,
-					userId = u.Id
-				};
-				viewModels.Add(viewmodel);
-			}
-			return viewModels;
-		}
-
-		public List<UserViewModel> GetTeachersByCourse(int courseID) {
-			if (_db.Courses.Find(courseID) == null) {
-				throw new HttpException(400, "Bad Request");
-			}
-
-			var users = (from user in _db.Users
-						 join connection in _db.CourseUsers on user.Id equals connection.UserID
-						 where courseID == connection.CourseID
-						 select user).ToList();
-
-			var viewModels = new List<UserViewModel>();
-
-			foreach (ApplicationUser u in users) {
-				var role = _manager.GetUserRoles(u.Id).ToList();
-				foreach (string r in role) {
-					if (r == "Teachers") {
-						Debug.WriteLine(r);
-						var viewmodel = new UserViewModel() {
-							username = u.UserName,
-							email = u.Email,
-							roles = role,
-							userId = u.Id
-						};
-						viewModels.Add(viewmodel);
-					}
-				}
-			}
-			return viewModels;
-		}
-
-		public List<UserViewModel> GetStudentsByCourse(int courseID) {
-			if (_db.Courses.Find(courseID) == null) {
-				throw new HttpException(400, "Bad Request");
-			}
-
-			var users = (from user in _db.Users
-						 join connection in _db.CourseUsers on user.Id equals connection.UserID
-						 where courseID == connection.CourseID
-						 select user).ToList();
-
-			var viewModels = new List<UserViewModel>();
-
-			foreach (ApplicationUser u in users) {
-				var role = _manager.GetUserRoles(u.Id).ToList();
-				foreach (string r in role) {
-					if (r == "Students") {
-						var viewmodel = new UserViewModel() {
-							username = u.UserName,
-							email = u.Email,
-							roles = role,
-							userId = u.Id
-						};
-						viewModels.Add(viewmodel);
-					}
-				}
-			}
-			return viewModels;
-		}
-
 		/// <summary>
 		/// Returns a list of CourseViewModel that contains all Courses
 		/// in the database.
@@ -194,8 +111,8 @@ namespace MooSharp.Services
 					CourseNumber = c.CourseNumber,
 					Title = c.Title,
 					ID = c.ID,
-					Students = GetStudentsByCourse(c.ID),
-					Teachers = GetTeachersByCourse(c.ID)
+					Students = _usersService.GetStudentsByCourse(c.ID),
+					Teachers = _usersService.GetTeachersByCourse(c.ID)
 				};
 				viewModels.Add(viewmodel);
 			}
