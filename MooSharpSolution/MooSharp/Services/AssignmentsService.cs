@@ -71,8 +71,6 @@ namespace MooSharp.Services
 		/// input to have.
 		/// Parses all the information, create's a new assignment and writes it down to the DB
 		/// </summary>
-		/// <param name="model"></param>
-		/// <returns></returns>
 		public int CreateAssignment(CreateAssignmentViewModel model) {
 
 			char[] delimiters = { '-', ':' };
