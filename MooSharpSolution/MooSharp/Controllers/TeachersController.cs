@@ -21,9 +21,9 @@ namespace MooSharp.Controllers
         public ActionResult Index()
         {
 			var viewModel = new TeacherIndexViewModel() {
-				MyCourses = _coursesService.GetCoursesByUser("0b3e3e67-62b0-431f-8d34-30c76c8573af")
+				MyCourses = _coursesService.GetCoursesByUser(User.Identity.GetUserId())
 			};
-            return View();
+            return View(viewModel);
         }
 
 		public ActionResult CourseDetails(int? id) {

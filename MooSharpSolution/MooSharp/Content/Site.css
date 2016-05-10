@@ -228,7 +228,7 @@ div#img-box{
 
 .navbar-default {
     background-color: #4b4b4b;
-    border-color: #2e2e2e;
+    border-color: #4b4b4b;
 }
 
 
@@ -241,4 +241,10 @@ div#img-box{
 /****** Settings ******/
 .banner-logo {
     margin-top: 10px;
+}
+
+.settings-banner {
+    margin-top: 15px;
+    margin-right: 15px;
+    color: white;
 }

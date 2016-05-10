@@ -4,7 +4,11 @@
     ViewBag.Title = "Settings";
 }
 
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".profile").addClass("active");
+    });
+</script>
 <h2>@ViewBag.Title</h2>
 
         <div>
@@ -16,7 +20,7 @@
                     </dd>
                 <dt>Email:</dt>
                     <dd>
-                        @User.Identity.
+                        @Model.Email
                     </dd>
             </dl>
         </div>

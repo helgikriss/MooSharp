@@ -98,27 +98,25 @@ namespace MooSharp.Services
 		/// Takes in the ID of the user, checks which courses he is connected to and returns
 		/// all active assignments in those courses.
 		/// </summary>
-		public List<AssignmentViewModel> GetActiveAssignments(int userID) {
-			//var userAssignments = _db.Assignments.Where(JOIN USERID WITH COURSES HERE).ToList();
-			var userAssignments = new List<Assignment>();
-			var userAssignmentViewModels = new List<AssignmentViewModel>();
+		public List<AssignmentViewModel> GetActiveAssignments(string userID) {
+			var userAssignments = (from assignment in _db.Assignments
+						   join connection in _db.CourseUsers on assignment.CourseID equals connection.CourseID
+						   where userID == connection.UserID
+						   select assignment).ToList();
 
+
+			var userAssignmentViewModels = new List<AssignmentViewModel>();
 			foreach(Assignment a in userAssignments) {
-				//Creates a viewmodel class for each assignment
 				var viewModel = new AssignmentViewModel() {
 					CourseID = a.CourseID,
 					Description = a.Description,
 					Title = a.Title,
 					ID = a.ID
 				};
-
-				//Compares current date with the closing date of each assignment and adds current assignments to list.
 				var result = DateTime.Compare(a.ClosingTime, DateTime.Today);
-
-				if(result == 0) {
-					userAssignmentViewModels.Add(viewModel);
-				}
-				else if(result > 0){
+				// DateTime.Compare: If less than 0 the left parameter is earlier 
+				// If equal to 0 it's the same time. If greater than 0 the right parameter is earlier 
+				if(result >= 0){
 					userAssignmentViewModels.Add(viewModel);
 				}
 			}
