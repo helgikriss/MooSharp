@@ -9,6 +9,6 @@ namespace MooSharp.Models.ViewModels.Admins {
 
 		public string UserID { get; set; }
 
-		public string role { get; set; }
+		public string Role { get; set; }
 	}
 }

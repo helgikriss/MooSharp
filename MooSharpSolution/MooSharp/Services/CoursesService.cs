@@ -95,15 +95,29 @@ namespace MooSharp.Services
 			return true;
 		}
 
-		public void ConnectUserToCourse(ConnectUserToCourseViewModel viewModel) {
+		public bool ConnectUserToCourse(ConnectUserToCourseViewModel viewModel) {
+			if (UserConnectedToCourse(viewModel)) {
+				return false;
+			}
+
 			var newConnection = new CourseUsers() {
 				CourseID = viewModel.CourseID,
 				UserID = viewModel.UserID,
-				role = viewModel.role
+				Role = viewModel.Role
 			};
 
 			_db.CourseUsers.Add(newConnection);
 			_db.SaveChanges();
+			return true;
+		}
+
+		public bool UserConnectedToCourse(ConnectUserToCourseViewModel connection) {
+			var result = _db.CourseUsers.Find(connection.CourseID, connection.UserID);
+
+			if (result != null) {
+				return true;
+			}
+			return false;
 		}
 	}
 }
