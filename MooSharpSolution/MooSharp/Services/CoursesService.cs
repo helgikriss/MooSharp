@@ -63,9 +63,22 @@ namespace MooSharp.Services
 
 			return courseViewModel;
 		}
-		/*public List<CourseViewModel> GetCoursesByUser(int userId) {
-			var courses = _db.Courses.Where()
-			
+
+		/// <summary>
+		/// Returns a list of courses connected to the specific user
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		public List<CourseViewModel> GetCoursesByUser(string userId) {
+			if(_db.Users.Find(userId) == null) {
+				throw new HttpException(400, "Bad Request");
+			}
+
+			var courses = (from course in _db.Courses
+						   join connection in _db.CourseUsers on course.ID equals	connection.CourseID
+						   where userId == connection.UserID
+						   select course).ToList();
+
 			var viewModels = new List<CourseViewModel>();
 
 			foreach (Course c in courses) {
@@ -78,7 +91,7 @@ namespace MooSharp.Services
 			}
 			return viewModels;
 
-		}*/
+		}
 
 		/// <summary>
 		/// Returns a list of CourseViewModel that contains all Courses
