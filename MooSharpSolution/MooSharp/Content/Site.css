@@ -230,3 +230,10 @@ div#img-box{
     background-color: #4b4b4b;
     border-color: #2e2e2e;
 }
+
+
+/****** Settings ******/
+
+.settings-buttons {
+    margin-top: 8px;
+}
