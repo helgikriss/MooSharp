@@ -19,7 +19,7 @@
                     <thead>
                         <tr>
                             <th>Course</th>
-                            <th>Crouse Number</th>
+                            <th>Course Number</th>
                             <th>Teacher</th>
                         </tr>
                     </thead>
@@ -36,7 +36,12 @@
                                                 <input type="submit" class="btn btn-default" value="Add Teacher to Course" />
                                         </div>}}
                                     else {
-                                        @Model.AllCourses[i].Teachers[0].username
+                                        for (var j = 0; j < Model.AllCourses[i].Teachers.Count; j++) {
+                                            @Model.AllCourses[i].Teachers[j].username;
+                                            if(!(j + 1 == Model.AllCourses[i].Teachers.Count)) {
+                                            <text>, &nbsp;</text>
+                                                }
+                                        }
                                     }
                                 </td>
                             </tr>
