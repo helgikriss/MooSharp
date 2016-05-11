@@ -29,6 +29,7 @@ namespace MooSharp.Services
 
 			return model.AssignmentID;
 		}
+
 		public bool MilestoneIsInDbById(int id) {
 			var milestone = _db.Milestones.Find(id);
 			if (milestone == null) {
@@ -56,5 +57,17 @@ namespace MooSharp.Services
 
             return viewModel;
         }
-    }
+
+		public List<Milestone> GetAllMilestonesByAssignmentId(int id) {
+			List<Milestone> milestones = (from milestone in _db.Milestones
+										  where milestone.AssignmentID == id
+										  select milestone).ToList();
+
+			if(!milestones.Any()) {
+				return null;
+			}
+
+			return milestones;
+		}
+	}
 }

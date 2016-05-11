@@ -12,10 +12,12 @@ namespace MooSharp.Services
 	public class AssignmentsService
 	{
 		private ApplicationDbContext _db;
+		private MilestonesService _milestonesService;
 
 		public AssignmentsService()
 		{
 			_db = new ApplicationDbContext();
+			_milestonesService = new MilestonesService();
 		}
 
 		public List<AssignmentViewModel> GetAssignmentsInCourse(int courseID)
@@ -162,6 +164,18 @@ namespace MooSharp.Services
 				return false;
 			}
 			return true;
+		}
+
+		public int GetTotalWeightOfMilestonesInAssignment(int id) {
+			List<Milestone> milestones = _milestonesService.GetAllMilestonesByAssignmentId(id);
+
+			int totalWeight = 0;
+
+			foreach (Milestone m in milestones) {
+				totalWeight += m.Weight;
+			}
+
+			return totalWeight;
 		}
 	}
 }

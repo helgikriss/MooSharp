@@ -86,11 +86,13 @@ namespace MooSharp.Controllers
 			}
 
 			var CreateMilestoneViewModel = new CreateMilestoneViewModel {
-				AssignmentID = Convert.ToInt32(assignmentID)
+				AssignmentID = Convert.ToInt32(assignmentID),
+				TotalWeightOfMilestones = _assignmentsService.GetTotalWeightOfMilestonesInAssignment(Convert.ToInt32(assignmentID)),
+				AssignmentTitle = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID)).Title
 			};
 			return View(CreateMilestoneViewModel);
 		}
-		// TODO: Eftir að klara utfæra CreateMilestone POST fallið í MilestoneService
+
 		[HttpPost]
 		public ActionResult CreateMilestone(CreateMilestoneViewModel viewModel) {
 			// TODO: gera IsValid check á viewmodel

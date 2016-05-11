@@ -105,18 +105,22 @@ namespace MooSharp.Services
 					// necessary. We would do that here, using
 					// processExe.StandardInput.WriteLine(), similar
 					// to above.
+
 					// TODO: Add check if there is input and if so then pass it to the program
 
 					// We then read the output of the program:
-					var lines = new List<string>();
+					//var lines = new List<string>();
+					string programOutput = "";
 					while (!processExe.StandardOutput.EndOfStream) {
-						lines.Add(processExe.StandardOutput.ReadLine());
+						//lines.Add(processExe.StandardOutput.ReadLine());
+						programOutput += processExe.StandardOutput.ReadLine() + '\n';
 					}
 
 					//ViewBag.Output = lines;
-					foreach (string s in lines) {
+					//Debug.WriteLine(programOutput);
+					/*foreach (String s in lines) {
 						Debug.WriteLine(s);
-					}
+					}*/
 				}
 			}
 

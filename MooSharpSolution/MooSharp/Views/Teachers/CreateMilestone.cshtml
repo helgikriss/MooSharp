@@ -4,7 +4,7 @@
     ViewBag.Title = "CreateMilestone";
 }
 
-<h2>CreateMilestone</h2>
+<h2>Create Milestone for @Model.AssignmentTitle</h2>
 
 <div class="col-lg-10   ">
     @using (Html.BeginForm("CreateMilestone", "Teachers", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
@@ -22,6 +22,12 @@
             </div>
         </div>
         <div class="form-group">
+            <div class="col-md-8 col-md-offset-4">
+                Total weight of milestones in @Model.AssignmentTitle is @Model.TotalWeightOfMilestones%
+            </div>
+        </div>
+        <div class="form-group">
+            
             @Html.LabelFor(model => model.Weight, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", @min = "0", @max = "100" })
