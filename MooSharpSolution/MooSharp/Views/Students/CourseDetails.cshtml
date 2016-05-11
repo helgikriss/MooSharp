@@ -9,7 +9,7 @@
 
 <h4> @Model.CourseNumber</h4>
 <br />
-<a href="@Url.Action("CreateAssignment", "Teachers", new { courseID = Model.ID })"><button class="btn btn-default">Create New Assignment</button></a> 
+
 <h3>Active Assignments</h3>
 <table class="table table-condensed">
     <thead>
@@ -21,13 +21,13 @@
     </thead>
     <tbody>
         @for (int i = 0; i < Model.Assignments.Count; i++) {
-            if(DateTime.Compare(Model.Assignments[i].DueDate,DateTime.Today) >= 0){
-            <tr>
-                <td>@Html.ActionLink(Model.Assignments[i].Title, "AssignmentDetails", new { assignmentID = Model.Assignments[i].ID })</td>
-                <td>@Model.Assignments[i].Description</td>
-                <td>@Model.Assignments[i].DueDate.ToString("dddd, dd. MMMM kl.HH:mm")</td>
-            </tr>
-            }
+            if (DateTime.Compare(Model.Assignments[i].DueDate, DateTime.Today) >= 0) {
+                <tr>
+                    <td>@Html.ActionLink(Model.Assignments[i].Title, "AssignmentDetails", new { assignmentID = Model.Assignments[i].ID })</td>
+                    <td>@Model.Assignments[i].Description</td>
+                    <td>@Model.Assignments[i].DueDate.ToString("dddd, dd. MMMM kl.HH:mm")</td>
+                </tr>
+}
         }
 
     </tbody>
@@ -44,12 +44,12 @@
     <tbody>
         @for (int i = 0; i < Model.Assignments.Count; i++) {
             if (DateTime.Compare(Model.Assignments[i].DueDate, DateTime.Today) < 0) {
-            <tr>
-                <td>@Html.ActionLink(Model.Assignments[i].Title, "AssignmentDetails", new { assignmentID = Model.Assignments[i].ID })</td>
-                <td>@Model.Assignments[i].Description</td>
-                <td>@Model.Assignments[i].DueDate.ToString("dddd, dd. MMMM kl.HH:mm")</td>
-            </tr>
-            }
+                <tr>
+                    <td>@Html.ActionLink(Model.Assignments[i].Title, "AssignmentDetails", new { assignmentID = Model.Assignments[i].ID })</td>
+                    <td>@Model.Assignments[i].Description</td>
+                    <td>@Model.Assignments[i].DueDate.ToString("dddd, dd. MMMM kl.HH:mm")</td>
+                </tr>
+}
         }
 
     </tbody>

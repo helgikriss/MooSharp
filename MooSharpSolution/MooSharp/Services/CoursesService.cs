@@ -55,7 +55,8 @@ namespace MooSharp.Services
 				.Select(x => new AssignmentInCourseViewModel {
 					ID = x.ID,
 					Title = x.Title,
-					Description = x.Description
+					Description = x.Description,
+					DueDate = x.ClosingTime
 				})
 				.ToList();
 

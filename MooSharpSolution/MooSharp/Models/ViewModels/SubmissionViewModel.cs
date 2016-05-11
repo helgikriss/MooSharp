@@ -13,6 +13,8 @@ namespace MooSharp.Models.ViewModels
 
 		public string UserID { get; set; }
 
+		public string UserName { get; set; }
+
 		public DateTime SubmissionDateTime { get; set; }
 
 		public string SubmissionPath { get; set; }

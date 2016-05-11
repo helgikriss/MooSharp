@@ -231,9 +231,8 @@ div#img-box{
 
 .navbar-default {
     background-color: #4b4b4b;
-       border-bottom: 10px;
+    border-bottom: 3px solid;
     border-color: #d71921;
- 
 }
 
 
@@ -253,3 +252,8 @@ div#img-box{
     margin-right: 15px;
     color: white;
 }
+
+navbar a {
+    color: rgba(0, 0, 0, 0.3);
+}
+
