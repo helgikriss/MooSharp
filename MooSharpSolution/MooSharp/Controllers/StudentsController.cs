@@ -51,5 +51,20 @@ namespace MooSharp.Controllers
 			//Kalla í CreateSubmission í submissionService
 			return null;
 		}
+
+		public ActionResult AssignmentDetails(int? assignmentID) {
+			if (!assignmentID.HasValue) {
+				//return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				throw new HttpException(400, "Bad Request");
+			}
+			if (!_assignmentsService.AssignmentIsInDbById(Convert.ToInt32(assignmentID))) {
+				//throw new Exception("Not found");
+				throw new HttpException(404, "Not Found");
+			}
+
+			var assignmentViewModel = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
+
+			return View(assignmentViewModel);
+		}
 	}
 }

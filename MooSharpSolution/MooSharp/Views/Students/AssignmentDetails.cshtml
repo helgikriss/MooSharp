@@ -3,14 +3,13 @@
 @{
     ViewBag.Title = "AssignmentDetails";
 }
-
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <h1> @Model.Title</h1>
 <hr />
 
 <h4>Course ID: @Model.CourseID</h4>
 <h4>Assignment Description</h4>
 <p>@Model.Description</p>
-<a href="@Url.Action("CreateMilestone", "Teachers", new { courseID = Model.ID })"><button class="btn btn-default">Create Milestone</button></a>
 <h4>Milestones</h4>
 @{ int id = 1; }
 <div class="panel-group" id="accordion">
@@ -25,12 +24,10 @@
             <div id="collapse@(id)" class="panel-collapse collapse">
                 <div class="panel-body">
                     <p>@milestone.Description</p>
-                    <p></p>
+                    <a href="">Submit</a>
                 </div>
             </div>
         </div>
         id++;
     }
 </div>
-
-
