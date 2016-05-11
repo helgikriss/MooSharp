@@ -25,7 +25,48 @@
             
         }
     </div>
-<!--</div>-->
+<h3>Active assignments</h3>
+<hr />
+<div class="row">
+    @foreach (AssignmentViewModel assignment in Model.ActiveAssignments) {
+
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading"><a href="@Url.Action("AssignmentDetails", "Teachers", new { assignmentID = assignment.ID })"><h4>@assignment.Title</h4></a></div>
+                <div class="panel-body">
+                    <div>
+                        <p><strong>Description</strong></p>
+                        <p> @assignment.Description</p>
+                        <p><strong>Course</strong></p>
+                        <p> @Model.MyCourses.Where(x => x.ID == assignment.CourseID).FirstOrDefault().Title</p>
+                        <p><strong>Due date</strong></p>
+                        <p> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+<h3>Finished Assignments</h3>
+<hr />
+<div class="row">
+    @foreach (AssignmentViewModel assignment in Model.FinishedAssignments) {
+
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>@assignment.Title</h4><a href="@Url.Action(" AssignmentDetails", "Teachers" , new { assignmentID=assignment.ID })"><h4>@assignment.Title</h4></a>div >
+                <div class="panel-body">
+                    <ul>
+                        <li><strong>Description</strong> @assignment.Description</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
         
 
 

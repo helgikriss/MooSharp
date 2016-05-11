@@ -13,7 +13,7 @@
 
         <div class="col-lg-3">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>@assignment.Title</h4></div>
+                <div class="panel-heading"><a href="@Url.Action("AssignmentDetails", "Students", new { assignmentID = assignment.ID })"><h4>@assignment.Title</h4></a></div>
                 <div class="panel-body">
                     <div>
                         <p><strong>Description</strong></p>
@@ -36,7 +36,7 @@
 
         <div class="col-lg-3">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>@assignment.Title</h4></div>
+                <div class="panel-heading"><a href="@Url.Action("AssignmentDetails", "Students", new { assignmentID = assignment.ID })"><h4>@assignment.Title</h4></a></div>
                 <div class="panel-body">
                     <ul>
                         <li><strong>Description</strong> @assignment.Description</li>

@@ -10,7 +10,7 @@
 <h4>Course ID: @Model.CourseID</h4>
 <h4>Assignment Description</h4>
 <p>@Model.Description</p>
-<a href="@Url.Action("CreateMilestone", "Teachers", new { courseID = Model.ID })"><button class="btn btn-default">Create Milestone</button></a>
+<a href="@Url.Action("CreateMilestone", "Teachers", new { assignmentID = Model.ID })"><button class="btn btn-default">Create Milestone</button></a>
 <h4>Milestones</h4>
 @{ int id = 1; }
 <div class="panel-group" id="accordion">
