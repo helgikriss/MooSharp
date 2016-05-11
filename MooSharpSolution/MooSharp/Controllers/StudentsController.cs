@@ -52,6 +52,20 @@ namespace MooSharp.Controllers
 			return null;
 		}
 
+		public ActionResult CourseDetails(int? id) {
+			if (!id.HasValue) {
+				throw new HttpException(400, "Bad Request");
+			}
+			if (!_coursesService.CourseIsInDbById(Convert.ToInt32(id))) {
+				throw new HttpException(404, "Not Found");
+			}
+
+			var course = _coursesService.GetCourseById(Convert.ToInt32(id));
+			course.Assignments.Sort((y, x) => DateTime.Compare(x.DueDate, y.DueDate));
+
+			return View(course);
+		}
+
 		public ActionResult AssignmentDetails(int? assignmentID) {
 			if (!assignmentID.HasValue) {
 				//return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

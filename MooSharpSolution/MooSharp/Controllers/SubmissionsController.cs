@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using MooSharp.Models.ViewModels;
 using MooSharp.Models.ViewModels.Students;
 using MooSharp.Services;
-using MooSharp.Models.ViewModels.Students;
+
 
 namespace MooSharp.Controllers
 {

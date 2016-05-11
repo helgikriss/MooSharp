@@ -316,6 +316,7 @@
     <Content Include="Views\Navigation\StudentSideBar.cshtml" />
     <Content Include="Views\Navigation\TeacherSideBar.cshtml" />
     <Content Include="Views\Students\AssignmentDetails.cshtml" />
+    <Content Include="Views\Students\CourseDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Submissions\" />

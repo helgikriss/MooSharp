@@ -5,7 +5,7 @@
 <hr />
 <h4>My Courses</h4>
     @foreach (CourseViewModel course in Model.MyCourses) {
-        <li class="list-group">@Html.ActionLink(course.Title, "CourseDetails", "Students")</li>
+        <li class="list-group"><a href="@Url.Action("CourseDetails", "Students", new { id = course.ID })">@course.Title</a></li>
     }
 <hr />
 <li>@Html.ActionLink("My History", "DisplayHistory", "Submissions")</li>
