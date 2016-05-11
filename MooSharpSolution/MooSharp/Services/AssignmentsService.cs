@@ -108,14 +108,14 @@ namespace MooSharp.Services
 						   where userID == connection.UserID
 						   select assignment).ToList();
 
-
-			var userAssignmentViewModels = new List<AssignmentViewModel>();
+            var userAssignmentViewModels = new List<AssignmentViewModel>();
 			foreach(Assignment a in userAssignments) {
 				var viewModel = new AssignmentViewModel() {
 					CourseID = a.CourseID,
 					Description = a.Description,
 					Title = a.Title,
-					ID = a.ID
+					ID = a.ID,
+                    DueDate = a.ClosingTime
 				};
 				var result = DateTime.Compare(a.ClosingTime, DateTime.Today);
 				// DateTime.Compare: If less than 0 the left parameter is earlier 

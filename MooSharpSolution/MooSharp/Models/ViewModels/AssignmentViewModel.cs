@@ -9,6 +9,7 @@ namespace MooSharp.Models.ViewModels
 	public class AssignmentViewModel
 	{
 		public int ID { get; set; }
+
 		public string Title { get; set; }
 
 		public int CourseID { get; set; }
@@ -17,6 +18,8 @@ namespace MooSharp.Models.ViewModels
 
 		public List<MilestoneViewModel> Milestones { get; set; }
 
-        public DateTime date_time { get; set; }
+        public DateTime DueDate { get; set; }
+
+        public string CourseTitle { get; set; }
 	}
 }
