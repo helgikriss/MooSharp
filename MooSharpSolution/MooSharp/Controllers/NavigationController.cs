@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using MooSharp.Models.ViewModels.Students;
+using MooSharp.Models.ViewModels.Teachers;
 using MooSharp.Services;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,10 @@ namespace MooSharp.Controllers
 				return PartialView("AdminSideBar");
 			}
 			if (User.IsInRole("Teachers")) {
-				return PartialView("TeacherSideBar");
+				var viewModel = new TeacherIndexViewModel() {
+					MyCourses = _coursesService.GetCoursesByUser(User.Identity.GetUserId())
+				};
+				return PartialView("TeacherSideBar", viewModel);
 			}
             if (User.IsInRole("Students")) {
                 var viewModel = new StudentIndexViewModel()

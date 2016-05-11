@@ -1,7 +1,12 @@
-﻿<h4>@Html.ActionLink("Home", "Index", "Home")</h4>
+﻿@model MooSharp.Models.ViewModels.Teachers.TeacherIndexViewModel
+@using MooSharp.Models.ViewModels
+
+<h3>@Html.ActionLink("Home", "Index", "Home")</h3>
 <hr />
-<li>@Html.ActionLink("Forritun", "CourseDetails", "Teachers", new { id = "3" }, null)</li>
-@for (var i = 0; i < 3; i++) {
-    <li> @Html.ActionLink("link " + @i, "Index", "Teachers") </li>
+<h4>My Courses</h4>
+@foreach (CourseViewModel course in Model.MyCourses) {
+    <li class="list-group"><a href="@Url.Action("CourseDetails", "Teachers", new { id = course.ID })">@course.Title</a></li>
 }
+<hr />
+<li>@Html.ActionLink("My History", "DisplayHistory", "Submissions")</li>
 <hr />

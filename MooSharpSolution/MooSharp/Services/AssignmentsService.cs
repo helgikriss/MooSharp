@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace MooSharp.Services
 {
@@ -52,8 +53,19 @@ namespace MooSharp.Services
 					Title = x.Title,
 					Description = x.Description,
 					Weight = x.Weight,
-					ID = x.ID
-				
+					ID = x.ID,
+					Submissions =	_db.Submissions
+									.Where(y => y.MilestoneID == x.ID)
+									.Select(z => new SubmissionViewModel {
+										ID  = z.ID,
+										MilestoneID = z.ID,
+										Status = z.Status,
+										SubmissionDateTime = z.SubmissionDateTime,
+										SubmissionPath = z.SubmissionPath,
+										UserID = z.UserID,
+										UserName =	_db.Users.Where(a => a.Id == z.UserID).Select(b => b.UserName).FirstOrDefault					().ToString()
+									}).ToList()
+
 				})
 				.ToList();
 
@@ -124,7 +136,7 @@ namespace MooSharp.Services
 					userAssignmentViewModels.Add(viewModel);
 				}
 			}
-
+			userAssignmentViewModels.Sort((x, y) => DateTime.Compare(x.DueDate, y.DueDate));
 			return userAssignmentViewModels;
 		}
 
@@ -152,7 +164,7 @@ namespace MooSharp.Services
 					userAssignmentViewModels.Add(viewModel);
 				}
 			}
-
+			userAssignmentViewModels.Sort((x, y) => DateTime.Compare(y.DueDate, x.DueDate));
 			return userAssignmentViewModels;
 		}
 

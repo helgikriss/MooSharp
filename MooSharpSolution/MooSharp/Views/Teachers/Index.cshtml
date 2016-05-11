@@ -10,7 +10,7 @@
 <hr />
 <!--<div class="well">-->
     <div class="row">
-        @foreach(CourseViewModel course in Model.MyCourses) {
+        @foreach(CourseViewModel course in Model.MyCourses.Take(3)) {
 
             <div class="col-sm-4">
                 <div class="panel panel-default">
@@ -28,19 +28,21 @@
 <h3>Active assignments</h3>
 <hr />
 <div class="row">
-    @foreach (AssignmentViewModel assignment in Model.ActiveAssignments) {
+    @foreach (AssignmentViewModel assignment in Model.ActiveAssignments.Take(3)) {
 
         <div class="col-sm-4">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="@Url.Action("AssignmentDetails", "Teachers", new { assignmentID = assignment.ID })"><h4>@assignment.Title</h4></a></div>
+                <div class="panel-heading">
+                    <a href="@Url.Action("AssignmentDetails", "Teachers", new { assignmentID = assignment.ID })">
+                        <h4>@Model.MyCourses.Where(x => x.ID == assignment.CourseID).FirstOrDefault().Title</h4>
+                        <h5>@assignment.Title</h5>
+                    </a>
+                </div>
                 <div class="panel-body">
                     <div>
-                        <p><strong>Description</strong></p>
-                        <p> @assignment.Description</p>
-                        <p><strong>Course</strong></p>
-                        <p> @Model.MyCourses.Where(x => x.ID == assignment.CourseID).FirstOrDefault().Title</p>
                         <p><strong>Due date</strong></p>
-                        <p> </p>
+                        <p> @(assignment.DueDate.ToString("dddd, dd. MMMM"))</p>
+                        <p>@(assignment.DueDate.ToString("kl.HH:mm"))</p>
                     </div>
                 </div>
             </div>
@@ -51,11 +53,16 @@
 <h3>Finished Assignments</h3>
 <hr />
 <div class="row">
-    @foreach (AssignmentViewModel assignment in Model.FinishedAssignments) {
+    @foreach (AssignmentViewModel assignment in Model.FinishedAssignments.Take(3)) {
 
         <div class="col-sm-4">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="@Url.Action("AssignmentDetails", "Teachers", new { assignmentID = assignment.ID })"><h4>@assignment.Title</h4></a></div>
+                <div class="panel-heading">
+                    <a href="@Url.Action("AssignmentDetails", "Teachers", new { assignmentID = assignment.ID })">
+                        <h4>@Model.MyCourses.Where(x => x.ID == assignment.CourseID).FirstOrDefault().Title</h4>
+                        <h5>@assignment.Title</h5>
+                    </a>
+                </div>
                 <div class="panel-body">
                     <p><strong>Course</strong></p>
                     <p> @Model.MyCourses.Where(x => x.ID == assignment.CourseID).FirstOrDefault().Title</p>

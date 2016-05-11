@@ -17,6 +17,10 @@ namespace MooSharp.Models.ViewModels
 		public string Title { get; set; }
 		public List<AssignmentInCourseViewModel> Assignments { get; set; }
 
+		public List<AssignmentViewModel> ActiveAssignments { get; set; }
+
+		public List<AssignmentViewModel> FinishedAssignments { get; set; }
+
 		public List<UserViewModel> Students { get; set; }
 
 		public List<UserViewModel> Teachers { get; set; }

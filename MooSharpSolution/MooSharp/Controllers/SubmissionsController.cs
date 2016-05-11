@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MooSharp.Models.ViewModels;
 using MooSharp.Services;
+using MooSharp.Models.ViewModels.Students;
 
 namespace MooSharp.Controllers
 {
@@ -17,6 +18,7 @@ namespace MooSharp.Controllers
 		CoursesService _coursesService = new CoursesService();
 		MilestonesService _milestonesService = new MilestonesService();
 		AssignmentsService _assignmentsService = new AssignmentsService();
+		SubmissionsService _submissionsService = new SubmissionsService();
 
 		// GET: Submissions
 		public ActionResult Index()
@@ -41,6 +43,14 @@ namespace MooSharp.Controllers
 					Directory.CreateDirectory(mapPath);
 				}
 				file.SaveAs(path);
+
+				var submissionViewModel = new CreateSubmissionViewModel() {
+					MilestoneID = milestoneID,
+					UserID = User.Identity.GetUserId(),
+					SubmissionDateTime = DateTime.Now,
+					SubmissionPath = path
+				};
+				_submissionsService.CreateSubmission(submissionViewModel);
 			}
 			// TODO: Compile and check submission and return results
 			return RedirectToAction("Index", "Home");

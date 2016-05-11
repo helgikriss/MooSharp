@@ -12,25 +12,43 @@
 <p>@Model.Description</p>
 <a href="@Url.Action("CreateMilestone", "Teachers", new { assignmentID = Model.ID })"><button class="btn btn-default">Create Milestone</button></a>
 <h4>Milestones</h4>
-@{ int id = 1; }
-<div class="panel-group" id="accordion">
-    @foreach (MilestoneViewModel milestone in Model.Milestones) {
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse@(id)">@(id + ". " + milestone.Title + " (" + milestone.Weight + "%)")</a>
-                </h4>
-            </div>
 
-            <div id="collapse@(id)" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <p>@milestone.Description</p>
-                    <p></p>
-                </div>
+<!--Tab headers-->
+<div>
+@if (Model.Milestones.Count > 0) {
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation"class="active"><a data-target="@("#" + Model.Milestones[0].ID)" aria-controls="home" role="tab" data-toggle="tab">@("1. " + Model.Milestones[0].Title)</a></li>
+        @for (var i = 1; i < Model.Milestones.Count; i++) {
+            <li role="presentation"><a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i+1) + ". " + Model.Milestones[i].Title)</a></li>
+        }
+    </ul>
+<!--Tab headers end-->
+
+<!--Tab content-->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="@Model.Milestones[0].ID">
+                <br />
+                <p>@Model.Milestones[0].Description</p>
+                <ul>
+                    <li>Submission stuff</li>
+                </ul>
             </div>
+            @for (var i = 1; i < Model.Milestones.Count; i++) {
+                <div role="tabpanel" class="tab-pane" id="@Model.Milestones[i].ID">
+                    <br />
+                    <p>@Model.Milestones[i].Description</p>
+                    <ul>
+                        <li>Submission stuff</li>
+                    </ul>
+                </div>
+            }
         </div>
-        id++;
-    }
+<!--Tab content ends-->
+}
+else {
+    <p class="text-danger">No milestones exist for this assignment</p>
+}
 </div>
+
 
 

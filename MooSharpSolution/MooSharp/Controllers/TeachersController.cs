@@ -38,6 +38,7 @@ namespace MooSharp.Controllers
 			}
 
 			var course = _coursesService.GetCourseById(Convert.ToInt32(id));
+			course.Assignments.Sort((y, x) => DateTime.Compare(x.DueDate, y.DueDate));
 
 			return View(course);
 		}
@@ -72,7 +73,7 @@ namespace MooSharp.Controllers
 				throw new HttpException(404, "Not Found");
 			}
 
-				var assignmentViewModel = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
+			var assignmentViewModel = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
 
 			return View(assignmentViewModel);
 		}

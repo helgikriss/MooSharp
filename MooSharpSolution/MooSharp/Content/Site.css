@@ -251,3 +251,7 @@ div#img-box{
     margin-right: 15px;
     color: white;
 }
+
+navbar a {
+    color: rgba(0, 0, 0, 0.3);
+}

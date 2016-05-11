@@ -1,13 +1,13 @@
 ﻿@model MooSharp.Models.ViewModels.Students.StudentIndexViewModel
 @using MooSharp.Models.ViewModels
 
-<li>@Html.ActionLink("Home", "Index", "Home")</li>
+<h3>@Html.ActionLink("Home", "Index", "Home")</h3>
 <hr />
 <h4>My Courses</h4>
     @foreach (CourseViewModel course in Model.MyCourses) {
-        <li class="list-group">@course.Title</li>
+        <li class="list-group">@Html.ActionLink(course.Title, "CourseDetails", "Students")</li>
     }
-
+<hr />
 <li>@Html.ActionLink("My History", "DisplayHistory", "Submissions")</li>
 <hr />
 
