@@ -119,6 +119,8 @@ namespace MooSharp.Services
 			return viewModels;
 		}
 
+        
+
 		/// <summary>
 		/// Returns true if Course is in database based, false otherwise.
 		/// </summary>
