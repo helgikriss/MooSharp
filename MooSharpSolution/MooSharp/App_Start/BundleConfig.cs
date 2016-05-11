@@ -28,7 +28,6 @@ namespace MooSharp
 					  "~/Content/site.css"));
 					  //"~/Content/dark.css"));
 
-
 		}
 	}
 }
