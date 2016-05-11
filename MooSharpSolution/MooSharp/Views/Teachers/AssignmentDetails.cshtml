@@ -1,4 +1,5 @@
 ﻿@model MooSharp.Models.ViewModels.AssignmentViewModel
+@using MooSharp.Models.ViewModels
 @{
     ViewBag.Title = "AssignmentDetails";
 }
@@ -15,11 +16,17 @@
         <tr>
             <th>Milestone Name</th>
             <th>Description</th>
+            <th>Weight</th>
         </tr>
     </thead>
     <tbody>
-
-
+        @foreach (MilestoneViewModel milestone in Model.Milestones) {
+            <tr>
+                <td>@milestone.Title</td>
+                <td>@milestone.Description <td>
+                <td>@milestone.Weight</td>
+            </tr>
+        }
     </tbody>
 </table>
 
