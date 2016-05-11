@@ -16,7 +16,7 @@
                 <select id="UserID" name="UserID" class="form-control">
                     @for (var i = 0; i < Model.AllTeachers.Count; i++) {
                         <option value="@Model.AllTeachers[i].userId">@Model.AllTeachers[i].username (@Model.AllTeachers[i].roles.FirstOrDefault())</option>
-}
+                    }
                 </select>
             </div>
         </div>

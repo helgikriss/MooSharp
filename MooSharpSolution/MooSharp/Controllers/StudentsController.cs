@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using MooSharp.Models.ViewModels;
 
 namespace MooSharp.Controllers
 {
@@ -64,7 +64,17 @@ namespace MooSharp.Controllers
 
 			var assignmentViewModel = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
 
-			return View(assignmentViewModel);
+			var viewModel = new AssignmentDetailsViewModel() {
+				CourseID = assignmentViewModel.CourseID,
+				CourseTitle = assignmentViewModel.CourseTitle,
+				Description = assignmentViewModel.Description,
+				DueDate = assignmentViewModel.DueDate,
+				ID = assignmentViewModel.ID,
+				Milestones = assignmentViewModel.Milestones,
+				Title = assignmentViewModel.Title
+			};
+
+			return View(viewModel);
 		}
 	}
 }
