@@ -11,22 +11,20 @@
 <div class="row">
     @foreach (AssignmentViewModel assignment in Model.ActiveAssignments) {
 
-        <div class="col-lg-3">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="@Url.Action("AssignmentDetails", "Students", new { assignmentID = assignment.ID })"><h4>@assignment.Title</h4></a></div>
                 <div class="panel-body">
                     <div>
-                        <p><strong>Description</strong></p>
-                            <p> @assignment.Description</p>
                         <p><strong>Course</strong></p>
                             <p> @Model.MyCourses.Where(x => x.ID == assignment.CourseID).FirstOrDefault().Title</p>
                         <p><strong>Due date</strong></p>
-                            <p> @assignment.DueDate</p>
+                        <p> @(assignment.DueDate.ToString("dddd, dd. MMMM"))</p>
+                        <p>@(assignment.DueDate.ToString("kl.HH:mm"))</p>  
                     </div>
                 </div>
             </div>
         </div>
-
     }
 </div>
 <h3>Finished Assignments</h3>
@@ -34,13 +32,15 @@
 <div class="row">
     @foreach (AssignmentViewModel assignment in Model.FinishedAssignments) {
 
-        <div class="col-lg-3">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="@Url.Action("AssignmentDetails", "Students", new { assignmentID = assignment.ID })"><h4>@assignment.Title</h4></a></div>
                 <div class="panel-body">
-                    <ul>
-                        <li><strong>Description</strong> @assignment.Description</li>
-                    </ul>
+                        <p><strong>Course</strong></p>
+                        <p> @Model.MyCourses.Where(x => x.ID == assignment.CourseID).FirstOrDefault().Title</p>
+                        <p><strong>Due date</strong></p>
+                        <p> @(assignment.DueDate.ToString("dddd, dd. MMMM"))</p>
+                        <p>@(assignment.DueDate.ToString("kl.HH:mm"))</p>  
                 </div>
             </div>
         </div>
