@@ -77,9 +77,9 @@ namespace MooSharp.Services
 		/// </summary>
 		public int CreateAssignment(CreateAssignmentViewModel model) {
 
-			char[] delimiters = { '-', ':' };
-			string[] OpeningDateSplit = model.OpeningDate.Split(delimiters[0]);
-			string[] ClosingDateSplit = model.ClosingDate.Split(delimiters[0]);
+			char delimiter = '-';
+			string[] OpeningDateSplit = model.OpeningDate.Split(delimiter);
+			string[] ClosingDateSplit = model.ClosingDate.Split(delimiter);
 
 			string Opening = OpeningDateSplit[0] + "/" + OpeningDateSplit[1] + "/" + OpeningDateSplit[2] + " " + model.OpeningTime + ":00.00";
 			string Closing = ClosingDateSplit[0] + "/" + ClosingDateSplit[1] + "/" + ClosingDateSplit[2] + " " + model.OpeningTime + ":00.00";
