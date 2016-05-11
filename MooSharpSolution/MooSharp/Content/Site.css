@@ -229,8 +229,9 @@ div#img-box{
 
 .navbar-default {
     background-color: #4b4b4b;
+       border-bottom: 10px;
     border-color: #d71921;
-    border-bottom: 3px solid;
+ 
 }
 
 
