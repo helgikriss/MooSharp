@@ -6,7 +6,7 @@ using System.Web;
 namespace MooSharp.Models.ViewModels
 {
 	public class CourseViewModel
-	{
+{	
 		public int ID { get; set; }
 		public string CourseNumber { get; set; }
 		/// <summary>
