@@ -21,7 +21,7 @@
                         <p><strong>Course</strong></p>
                             <p> @Model.MyCourses.Where(x => x.ID == assignment.CourseID).FirstOrDefault().Title</p>
                         <p><strong>Due date</strong></p>
-                            <p> </p>
+                            <p> @assignment.DueDate</p>
                     </div>
                 </div>
             </div>
