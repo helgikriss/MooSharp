@@ -1,6 +1,4 @@
-﻿/****** Dark theme ******/
-
-@font-face
+﻿@font-face
 {
     font-family: 'Roboto'; 
     src: url('Roboto-Regular.ttf'); 
@@ -11,6 +9,7 @@ body {
     padding-bottom: 20px;
     font-family: Roboto;
     background-color: #282828;
+    color: white;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -59,11 +58,13 @@ textarea {
 .loginmodal-container h1 {
   text-align: center;
   font-size: 1.8em;
+  color: #080808;
 }
 
 .loginmodal-container h3 {
   text-align: center;
   font-size: 1.2em;
+  color: #080808;
 }
 
 .loginmodal-container input[type=submit] {
@@ -221,12 +222,8 @@ div#img-box{
 }
 
 #sidebar li.active {
-  border:0 #eee solid;
-  border-right-width:5px;
-}
-
-.navbar-default {
-    background-color:#;
+  border: #eee solid;
+  border-right-width:10px;
 }
 
 .navbar-default {
@@ -241,7 +238,6 @@ div#img-box{
     margin-top: 8px;
 }
 
-/****** Settings ******/
 .banner-logo {
     margin-top: 10px;
 }
@@ -251,6 +247,8 @@ div#img-box{
     margin-right: 15px;
     color: white;
 }
+
+/****** Dark theme ******/
 
 .table {
     background-color: #505050;
@@ -289,7 +287,7 @@ tr th{
 }
 
 a {
-    color: black;
+    color: white;
 }
 
 .navbar-default h4 {
@@ -302,24 +300,28 @@ li {
 
 
 p {
-    color: #F8F8F8;
+    color: #E8E8E8;
 }
 
-/* Fill form Layout */
+p strong
+{
+    color: white;
+}
 
 form.form.form-horizontal h4 {
-    color: black;
-}
-
-h4 {
-    color: #F8F8F8;
+    color: white;
 }
 
 .div.col-md-9 h4 {
     color: black;
 }
 
-h2 {
+div#col-lg-6 body
+{
+    color: white;
+}
+
+h1,h2,h3,h4 {
     color: white;
 }
 
@@ -327,4 +329,31 @@ h2 {
     color: black;
 }
 
+dl.dl-horizontal {
+    color: white;
+}
 
+div#leftCol a {
+    color: black;
+}
+
+#div.form-group body {
+    background-color: white;
+}
+
+/***** Form settings *****/
+
+.form-control {
+    color: #080808;
+}
+
+/***** Teacher Assignment look *****/
+
+table.table.table-condensed tbody
+{
+    background-color: #505050;
+}
+
+#teacher thead tr {
+    background-color: #383838;
+}

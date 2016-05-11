@@ -56,11 +56,13 @@ textarea {
 .loginmodal-container h1 {
   text-align: center;
   font-size: 1.8em;
+  color: #080808;
 }
 
 .loginmodal-container h3 {
   text-align: center;
   font-size: 1.2em;
+  color: #080808;
 }
 
 .loginmodal-container input[type=submit] {
@@ -255,3 +257,4 @@ div#img-box{
 navbar a {
     color: rgba(0, 0, 0, 0.3);
 }
+
