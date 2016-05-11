@@ -16,5 +16,7 @@ namespace MooSharp.Models.ViewModels
 		public string Description { get; set; }
 
 		public List<MilestoneViewModel> Milestones { get; set; }
+
+        public DateTime date_time { get; set; }
 	}
 }
