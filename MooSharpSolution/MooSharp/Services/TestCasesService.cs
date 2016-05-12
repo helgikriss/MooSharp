@@ -19,6 +19,7 @@ namespace MooSharp.Services
 		/// Returns all Test Cases associated with Milestone id.
 		/// </summary>
 		public List<TestCase> GetTestCasesByMilestoneId(int id) {
+			// TODO: Check if test case exists with milestone id.
 			var testCases = (from testCase in _db.TestCases
 							 where testCase.MilestoneID == id
 							 select testCase).ToList();
