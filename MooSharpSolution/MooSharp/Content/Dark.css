@@ -4,11 +4,17 @@
     src: url('Roboto-Regular.ttf'); 
 }
 
+@font-face
+{
+    font-family: 'Lobster'; 
+    src: url("Lobster 1.4.otf") ;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
     font-family: Roboto;
-    background-color: #282828;
+    background-color: #181818;
     color: white;
 }
 
@@ -31,28 +37,22 @@ select,
 textarea {
     /* max-width: 280px; */
 }
-/****** TEACHER HOME PAGE ******/
-.table-borderless tbody tr td {
-    border: none;
-}
-.coursetile-left {
-    font-weight: bold;
-}
 
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
 /****** LOGIN MODAL ******/
 .loginmodal-container {
-  padding: 30px;
+ padding: 30px;
   max-width: 450px;
   width: 100% !important;
-  background-color: #F7F7F7;
+  background-color: rgba(0, 0, 0, 0);
   margin: auto auto;
   margin-top: 40%;
   border-radius: 2px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  /*box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);*/
   overflow: hidden;
   font-family: Roboto;
+  border: none;
 }
 
 .loginmodal-container h1 {
@@ -124,7 +124,7 @@ textarea {
   /* border: 1px solid #2f5bb7; */
   border: 0px;
   text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: #4b4b4b; 
+  background-color: #4b4b4b;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
 
@@ -147,11 +147,29 @@ textarea {
 }
 #loginForm input[type=submit] {
     font-family: Roboto;
+    background-color:#d71921;
+    border-radius: 4px;
+    width: 50%;
+    margin: auto auto;
+    vertical-align: middle;
+    box-shadow:rgba(0,0,0,0.3) 2px 3px;
 }
 #loginForm label {
     font-family: Roboto;
     font-weight: normal;
     margin-left: 10px;
+}
+#loginForm input[type=text]{
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+}
+#loginForm input[type=password]{
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+}
+#loginForm .text-danger {
+    color: #d71921;
+    font-weight: bold;
 }
 /*Youtube background video on login screen*/
 
@@ -232,12 +250,11 @@ div#img-box{
 }
 
 
-/****** Settings ******/
-
 .settings-buttons {
     margin-top: 8px;
 }
 
+/****** Settings ******/
 .banner-logo {
     margin-top: 10px;
 }
@@ -248,6 +265,33 @@ div#img-box{
     color: white;
 }
 
+#sidebar a {
+    color: #2E2E2E;
+}
+.moosharp-logo {
+    font-family: Lobster;
+    font-size: 32px;
+    margin-top: auto;
+    color: #d71921;
+    text-decoration:none;
+    text-shadow: 1px 1px #101010;
+}
+.moosharp-logo:hover {
+    text-decoration: none;
+    color: #e9343b;
+}
+.navbar-header a:hover,.navbar-header a:visited,.navbar-header a:link,.navbar-header a:active
+{
+    text-decoration: none;
+}
+#navbar {
+    background-color: #000000;
+    padding-top:5px;
+}
+#login-logo {
+    text-align: center;
+    font-size: 50px;
+}
 /****** Dark theme ******/
 
 .table {
@@ -265,7 +309,7 @@ tr th{
 
 .panel-default > .panel-heading {
     color: #f5f5f5;
-    background-color: #383838;
+    background-color: #282828;
 }
 
 .panel-default {
@@ -276,13 +320,15 @@ tr th{
     background-color: #505050;
 }
 
+/***** Button colors *****/
+
 .btn-default {
     color: white;
-    background-color: #808080;
+    background-color: #303030;
 }
 
 .btn-default:hover {
-    background-color: #484848;
+    background-color: #181818;
     color: white;
 }
 
@@ -298,13 +344,11 @@ li {
     color: #F8F8F8;
 }
 
-
 p {
     color: #E8E8E8;
 }
 
-p strong
-{
+p strong {
     color: white;
 }
 
@@ -325,8 +369,10 @@ h1,h2,h3,h4 {
     color: white;
 }
 
+/***** Side bar color settings *****/
+
 .nav > li > a {
-    color: black;
+    color: #d71921;
 }
 
 dl.dl-horizontal {
@@ -334,7 +380,11 @@ dl.dl-horizontal {
 }
 
 div#leftCol a {
-    color: black;
+    color: #d71921;
+}
+
+div #leftCol h4 {
+    color: #d71921;
 }
 
 #div.form-group body {
@@ -354,6 +404,37 @@ table.table.table-condensed tbody
     background-color: #505050;
 }
 
-#teacher thead tr {
-    background-color: #383838;
+#finished thead tr {
+    background-color: #282828;
 }
+
+#finished, h4:hover, #active h4:hover {
+    color:red;   
+}
+
+#finished, a:hover, #active a:hover {
+    color:red;   
+}
+
+#active thead tr {
+    background-color: #282828;
+}
+
+/***** Add milestone Look *****/
+
+#addMilestone div.modal-header {
+    background-color: #282828;
+}
+
+#addMilestone div.modal-body {
+    background-color: #505050;
+    color: black;
+}
+
+/***** Student Settings*****/
+
+ul.nav.nav-tabs a {
+    color: red;
+}
+
+

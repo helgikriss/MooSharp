@@ -11,7 +11,7 @@
 <br />
 <a href="@Url.Action("CreateAssignment", "Teachers", new { courseID = Model.ID })"><button class="btn btn-default">Create New Assignment</button></a> 
 <h3>Active Assignments</h3>
-<table class="table table-condensed">
+<table class="table table-condensed" id="active">
     <thead>
         <tr>
             <th>Assignment Name</th>
@@ -33,7 +33,7 @@
     </tbody>
 </table>
 <h3>Finished Assignments</h3>
-<table class="table table-condensed" id="teacher">
+<table class="table table-condensed" id="finished">
     <thead>
         <tr>
             <th>Assignment Name</th>
