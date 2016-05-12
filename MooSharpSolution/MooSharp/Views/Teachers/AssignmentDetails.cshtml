@@ -10,27 +10,27 @@
 <h4>@Model.CourseTitle</h4>
 <h4>Assignment Description</h4>
 <p>@Model.AssignmentDescription</p>
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Create Milestone</button>
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addMilestone">Create Milestone</button>
 <br /><br />
 <h4>Milestones</h4>
 <h5>Total weight of milestones: @Model.TotalWeightOfMilestones/100</h5>
 
 <!--Tab headers-->
 <div>
-@if (Model.Milestones.Count > 0) {
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation"class="active">
-            <a data-target="@("#" + Model.Milestones[0].ID)" aria-controls="home" role="tab" data-toggle="tab">@("1. " + Model.Milestones[0].Title + " (" + Model.Milestones[0].Weight + "%)")</a>
-        </li>
-        @for (var i = 1; i < Model.Milestones.Count; i++) {
-            <li role="presentation">
-                <a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i+1) + ". " + Model.Milestones[i].Title + " (" + Model.Milestones[i].Weight + "%)")</a>
+    @if (Model.Milestones.Count > 0) {
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a data-target="@("#" + Model.Milestones[0].ID)" aria-controls="home" role="tab" data-toggle="tab">@("1. " + Model.Milestones[0].Title + " (" + Model.Milestones[0].Weight + "%)")</a>
             </li>
-        }
-    </ul>
-<!--Tab headers end-->
+            @for (var i = 1; i < Model.Milestones.Count; i++) {
+                <li role="presentation">
+                    <a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i + 1) + ". " + Model.Milestones[i].Title + " (" + Model.Milestones[i].Weight + "%)")</a>
+                </li>
+}
+        </ul>
+        <!--Tab headers end-->
 
-<!--Tab content-->
+        <!--Tab content-->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="@Model.Milestones[0].ID">
                 <br />
@@ -47,21 +47,24 @@
                         <li>Submission stuff</li>
                     </ul>
                 </div>
-            }
+}
         </div>
-<!--Tab content ends-->
-}
-else {
-    <p class="text-danger">No milestones exist for this assignment</p>
-}
+        <!--Tab content ends-->
+    }
+    else {
+        <p class="text-danger">No milestones exist for this assignment</p>
+    }
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-lg modal-backdrop">
+<!-- Adding Milestone Modal -->
+<div class="modal fade" id="addMilestone" role="dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <h2>Create Milestone for @Model.AssignmentTitle</h2>
-
-            <div class="col-lg-10">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create Milestone for @Model.AssignmentTitle</h4>
+            </div>
+            <div class="modal-body">
                 @using (Html.BeginForm("CreateMilestone", "Teachers", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     <div class="form-group">
@@ -69,33 +72,34 @@ else {
                         <div class="col-md-8">
                             @Html.TextBoxFor(model => model.MilestoneTitle, new { @class = "form-control" })
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.MilestoneDescription, new { @class = "col-md-4 control-label" })
-                        <div class="col-md-8">
-                            @Html.TextAreaFor(model => model.MilestoneDescription, new { @class = "form-control", @rows = "10" })
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-8 col-md-offset-4">
-                            Total weight of milestones in @Model.AssignmentTitle is @Model.TotalWeightOfMilestones%
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MilestoneDescription, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(model => model.MilestoneDescription, new { @class = "form-control", @rows = "10" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4">
+                                Total weight of milestones in @Model.AssignmentTitle is @Model.TotalWeightOfMilestones%
+                            </div>
+                        </div>
+                        <div class="form-group">
 
-                        @Html.LabelFor(model => model.Weight, new { @class = "col-md-4 control-label" })
-                        <div class="col-md-8">
-                            @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", @min = "0", @max = "100" })
+                            @Html.LabelFor(model => model.Weight, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", @min = "0", @max = "100" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" class="btn btn-default" value="Add Milestone" />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-default" value="Add Milestone" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.TextBoxFor(model => model.ID, new { @class = "form-control", @type = "hidden" })
-                    </div>}
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.ID, new { @class = "form-control", @type = "hidden" })
+                        </div>
+                    }
             </div>
         </div>
     </div>
