@@ -12,13 +12,27 @@ namespace MooSharp.Services
     public class SubmissionsService
     {
 		private ApplicationDbContext _db;
+		private TestCasesService _testCasesService;
 
 		public SubmissionsService() {
 			_db = new ApplicationDbContext();
+			_testCasesService = new TestCasesService();
 		}
 
 		public void CreateSubmission(CreateSubmissionViewModel viewModel) {
-			//Compile and run.
+			// Compile program.
+			string compileOutput = "";
+			string exeFilePath = "";
+			bool compileSuccess = CompileSubmission(viewModel, ref compileOutput, ref exeFilePath);
+
+			if (compileSuccess) {
+				// Run program.
+				List<string> outputs = new List<string>();
+				bool runSuccess = RunSubmission(viewModel.MilestoneID, exeFilePath, ref outputs);
+			}
+			
+
+
 			var submission = new Submission() {
 				ID = viewModel.ID,
 				MilestoneID = viewModel.MilestoneID,
@@ -38,50 +52,23 @@ namespace MooSharp.Services
 			return true;
 		}
 
-		public void CompileSubmission(CreateSubmissionViewModel viewModel) {
+		public bool CompileSubmission(CreateSubmissionViewModel viewModel, ref string output, ref string exeFilePath) {
+			// Write submission code into a string variable.
 			string submissionPath = viewModel.SubmissionPath;
 			System.IO.StreamReader myFile = new System.IO.StreamReader(submissionPath);
 			string code = myFile.ReadToEnd();
 			myFile.Close();
-
-			// Set up our working folder, and the file names/paths.
-			// In this example, this is all hardcoded, but in a
-			// real life scenario, there should probably be individual
-			// folders for each user/assignment/milestone.
-
-			/*var workingFolder = "C:\\Temp\\Mooshak2Code\\";
-			var cppFileName = "Hello.cpp";
-			var exeFilePath = workingFolder + "Hello.exe";*/
 			
+			// Get Filenames and path to working folder and path to compiler.
 			int lastIndexOfSlash = submissionPath.LastIndexOf('\\');
 			int indexOfLast = submissionPath.Length - 1;
-
 			var cppFileName = submissionPath.Substring(lastIndexOfSlash+1, indexOfLast-lastIndexOfSlash);
-			var exeFilePath = submissionPath.Replace(".cpp", ".exe");
+			exeFilePath = submissionPath.Replace(".cpp", ".exe");
 			var workingFolder = submissionPath.Substring(0, lastIndexOfSlash+1);
-
-			// Write the code to a file, such that the compiler
-			// can find it:
-			System.IO.File.WriteAllText(workingFolder + cppFileName, code);
-
-			// In this case, we use the C++ compiler (cl.exe) which ships
-			// with Visual Studio. It is located in this folder:
 			var compilerFolder = "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\bin\\";
-			// There is a bit more to executing the compiler than
-			// just calling cl.exe. In order for it to be able to know
-			// where to find #include-d files (such as <iostream>),
-			// we need to add certain folders to the PATH.
-			// There is a .bat file which does that, and it is
-			// located in the same folder as cl.exe, so we need to execute
-			// that .bat file first.
 
-			// Using this approach means that:
-			// * the computer running our web application must have
-			//   Visual Studio installed. This is an assumption we can
-			//   make in this project.
-			// * Hardcoding the path to the compiler is not an optimal
-			//   solution. A better approach is to store the path in
-			//   web.config, and access that value using ConfigurationManager.AppSettings.
+			// Write the code to a file, such that the compiler can find it:
+			System.IO.File.WriteAllText(workingFolder + cppFileName, code);
 
 			// Execute the compiler:
 			Process compiler = new Process();
@@ -95,47 +82,60 @@ namespace MooSharp.Services
 			compiler.StandardInput.WriteLine("\"" + compilerFolder + "vcvars32.bat" + "\"");
 			compiler.StandardInput.WriteLine("cl.exe /nologo /EHsc " + cppFileName);
 			compiler.StandardInput.WriteLine("exit");
-			string output = compiler.StandardOutput.ReadToEnd();
+			output = compiler.StandardOutput.ReadToEnd();
+			// TODO: Check compile time here.
 			compiler.WaitForExit();
 			compiler.Close();
 
-			// Check if the compile succeeded, and if it did,
-			// we try to execute the code:
-			if (System.IO.File.Exists(exeFilePath)) {
-				var processInfoExe = new ProcessStartInfo(exeFilePath, "");
-				processInfoExe.UseShellExecute = false;
-				processInfoExe.RedirectStandardOutput = true;
-				processInfoExe.RedirectStandardError = true;
-				processInfoExe.CreateNoWindow = true;
-				using (var processExe = new Process()) {
-					processExe.StartInfo = processInfoExe;
-					processExe.Start();
-					// In this example, we don't try to pass any input
-					// to the program, but that is of course also
-					// necessary. We would do that here, using
-					// processExe.StandardInput.WriteLine(), similar
-					// to above.
+			// Return true if the compile succeeded, false otherwise.
+			return System.IO.File.Exists(exeFilePath);
+		}
 
-					// TODO: Add check if there is input and if so then pass it to the program
+		public bool RunSubmission(int milestoneID, string exeFilePath, ref List<string> outputs) {
 
-					// We then read the output of the program:
-					//var lines = new List<string>();
+			var processInfoExe = new ProcessStartInfo(exeFilePath, "");
+			processInfoExe.UseShellExecute = false;
+			processInfoExe.RedirectStandardOutput = true;
+			processInfoExe.RedirectStandardError = true;
+			processInfoExe.CreateNoWindow = true;
+
+			using (var processExe = new Process()) {
+				processExe.StartInfo = processInfoExe;
+				processExe.Start();
+
+				
+				List<bool> timeLimitExceeded = new List<bool>();
+				
+				// Check if there are any inputs to be read in and if so reads them in and
+				// captures the output and puts it into a list.
+				if (_testCasesService.TestCasesByMilestoneIdHaveInput(milestoneID)) {
+					var inputs = _testCasesService.GetInputsByMilestoneId(milestoneID);
+					
+					foreach (string input in inputs) {
+						Stopwatch sw = new Stopwatch();
+						sw.Start();
+						while(sw.ElapsedMilliseconds < 200) {
+
+							processExe.StandardInput.WriteLine(input);
+							string output = "";
+							while (!processExe.StandardOutput.EndOfStream) {
+								output += processExe.StandardOutput.ReadLine() + '\n';
+							}
+							outputs.Add(output);
+
+						}
+					}
+				}
+				else {
+					// If there are no inputs to be read we simply read the output of the program.
 					string programOutput = "";
 					while (!processExe.StandardOutput.EndOfStream) {
-						//lines.Add(processExe.StandardOutput.ReadLine());
 						programOutput += processExe.StandardOutput.ReadLine() + '\n';
 					}
-
-					//ViewBag.Output = lines;
-					//Debug.WriteLine(programOutput);
-					/*foreach (String s in lines) {
-						Debug.WriteLine(s);
-					}*/
+					outputs.Add(programOutput);
 				}
-			}
 
-			// TODO: We might want to clean up after the process, there
-			// may be files we should delete etc.
+				return true;
+			}
 		}
-	}
 }

@@ -7,15 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.IO;
+using System.Diagnostics;
 
 namespace MooSharp.Services
 {
     public class MilestonesService
     {
 		private ApplicationDbContext _db;
+		private TestCasesService _testCasesService;
 
 		public MilestonesService() {
 			_db = new ApplicationDbContext();
+			_testCasesService = new TestCasesService();
 		}
 
 		public void CreateMilestone(CreateMilestoneViewModel model) {
@@ -54,6 +57,14 @@ namespace MooSharp.Services
 
 			_db.TestCases.Add(testCase);
 			_db.SaveChanges();
+
+			// Testing if input and output is saved correctly in database
+			/*var testCaseList = _testCasesService.GetTestCasesByMilestoneId(testCase.MilestoneID);
+
+			foreach (TestCase test in testCaseList) {
+				Debug.WriteLine(test.Input);
+				Debug.WriteLine(test.Output);
+			}*/
 		}
 
 		public bool MilestoneIsInDbById(int id) {
