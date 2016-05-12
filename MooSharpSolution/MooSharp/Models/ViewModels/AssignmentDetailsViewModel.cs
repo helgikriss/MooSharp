@@ -22,5 +22,6 @@ namespace MooSharp.Models.ViewModels
 		public DateTime DueDate { get; set; }
 
 		public string CourseTitle { get; set; }
+
 	}
 }

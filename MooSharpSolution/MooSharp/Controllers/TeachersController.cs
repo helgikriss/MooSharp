@@ -75,7 +75,17 @@ namespace MooSharp.Controllers
 
 			var assignmentViewModel = _assignmentsService.GetAssignmentByID(Convert.ToInt32(assignmentID));
 
-			return View(assignmentViewModel);
+			var detailsViewModel = new AssignmentDetailsCreateMilestoneViewModel() {
+				ID = assignmentViewModel.ID,
+				AssignmentTitle = assignmentViewModel.Title,
+				CourseTitle = _coursesService.GetCourseById(assignmentViewModel.CourseID).Title,
+				CourseID = assignmentViewModel.CourseID,
+				AssignmentDescription = assignmentViewModel.Description,
+				Milestones = assignmentViewModel.Milestones,
+				TotalWeightOfMilestones = _assignmentsService.GetTotalWeightOfMilestonesInAssignment(Convert.ToInt32(assignmentID))
+			};
+
+			return View(detailsViewModel);
 		}
 		
 		public ActionResult CreateMilestone(int? assignmentID) {
@@ -95,10 +105,18 @@ namespace MooSharp.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult CreateMilestone(CreateMilestoneViewModel viewModel) {
+		public ActionResult CreateMilestone(AssignmentDetailsCreateMilestoneViewModel viewModel) {
 			// TODO: gera IsValid check á viewmodel
-			var id = _milestoneService.CreateMilestone(viewModel);
-			return RedirectToAction("AssignmentDetails", new { assignmentID = id });
+			var newViewModel = new CreateMilestoneViewModel() {
+				AssignmentID = viewModel.ID,
+				AssignmentTitle = viewModel.AssignmentTitle,
+				Description = viewModel.MilestoneDescription,
+				Title = viewModel.MilestoneTitle,
+				Weight = viewModel.Weight
+			};
+
+			var id = _milestoneService.CreateMilestone(newViewModel);
+			return RedirectToAction("AssignmentDetails", new { assignmentID = viewModel.ID });
 		}
 	}
 }
