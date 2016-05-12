@@ -62,14 +62,10 @@
             <div class="loginmodal-container">
 
                 <section id="loginForm">
-                    <div id="img-box">
-                        <img src="~/Static/img/moosharp-small.png" alt="moosharp logo" width="100" id="moosharp-logo" />
-                    </div>
+                        <p class="moosharp-logo" id="login-logo">MooSharp</p>
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
                         @Html.AntiForgeryToken()
 
-                        <h1>Welcome to MooSharp</h1>
-                        <h3>Please log in</h3>
                         <br />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Username" })
@@ -77,8 +73,6 @@
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         <br />
-                        @Html.CheckBoxFor(m => m.RememberMe)
-                        @Html.LabelFor(m => m.RememberMe)
                         <input type="submit" value="Login" class="login loginmodal-submit" />
 
                         @* Enable this once you have account confirmation enabled for password reset functionality
