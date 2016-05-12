@@ -16,6 +16,11 @@ namespace MooSharp.Models
 		/// </summary>
 		public ICollection<CourseUser> CourseUsers { get; set; }
 
+		/// <summary>
+		/// Navigation property.
+		/// </summary>
+		public ICollection<Submission> Submissions { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
