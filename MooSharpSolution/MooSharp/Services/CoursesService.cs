@@ -141,7 +141,7 @@ namespace MooSharp.Services
 				return false;
 			}
 
-			var newConnection = new CourseUsers() {
+			var newConnection = new CourseUser() {
 				CourseID = courseID,
 				UserID = userID
 			};

@@ -30,19 +30,19 @@ namespace MooSharp.Utilities
 			if (!manager.RoleExists("Students")) {
 				manager.CreateRole("Students");
 			}
-
-			if (!manager.UserExists("admin")) {
+			
+			if (!manager.UserExists("administrator")) {
 				ApplicationUser admin = new ApplicationUser();
-				admin.UserName = "admin";
-				manager.CreateUser(admin, "admin");
+				admin.UserName = "administrator";
+				manager.CreateUser(admin, "administrator");
 			}
 
-			var userAdmin = manager.GetUser("admin");
+			var userAdmin = manager.GetUser("administrator");
 
 			if (!manager.UserIsInRole(userAdmin.Id, "Administrators")) {
 				manager.AddUserToRole(userAdmin.Id, "Administrators");
 			}
-
+			
 			if (!manager.UserExists("teacher")) {
 				ApplicationUser teacher = new ApplicationUser();
 				teacher.UserName = "teacher";

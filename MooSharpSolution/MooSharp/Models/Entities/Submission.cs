@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -15,17 +17,20 @@ namespace MooSharp.Models.Entities
 	{
 		/// <summary>
 		/// The database-generated unique ID of the submission.
+		/// Primary key.
 		/// </summary>
+		[Key]
 		public int ID { get; set; }
 
 		/// <summary>
-		/// The foreign key to the milestone that this submission is a part of.
+		/// Foreign key.
 		/// </summary>
-		public virtual int MilestoneID { get; set; }
+		public int MilestoneID { get; set; }
+
 		/// <summary>
-		/// The foreign key to the user that submitted this submission.
+		/// Foreign key.
 		/// </summary>
-		public virtual string UserID { get; set; }
+		public string UserID { get; set; }
 
 		/// <summary>
 		/// Contains the date and time of submission.
@@ -46,9 +51,20 @@ namespace MooSharp.Models.Entities
 		public string Status { get; set; }
 
 		/// <summary>
-		/// Contains a list of all the outputs that were obtained from running some input on it.
-		/// Each item in the list is an output from a single time the program was run.
+		/// Navigation property.
 		/// </summary>
-		public List<string> Outputs { get; set; }
+		[ForeignKey("MilestoneID")]
+		public virtual Milestone Milestone { get; set; }
+
+		/// <summary>
+		/// Navigation property.
+		/// </summary>
+		[ForeignKey("UserID")]
+		public virtual ApplicationUser User { get; set; }
+
+		/// <summary>
+		/// Navigation property.
+		/// </summary>
+		public ICollection<SubmissionTestCase> SubmissionOutputs { get; set; }
 	}
 }

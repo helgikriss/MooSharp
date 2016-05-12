@@ -31,9 +31,5 @@ namespace MooSharp.Models.ViewModels.Students
 		[Required]
 		[Display(Name = "Status")]
 		public string Status { get; set; }
-
-		[Required]
-		[Display(Name = "Outputs")]
-		public List<string> Outputs { get; set; }
 	}
 }

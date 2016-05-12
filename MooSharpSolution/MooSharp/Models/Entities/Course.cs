@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,7 +15,9 @@ namespace MooSharp.Models.Entities
     {
 		/// <summary>
 		/// The database-generated unique ID of the course.
+		/// Primary key.
 		/// </summary>
+		[Key]
 		public int ID { get; set; }
 
 		/// <summary>
@@ -28,5 +31,15 @@ namespace MooSharp.Models.Entities
 		/// Example: "Verklegt námskeið 2"
 		/// </summary>
 		public string Title { get; set; }
+
+		/// <summary>
+		/// Navigation property.
+		/// </summary>
+		public ICollection<CourseUser> CourseUsers { get; set; }
+
+		/// <summary>
+		/// Navigation property.
+		/// </summary>
+		public ICollection<Assignment> Assignments { get; set; }
 	}
 }

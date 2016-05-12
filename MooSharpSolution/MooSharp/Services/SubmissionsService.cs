@@ -24,7 +24,6 @@ namespace MooSharp.Services
 				MilestoneID = viewModel.MilestoneID,
 				UserID = viewModel.UserID,
 				SubmissionDateTime = viewModel.SubmissionDateTime,
-				Outputs = viewModel.Outputs,
 				Status = viewModel.Status,
 				SubmissionPath = viewModel.SubmissionPath
 			};

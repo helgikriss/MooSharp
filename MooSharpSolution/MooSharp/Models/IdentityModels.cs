@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -10,6 +11,11 @@ namespace MooSharp.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+		/// <summary>
+		/// Navigation property.
+		/// </summary>
+		public ICollection<CourseUser> CourseUsers { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -26,7 +32,9 @@ namespace MooSharp.Models
 		public DbSet<Milestone>  Milestones  { get; set; }
 		public DbSet<Course>     Courses     { get; set; }
 		public DbSet<Submission> Submissions { get; set; }
-		public DbSet<CourseUsers> CourseUsers { get; set; }
+		public DbSet<CourseUser> CourseUsers { get; set; }
+		public DbSet<TestCase> TestCases { get; set; }
+		public DbSet<SubmissionTestCase> SubmissionTestCases { get; set; }
 
 		public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

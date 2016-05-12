@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -12,13 +14,15 @@ namespace MooSharp.Models.Entities
     {
 		/// <summary>
 		/// The database-generated unique ID of the assignment.
+		/// Primary key.
 		/// </summary>
+		[Key]
 		public int ID { get; set; }
 
 		/// <summary>
-		/// The foreign key to the course that this assignment is a part of.
+		/// Foreign key.
 		/// </summary>
-		public virtual int CourseID { get; set; }
+		public int CourseID { get; set; }
 
 		/// <summary>
 		/// Contains the name of the assignment.
@@ -42,5 +46,16 @@ namespace MooSharp.Models.Entities
 		/// Declares when the Assignment should end
 		/// </summary>
 		public DateTime ClosingTime { get; set; }
+
+		/// <summary>
+		/// Navigation property.
+		/// </summary>
+		public virtual ICollection<Milestone> Milestones { get; set; }
+
+		/// <summary>
+		/// Navigation property.
+		/// </summary>
+		[ForeignKey("CourseID")]
+		public virtual Course Course { get; set; }
 	}
 }
