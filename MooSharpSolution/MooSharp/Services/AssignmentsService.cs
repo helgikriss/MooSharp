@@ -182,9 +182,10 @@ namespace MooSharp.Services
 			List<Milestone> milestones = _milestonesService.GetAllMilestonesByAssignmentId(id);
 
 			int totalWeight = 0;
-
-			foreach (Milestone m in milestones) {
-				totalWeight += m.Weight;
+			if (milestones != null) {
+				foreach (Milestone m in milestones) {
+					totalWeight += m.Weight;
+				}
 			}
 
 			return totalWeight;
