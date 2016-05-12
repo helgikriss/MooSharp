@@ -15,7 +15,6 @@ namespace MooSharp.Controllers
 {
     public class SubmissionsController : Controller
     {
-		// TODO: Finish SubmissionsController.
 		CoursesService _coursesService = new CoursesService();
 		MilestonesService _milestonesService = new MilestonesService();
 		AssignmentsService _assignmentsService = new AssignmentsService();

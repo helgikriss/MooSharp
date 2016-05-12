@@ -41,5 +41,12 @@ namespace MooSharp.Models.ViewModels.Teachers
 
 		[Display(Name = "TotalWeightOfMilestones")]
 		public int TotalWeightOfMilestones { get; set; }
+
+		[Display(Name = "InputFile")]
+		public HttpPostedFileBase InputFile { get; set; }
+
+		[Required]
+		[Display(Name = "OutputFile")]
+		public HttpPostedFileBase OutputFile { get; set; }
 	}
 }

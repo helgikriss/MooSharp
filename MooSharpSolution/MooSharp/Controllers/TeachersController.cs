@@ -8,6 +8,7 @@ using MooSharp.Models.ViewModels.Teachers;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 
 namespace MooSharp.Controllers
 {
@@ -89,7 +90,7 @@ namespace MooSharp.Controllers
 
 			return View(detailsViewModel);
 		}
-		
+		/*
 		public ActionResult CreateMilestone(int? assignmentID) {
 			if (!assignmentID.HasValue) {
 				throw new HttpException(400, "Bad Request");
@@ -105,32 +106,25 @@ namespace MooSharp.Controllers
 			};
 			return View(CreateMilestoneViewModel);
 		}
-
+		*/
 		[HttpPost]
-		public ActionResult CreateMilestone(AssignmentDetailsCreateMilestoneViewModel viewModel, IEnumerable<HttpPostedFileBase> files) {
-			// TODO: gera IsValid check á viewmodel
+		public ActionResult CreateMilestone(AssignmentDetailsCreateMilestoneViewModel viewModel) {
 
 			if (!ModelState.IsValid) {
 				return View(viewModel);
 			}
-
-			foreach (var file in files) {
-				if (file.ContentLength > 0) {
-					var fileName = Path.GetFileName(file.FileName);
-					var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-					file.SaveAs(path);
-				}
-			}
-
+			
 			var newViewModel = new CreateMilestoneViewModel() {
 				AssignmentID = viewModel.ID,
 				AssignmentTitle = viewModel.AssignmentTitle,
 				Description = viewModel.MilestoneDescription,
 				Title = viewModel.MilestoneTitle,
-				Weight = viewModel.Weight
+				Weight = viewModel.Weight,
+				InputFile = viewModel.InputFile,
+				OutputFile = viewModel.OutputFile
 			};
 
-			var id = _milestoneService.CreateMilestone(newViewModel);
+			_milestoneService.CreateMilestone(newViewModel);
 			return RedirectToAction("AssignmentDetails", new { assignmentID = viewModel.ID });
 		}
 	}

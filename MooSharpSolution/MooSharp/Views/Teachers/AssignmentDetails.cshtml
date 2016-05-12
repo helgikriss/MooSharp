@@ -58,44 +58,46 @@
 
 <!-- Adding Milestone Modal -->
 <div class="modal fade" id="addMilestone" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Create Milestone for @Model.AssignmentTitle</h4>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("CreateMilestone", "Teachers", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+                @using (Html.BeginForm("CreateMilestone", "Teachers", FormMethod.Post, new { @class = "form form-horizontal", role = "form", enctype = "multipart/form-data" })) {
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     <div class="form-group">
-                        @Html.LabelFor(model => model.MilestoneTitle, new { @class = "col-md-4 control-label" })
-                        <div class="col-md-8">
+                        @Html.LabelFor(model => model.MilestoneTitle, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-9">
                             @Html.TextBoxFor(model => model.MilestoneTitle, new { @class = "form-control" })
                         </div>
                     </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.MilestoneDescription, new { @class = "col-md-4 control-label" })
-                            <div class="col-md-8">
+                            @Html.LabelFor(model => model.MilestoneDescription, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-9">
                                 @Html.TextAreaFor(model => model.MilestoneDescription, new { @class = "form-control", @rows = "10" })
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
+                            <div class="col-md-9 col-md-offset-2">
                                 Total weight of milestones in @Model.AssignmentTitle is @Model.TotalWeightOfMilestones%
                             </div>
                         </div>
                         <div class="form-group">
 
-                            @Html.LabelFor(model => model.Weight, new { @class = "col-md-4 control-label" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", @min = "0", @max = "100" })
+                            @Html.LabelFor(model => model.Weight, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", @min = "0", @max = "100", @placeholder = "Enter value between 0 and 100" })
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputFile">Input:</label>
-                            <input type="file" name="files" id="inputFile" />
-                            <label for="outputFile">Expected Output:</label>
-                            <input type="file" name="files" id="outputFile" />
+                            <div class="col-md-9 col-md-offset-2">
+                                <label for="inputFile">Input:</label>
+                                <input type="file" name="InputFile" id="inputFile" /><br />
+                                <label for="outputFile">Expected Output:</label>
+                                <input type="file" name="OutputFile" id="outputFile" />
+                            </div>
                         </div>
                         <div class="form-group">
                             @Html.TextBoxFor(model => model.ID, new { @class = "form-control", @type = "hidden" })

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.IO;
 
 namespace MooSharp.Services
 {
@@ -17,7 +18,25 @@ namespace MooSharp.Services
 			_db = new ApplicationDbContext();
 		}
 
-		public int CreateMilestone(CreateMilestoneViewModel model) {
+		public void CreateMilestone(CreateMilestoneViewModel model) {
+
+			string input = "";
+			string output = "";
+
+			HttpPostedFileBase inputFile = model.InputFile;
+			HttpPostedFileBase outputFile = model.OutputFile;
+
+			if (inputFile.ContentLength > 0 || inputFile.Equals(null)) {
+				BinaryReader b = new BinaryReader(inputFile.InputStream);
+				byte[] binData = b.ReadBytes(Convert.ToInt32(inputFile.InputStream.Length));
+				input = System.Text.Encoding.UTF8.GetString(binData);
+			}
+			if (outputFile.ContentLength > 0 || outputFile.Equals(null)) {
+				BinaryReader b = new BinaryReader(outputFile.InputStream);
+				byte[] binData = b.ReadBytes(Convert.ToInt32(outputFile.InputStream.Length));
+				output = System.Text.Encoding.UTF8.GetString(binData);
+			}
+
 			var milestone = new Milestone() {
 				Description = model.Description,
 				AssignmentID = model.AssignmentID,
@@ -27,7 +46,14 @@ namespace MooSharp.Services
 			_db.Milestones.Add(milestone);
 			_db.SaveChanges();
 
-			return model.AssignmentID;
+			var testCase = new TestCase() {
+				MilestoneID = _db.Milestones.Max(item => item.ID),
+				Input = input,
+				Output = output
+			};
+
+			_db.TestCases.Add(testCase);
+			_db.SaveChanges();
 		}
 
 		public bool MilestoneIsInDbById(int id) {
