@@ -3,7 +3,11 @@
     font-family: 'Roboto'; 
     src: url('Roboto-Regular.ttf'); 
 }
-
+@font-face
+{
+    font-family: 'Lobster'; 
+    src: url("Lobster 1.4.otf") ;
+}
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -226,12 +230,13 @@ div#img-box{
 }
 
 .navbar-default {
-    background-color:#;
+    background-color:black;
 }
 
 .navbar-default {
-    background-color: #4b4b4b;
-    border-color: #4b4b4b;
+    background-color: black;
+    border-color: #2c2c2c;
+    border-bottom: none;
 }
 
 
@@ -252,7 +257,28 @@ div#img-box{
     color: white;
 }
 
-navbar a {
-    color: rgba(0, 0, 0, 0.3);
+#sidebar a {
+    color: #2E2E2E;
 }
+#moosharp-logo {
+    font-family: Lobster;
+    font-size: 32px;
+    margin-top: auto;
+    color: #d71921;
+    text-decoration:none;
+    text-shadow: 1px 1px #101010;
+}
+#moosharp-logo:hover {
+    text-decoration: none;
+    color: #e9343b;
+}
+.navbar-header a:hover,.navbar-header a:visited,.navbar-header a:link,.navbar-header a:active
+{
+    text-decoration: none;
+}
+#navbar {
+    background-color: #353535;
+    padding-top:5px;
+}
+
 

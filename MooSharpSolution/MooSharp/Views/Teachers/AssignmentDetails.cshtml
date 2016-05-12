@@ -37,9 +37,9 @@
 <div>
 @if (Model.Milestones.Count > 0) {
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation"class="active"><a data-target="@("#" + Model.Milestones[0].ID)" aria-controls="home" role="tab" data-toggle="tab">@("1. " + Model.Milestones[0].Title)</a></li>
+        <li role="presentation"class="active"><a data-target="@("#" + Model.Milestones[0].ID)" aria-controls="home" role="tab" data-toggle="tab">@("1. " + Model.Milestones[0].Title + " (" + Model.Milestones[0].Weight + "%)")</a></li>
         @for (var i = 1; i < Model.Milestones.Count; i++) {
-            <li role="presentation"><a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i+1) + ". " + Model.Milestones[i].Title)</a></li>
+            <li role="presentation"><a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i+1) + ". " + Model.Milestones[i].Title + " (" + Model.Milestones[i].Weight + "%)")</a></li>
         }
     </ul>
 <!--Tab headers end-->
