@@ -16,7 +16,7 @@ namespace MooSharp.Models.Entities
 		public int ID { get; set; }
 
 		/// <summary>
-		/// Foreign ke.
+		/// Foreign key.
 		/// </summary>
 		public int MilestoneID { get; set; }
 
