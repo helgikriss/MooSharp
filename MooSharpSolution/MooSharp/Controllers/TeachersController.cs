@@ -6,6 +6,8 @@ using MooSharp.Services;
 using MooSharp.Utilities;
 using MooSharp.Models.ViewModels.Teachers;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
+using System.IO;
 
 namespace MooSharp.Controllers
 {
@@ -105,8 +107,21 @@ namespace MooSharp.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult CreateMilestone(AssignmentDetailsCreateMilestoneViewModel viewModel) {
+		public ActionResult CreateMilestone(AssignmentDetailsCreateMilestoneViewModel viewModel, IEnumerable<HttpPostedFileBase> files) {
 			// TODO: gera IsValid check á viewmodel
+
+			if (!ModelState.IsValid) {
+				return View(viewModel);
+			}
+
+			foreach (var file in files) {
+				if (file.ContentLength > 0) {
+					var fileName = Path.GetFileName(file.FileName);
+					var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+					file.SaveAs(path);
+				}
+			}
+
 			var newViewModel = new CreateMilestoneViewModel() {
 				AssignmentID = viewModel.ID,
 				AssignmentTitle = viewModel.AssignmentTitle,
