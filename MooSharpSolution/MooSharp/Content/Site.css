@@ -48,13 +48,14 @@ textarea {
   padding: 30px;
   max-width: 450px;
   width: 100% !important;
-  background-color: #F7F7F7;
+  background-color: rgba(0, 0, 0, 0);
   margin: auto auto;
   margin-top: 40%;
   border-radius: 2px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  /*box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);*/
   overflow: hidden;
   font-family: Roboto;
+  border: none;
 }
 
 .loginmodal-container h1 {
@@ -149,11 +150,29 @@ textarea {
 }
 #loginForm input[type=submit] {
     font-family: Roboto;
+    background-color:#d71921;
+    border-radius: 4px;
+    width: 50%;
+    margin: auto auto;
+    vertical-align: middle;
+    box-shadow:rgba(0,0,0,0.3) 2px 3px;
 }
 #loginForm label {
     font-family: Roboto;
     font-weight: normal;
     margin-left: 10px;
+}
+#loginForm input[type=text]{
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+}
+#loginForm input[type=password]{
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+}
+#loginForm .text-danger {
+    color: #d71921;
+    font-weight: bold;
 }
 /*Youtube background video on login screen*/
 
@@ -260,7 +279,7 @@ div#img-box{
 #sidebar a {
     color: #2E2E2E;
 }
-#moosharp-logo {
+.moosharp-logo {
     font-family: Lobster;
     font-size: 32px;
     margin-top: auto;
@@ -268,7 +287,7 @@ div#img-box{
     text-decoration:none;
     text-shadow: 1px 1px #101010;
 }
-#moosharp-logo:hover {
+.moosharp-logo:hover {
     text-decoration: none;
     color: #e9343b;
 }
@@ -279,6 +298,10 @@ div#img-box{
 #navbar {
     background-color: #353535;
     padding-top:5px;
+}
+#login-logo {
+    text-align: center;
+    font-size: 50px;
 }
 
 
