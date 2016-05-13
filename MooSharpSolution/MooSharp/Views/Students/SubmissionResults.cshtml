@@ -5,24 +5,15 @@
     ViewBag.Title = "SubmissionResults";
 }
 
-<h2>SubmissionResults</h2>
+<h2>Submission Results</h2>
 
-@model MooSharp.Models.ViewModels.AssignmentDetailsViewModel
-
-@using MooSharp.Models.ViewModels
-
-@{
-    ViewBag.Title = "AssignmentDetails";
-}
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <h1> @Model.Title</h1>
 <hr />
 
 <h4>Course ID: @Model.CourseID</h4>
-<h4>Assignment Description</h4>
-<p>@Model.Description</p>
 <hr />
-<h4>Milestones</h4>
+<h4>Test cases</h4>
 
 <div>
     @if (Model.Milestones.Count > 0)

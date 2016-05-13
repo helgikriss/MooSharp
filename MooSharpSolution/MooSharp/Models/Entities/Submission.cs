@@ -40,7 +40,7 @@ namespace MooSharp.Models.Entities
 
 		/// <summary>
 		/// Contains the path to the submitted file.
-		/// Example: "~\submissions\user\hello.cpp"
+		/// Example: "~\submissions\user\assignment\milestone\hello.cpp"
 		/// </summary>
 		public string SubmissionPath { get; set; }
 
