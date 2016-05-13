@@ -4,12 +4,12 @@
     ViewBag.Title = "AssignmentDetails";
 }
 
-<h1> @Model.AssignmentTitle</h1>
+<h1> @Model.AssignmentTitle - @Model.CourseTitle</h1>
 <hr />
-
-<h4>@Model.CourseTitle</h4>
-<h4>Assignment Description</h4>
+<br />
+<h3>Assignment Description</h3>
 <p>@Model.AssignmentDescription</p>
+<br />
 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addMilestone">Create Milestone</button>
 <br /><br />
 <h4>Milestones</h4>
