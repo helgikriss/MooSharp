@@ -1,0 +1,80 @@
+﻿@model MooSharp.Models.ViewModels.Students.SubmissionResultsViewModel
+@using MooSharp.Models.ViewModels
+
+@{
+    ViewBag.Title = "SubmissionResults";
+}
+
+<h2>SubmissionResults</h2>
+
+@model MooSharp.Models.ViewModels.AssignmentDetailsViewModel
+
+@using MooSharp.Models.ViewModels
+
+@{
+    ViewBag.Title = "AssignmentDetails";
+}
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<h1> @Model.Title</h1>
+<hr />
+
+<h4>Course ID: @Model.CourseID</h4>
+<h4>Assignment Description</h4>
+<p>@Model.Description</p>
+<hr />
+<h4>Milestones</h4>
+
+<div>
+    @if (Model.Milestones.Count > 0)
+    {
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a data-target="@("#" + Model.Milestones[0].ID)" aria-controls="home" role="tab" data-toggle="tab">@("1. " + Model.Milestones[0].Title)</a></li>
+            @for (var i = 1; i < Model.Milestones.Count; i++)
+            {
+
+                <li role="presentation"><a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i + 1) + ". " + Model.Milestones[i].Title)</a></li>
+
+            }
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="@Model.Milestones[0].ID">
+                <br />
+                <p>@Model.Milestones[0].Description</p>
+                @using (Html.BeginForm("UploadSubmission", "Submissions", FormMethod.Post, new { @class = "form form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                {
+                    <label for="file">Upload file for this milestone:</label>
+                    <input type="file" name="file" id="file" /> <br />
+                    <input type="submit" class="btn btn-default" value="Submit" />
+                    <input name="ID" id="ID" value="@Model.ID" hidden />
+                    <input name="CourseID" id="CourseID" value="@Model.CourseID" hidden />
+                    <input name="MilestoneID" id="MilestoneID" value="@Model.Milestones[0].ID" hidden />
+                }
+
+            </div>
+            @for (var i = 1; i < Model.Milestones.Count; i++)
+            {
+
+                <div role="tabpanel" class="tab-pane" id="@Model.Milestones[i].ID">
+                    <br />
+                    <p>@Model.Milestones[i].Description</p>
+                    @if (DateTime.Compare(Model.DueDate, DateTime.Today) > 0)
+                    {
+                        using (Html.BeginForm("UploadSubmission", "Submissions", FormMethod.Post, new { @class = "form form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                        {
+                            <label for="file">Upload file for this milestone:</label>
+                            <input type="file" name="file" id="file" /> <br />
+                            <input type="submit" class="btn btn-default" value="Submit" />
+                            <input name="ID" id="ID" value="@Model.ID" hidden />
+                            <input name="CourseID" id="CourseID" value="@Model.CourseID" hidden />
+                            <input name="MilestoneID" id="MilestoneID" value="@Model.Milestones[i].ID" hidden />
+                        }
+                    }
+                </div>
+            }
+        </div>
+    }
+    else {
+        <p class="text-danger">No milestones exist for this assignment</p>
+    }
+</div>
