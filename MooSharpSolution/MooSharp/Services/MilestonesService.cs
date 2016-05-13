@@ -35,12 +35,14 @@ namespace MooSharp.Services
 				BinaryReader b = new BinaryReader(model.InputFile.InputStream);
 				byte[] binData = b.ReadBytes(Convert.ToInt32(model.InputFile.InputStream.Length));
 				input = System.Text.Encoding.UTF8.GetString(binData);
+				input = input.Replace(System.Environment.NewLine, "\n");
 				inputFileIncluded = true;
 			}
 			if (model.OutputFile != null && model.OutputFile.ContentLength > 0) {
 				BinaryReader b = new BinaryReader(model.OutputFile.InputStream);
 				byte[] binData = b.ReadBytes(Convert.ToInt32(model.OutputFile.InputStream.Length));
 				output = System.Text.Encoding.UTF8.GetString(binData);
+				output = output.Replace(System.Environment.NewLine, "\n");
 			}
 
 			var milestone = new Milestone() {
