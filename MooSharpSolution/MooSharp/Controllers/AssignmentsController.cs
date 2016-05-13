@@ -7,18 +7,21 @@ using System.Web.Mvc;
 
 namespace MooSharp.Controllers
 {
+	/// <summary>
+	/// This class handles all controls for assignments.
+	/// </summary>
     public class AssignmentsController : Controller
     {
 		private AssignmentsService _service = new AssignmentsService();
-
-		// GET: Assignments
-		public ActionResult Index()
-        {
+		
+		public ActionResult Index() {
             return View();
         }
 
-		public ActionResult Details(int id)
-		{
+		/// <summary>
+		/// Returns AssignmentViewModel.
+		/// </summary>
+		public ActionResult Details(int id) {
 			var viewModel = _service.GetAssignmentByID(id);
 
 			return View(viewModel);
