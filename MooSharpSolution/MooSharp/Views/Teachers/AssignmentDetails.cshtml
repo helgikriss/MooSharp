@@ -174,8 +174,8 @@
 
     $(document).ready(function () {
         $("button#delete-milestone").click(function () {
-            var assID = (this.value);
-            $.post('@Url.Action("DeleteMilestone", "Teachers")', { assignmentID: assID });
+            var mileID = (this.value);
+            $.post('@Url.Action("DeleteMilestone", "Teachers")', { milestoneID: mileID });
             location.reload();
         });
 
