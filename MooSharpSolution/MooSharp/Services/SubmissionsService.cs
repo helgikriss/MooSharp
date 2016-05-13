@@ -39,8 +39,6 @@ namespace MooSharp.Services
 			List<bool> memoryError = new List<bool>();
 			List<string> memoryErrorOutputs = new List<string>();
 
-			string status = "";
-
 			bool compileSuccess = CompileSubmission(viewModel, ref compileOutput, ref exeFilePath);
 			if (compileSuccess) {
 				// Run program.
@@ -85,7 +83,7 @@ namespace MooSharp.Services
 
 			int submissionID = _db.Submissions.Max(item => item.ID);
 
-			_testCasesService.CreateSubmissionTestCases(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, ref outputs, /*ref memoryErrorOutputs,*/ submissionID, numberOfTestCases);
+			_testCasesService.CreateSubmissionTestCases(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, ref outputs, /*ref memoryErrorOutputs,*/ submissionID, numberOfTestCases, viewModel.MilestoneID);
 
 			return submissionID;
 		}
@@ -222,8 +220,22 @@ namespace MooSharp.Services
 			return ACCEPTED;
 		}
 
-		/*public SubmissionResultsViewModel GetSubmissionById(int submissionID) {
+		public SubmissionResultsViewModel GetSubmissionById(int submissionID) {
+			var submission = (from sub in _db.Submissions
+							  where sub.ID == submissionID
+							  select sub).FirstOrDefault();
 
-		}*/
+			var submissionResultsViewModel = new SubmissionResultsViewModel() {
+				ID = submission.ID,
+				MilestoneID = submission.MilestoneID,
+				Status = submission.Status,
+				Compiled = submission.Compiled,
+				CompilerOutput = submission.CompilerOutput,
+				SubmissionDateTime = submission.SubmissionDateTime,
+				UserID = submission.UserID,
+				SubmissionTestCases = _testCasesService.GetSubmissionTestCasesBySubmissionId(submissionID)
+			};
+			return submissionResultsViewModel;
+		}
 	}
 }
