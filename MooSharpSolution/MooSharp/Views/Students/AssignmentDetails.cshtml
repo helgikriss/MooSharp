@@ -41,7 +41,7 @@
                     }
                 }
                 else {
-                    <p class="text-danger"> Skilafrestur er útrunninn</p>
+                    <p class="text-danger"> Due date has exceded</p>
                 }
 
             </div>
@@ -50,6 +50,7 @@
                 <div role="tabpanel" class="tab-pane" id="@Model.Milestones[i].ID">
                     <br />
                     <p>@Model.Milestones[i].Description</p>
+
                     @if (DateTime.Compare(Model.DueDate, DateTime.Now) >= 0){
 
                         using (Html.BeginForm("UploadSubmission", "Submissions", FormMethod.Post, new { @class = "form form-horizontal", role = "form", enctype = "multipart/form-data" })) {
@@ -62,7 +63,7 @@
                         }
                     }
                     else {
-                        <p class="text-danger"> Skilafrestur er útrunninn</p>
+                        <p class="text-danger"> Due date has exceded</p>
                     }
                 </div>
     }

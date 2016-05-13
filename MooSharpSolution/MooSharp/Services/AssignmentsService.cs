@@ -37,7 +37,10 @@ namespace MooSharp.Services
                     CourseID = a.CourseID,
                     Description = a.Description,
                     Title = a.Title,
-                    ID = a.ID
+                    ID = a.ID,
+					OpeningDate = a.OpeningTime,
+					DueDate = a.ClosingTime
+
                 };
                 viewModels.Add(viewModel);   
             }
