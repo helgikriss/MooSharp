@@ -90,6 +90,11 @@ namespace MooSharp.Controllers
 				Title = assignmentViewModel.Title
 			};
 
+			// Sort submissions by date
+			foreach(MilestoneViewModel milestone in viewModel.Milestones) {
+				milestone.Submissions.Sort((y, x) => DateTime.Compare(x.SubmissionDateTime, y.SubmissionDateTime));
+			}
+
 			return View(viewModel);
 		}
 
