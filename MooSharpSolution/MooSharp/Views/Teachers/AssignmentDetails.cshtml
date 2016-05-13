@@ -90,7 +90,7 @@
                             @for (var j = 0; j < Model.Milestones[i].Submissions.Count; j++) {
                                 <tr>
                                     <td>@Model.Milestones[i].Submissions[j].UserName</td>
-                                    <td>@Html.ActionLink("Submission " + count, "SubmissionResults", new { submissionID = Model.Milestones[0].Submissions[i].ID })</td>
+                                    <td>@Html.ActionLink("Submission " + count, "SubmissionResults", new { submissionID = Model.Milestones[i].Submissions[j].ID })</td>
                                     <td>@Model.Milestones[i].Submissions[j].Status</td>
                                     <td>@Model.Milestones[i].Submissions[j].SubmissionDateTime</td>
                                 </tr>count2--;

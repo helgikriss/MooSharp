@@ -5,58 +5,79 @@
     ViewBag.Title = "SubmissionResults";
 }
 
-<h2>Submission Results</h2>
-<a href="~/Models/ViewModels/Students/SubmissionResultsViewModel.cs">~/Models/ViewModels/Students/SubmissionResultsViewModel.cs</a>
+<h1>Submission Results</h1>
+<hr />
+
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<h1> @Model.ID</h1>
+<h2> @Model.AssignmentTitle</h2>
+<h3>Milestone: @Model.MilestoneTitle</h3>
 <hr />
+@if (Model.Compiled == false) {
+    <p>Compile failed:</p>
+    <p class="text-danger">@Model.CompilerOutput</p>
+}
+else {
+    <p class="text-success">Compile succeeded</p>
+    <br />
 
-<h4>Milestone ID: @Model.MilestoneID</h4>
-<hr />
-<h4>Test cases</h4>
+    <div>
+        <!-- Tab headers-->
+        @if (Model.SubmissionTestCases.Count > 0) {
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a data-target="@("#" + Model.SubmissionTestCases[0].ID)" aria-controls="home" role="tab" data-toggle="tab">Test case 1</a></li>
+                @for (var i = 1; i < Model.SubmissionTestCases.Count; i++) {
 
-<div>
-    <!--Tab headers-->
-    @if (Model.SubmissionTestCases.Count > 0)
-    {
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a data-target="@("#" + Model.SubmissionTestCases[0].ID)" aria-controls="home" role="tab" data-toggle="tab">Test case 1</a></li>
-            @for (var i = 1; i < Model.SubmissionTestCases.Count; i++)
-            {
-               <li role="presentation"><a data-target="@("#" + Model.SubmissionTestCases[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@("Test case" + i+1)</a></li>
-            }
-        </ul>
-        <!--Tab headers end-->
-        <!--Tab content-->
-      <!--  <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="@Model.SubmissionTestCase[0].ID">
-                <br />
-            </div>
+                    <li role="presentation"><a data-target="@("#" + Model.SubmissionTestCases[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@("Test case" + i + 1)</a></li>
 
-            @for (var i = 1; i < Model.SubmissionTestCaes.Count; i++)
-            {
+                }
+            </ul>
+    <!-- Tab headers end-->
 
-                <div role="tabpanel" class="tab-pane" id="@Model.Milestones[i].ID">
+    <!-- Tab Content -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="@Model.SubmissionTestCases[0].ID">
                     <br />
-                    <p>@Model.Milestones[i].Description</p>
-                    @if (DateTime.Compare(Model.DueDate, DateTime.Today) > 0)
-                    {
-                        using (Html.BeginForm("UploadSubmission", "Submissions", FormMethod.Post, new { @class = "form form-horizontal", role = "form", enctype = "multipart/form-data" }))
-                        {
-                            <label for="file">Upload file for this milestone:</label>
-                            <input type="file" name="file" id="file" /> <br />
-                            <input type="submit" class="btn btn-default" value="Submit" />
-                            <input name="ID" id="ID" value="@Model.ID" hidden />
-                            <input name="CourseID" id="CourseID" value="@Model.CourseID" hidden />
-                            <input name="MilestoneID" id="MilestoneID" value="@Model.Milestones[i].ID" hidden />
-                        }
-                    }
+                    <h4>Time limit:</h4>
+                    @if (@Model.SubmissionTestCases[0].TimeLimitExceeded == true) {
+                        <p class="text-danger">Time limit exceeded</p>
+}
+                    else {
+                        <p class="text-success">Execution was within the time limit</p>
+                        <hr />
+                        <h4>Output:</h4>if (Model.SubmissionTestCases[0].WrongOutput == true) {
+                            <p class="text-danger">Wrong Output. See output below</p>
+                            <div class="col-md-6">
+                                <h5><strong>Obtained output</strong></h5>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><strong>Expected Output</strong></h5>
+                            </div>
+                            <div class="well col-md-6">
+                                @Model.SubmissionTestCases[0].Output
+                            </div>
+                            <div class="well col-md-6">
+                                @Model.SubmissionTestCases[0].ExpectedOutput
+                            </div>
+}
+                        else {
+                            <p class="text-success">Output was correct. Congratulations!</p>
+}
+                        <hr />
+}
+
                 </div>
-            }
-        </div>
-    }
-    else {
-        <p class="text-danger">No milestones exist for this assignment</p>
-    }
-    <!--Tab content end-->
-</div>
+                @for (var i = 1; i < Model.SubmissionTestCases.Count; i++) {
+
+                    <div role="tabpanel" class="tab-pane" id="@Model.SubmissionTestCases[i].ID">
+                        <br />
+
+                    </div>
+}
+            </div>
+        }
+        else {
+            <p class="text-danger">No submissions exist for this assignment</p>
+        }
+        <!-- Tab Content End -->
+    </div>
+}
