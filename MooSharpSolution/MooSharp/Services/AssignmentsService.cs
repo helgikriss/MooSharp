@@ -14,11 +14,13 @@ namespace MooSharp.Services
 	{
 		private IAppDataContext _db;
 		private MilestonesService _milestonesService;
+		private CoursesService _coursesService;
 
 		public AssignmentsService()
 		{
 			_db = new ApplicationDbContext();
 			_milestonesService = new MilestonesService();
+			_coursesService = new CoursesService();
 		}
 		public AssignmentsService(IAppDataContext context) {
 			_db = context;
@@ -83,7 +85,7 @@ namespace MooSharp.Services
 				Title = assignment.Title,
 				CourseID = assignment.CourseID,
 				Description = assignment.Description,
-				CourseTitle = assignment.Title,
+				CourseTitle = _coursesService.GetCourseById(assignment.CourseID).Title,
 				DueDate = assignment.ClosingTime,
 				OpeningDate = assignment.OpeningTime,
 				Milestones = milestones
