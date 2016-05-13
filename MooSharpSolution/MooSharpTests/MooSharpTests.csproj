@@ -71,8 +71,10 @@
   <ItemGroup>
     <Compile Include="FakeDataBase.cs" />
     <Compile Include="InMemoryDbSet.cs" />
+    <Compile Include="Services\CoursesServiceTest.cs" />
+    <Compile Include="Services\AssignmentsServiceTest.cs" />
+    <Compile Include="Services\MilestonesServiceTest.cs" />
     <Compile Include="Services\UserServicesTest.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

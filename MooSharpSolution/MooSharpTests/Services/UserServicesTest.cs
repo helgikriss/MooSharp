@@ -75,16 +75,13 @@ namespace MooSharpTests.Services
 		}
 		[TestMethod]
 		public void TestGetAllUsers() {
-			//Arrange:
+			// Arrange:
+			// Nothing to arrange
 
-			//Nothing to arrange
-
-			//Act:
-
+			// Act:
 			var result = _service.GetAllUsers();
 
-			//Assert:
-
+			// Assert:
 			Assert.AreEqual(3, result.Count);
 		}
 	}
