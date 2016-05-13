@@ -63,7 +63,8 @@ namespace MooSharp.Controllers
 
 			var course = _coursesService.GetCourseById(Convert.ToInt32(id));
 			course.Assignments.Sort((y, x) => DateTime.Compare(x.DueDate, y.DueDate));
-
+			course.Assignments = course.Assignments
+								.Where(x => DateTime.Compare(x.OpeningDate, DateTime.Today) <= 0).ToList();
 			return View(course);
 		}
 
