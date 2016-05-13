@@ -80,7 +80,7 @@ namespace MooSharp.Controllers
 				System.IO.File.Delete(objFileFullPath);
 			}
 
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction("AssignmentDetails", "Students", new { assignmentID = assignmentID });
 		}
 	}
 }
