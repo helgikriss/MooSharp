@@ -12,6 +12,9 @@ using MooSharp.Models;
 
 namespace MooSharp.Controllers
 {
+    /// <summary>
+    /// This class handles all control for accounts
+    /// </summary>
     [Authorize]
     public class AccountController : Controller
     {
