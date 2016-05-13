@@ -9,11 +9,11 @@ using System.Web.Security;
 
 namespace MooSharp.Controllers
 {
+
 	public class HomeController : Controller
 	{
 		[Authorize]
-		public ActionResult Index()
-		{
+		public ActionResult Index() {
 			var manager = new IdentityManager();
 
 			string id = User.Identity.GetUserId().ToString();

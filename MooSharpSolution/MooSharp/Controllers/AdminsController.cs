@@ -86,6 +86,9 @@ namespace MooSharp.Controllers
 			return View(viewModel);
 		}
 
+		/// <summary>
+		/// Returns ConnectUserToCourseViewModel.
+		/// </summary>
 		public ActionResult ConnectUserToCourse() {
 
 			var viewModel = new ConnectUserToCourseViewModel() {
@@ -96,6 +99,9 @@ namespace MooSharp.Controllers
 			return View(viewModel);
 		}
 
+		/// <summary>
+		/// Connects User to course.
+		/// </summary>
 		[HttpPost]
 		public ActionResult ConnectUserToCourse(ConnectUserToCourseViewModel viewModel) {
 
@@ -109,6 +115,9 @@ namespace MooSharp.Controllers
 			return RedirectToAction("Index");
 		}
 
+		/// <summary>
+		/// Returns ConnectTeacherToCourseViewModel.
+		/// </summary>
 		public ActionResult ConnectTeacherToCourse(int? courseID) {
 			if (!courseID.HasValue) {
 				throw new HttpException(400, "Bad Request");
@@ -127,6 +136,9 @@ namespace MooSharp.Controllers
 			return View(viewModel);
 		}
 
+		/// <summary>
+		/// Connects TeacherToCourse.
+		/// </summary>
 		[HttpPost]
 		public ActionResult ConnectTeacherToCourse(ConnectTeacherToCourseViewModel viewModel) {
 			if (!_coursesService.ConnectUserToCourse(viewModel.UserID, viewModel.CourseID)) {
