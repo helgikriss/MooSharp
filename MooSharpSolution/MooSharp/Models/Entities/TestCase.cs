@@ -31,6 +31,11 @@ namespace MooSharp.Models.Entities
 		public string Output { get; set; }
 
 		/// <summary>
+		/// True if Test Case has input to be read in.
+		/// </summary>
+		public bool HasInput { get; set; }
+
+		/// <summary>
 		/// Navigation property.
 		/// </summary>
 		[ForeignKey("MilestoneID")]

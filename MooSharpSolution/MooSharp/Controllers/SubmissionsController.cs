@@ -60,7 +60,7 @@ namespace MooSharp.Controllers
 
 			int submissionID = _submissionsService.CreateSubmission(submissionViewModel);
 
-			var submission = _submissionsService.GetSubmissionById(submissionID);
+			/*var submissionResultsViewModel = _submissionsService.GetSubmissionById(submissionID);*/
 
 			return RedirectToAction("Index", "Home");
 		}

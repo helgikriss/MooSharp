@@ -7,6 +7,6 @@ namespace MooSharp.Models.ViewModels.Students
 {
 	public class SubmissionResultsViewModel
 	{
-		// TODO: Finish this ViewModel.
+		
 	}
 }

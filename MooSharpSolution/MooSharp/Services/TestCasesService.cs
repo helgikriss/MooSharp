@@ -37,19 +37,21 @@ namespace MooSharp.Services
 		}
 
 		public bool TestCasesByMilestoneIdHaveInput(int id) {
-			var inputs = GetInputsByMilestoneId(id);
+			bool hasInput = (from i in _db.TestCases
+							where i.MilestoneID == id
+							select i.HasInput).FirstOrDefault();
 
-			return inputs.Any();
+			return hasInput;
 		}
 
-		public void CreateSubmissionTestCases(ref List<bool> timeLimitExceeded, ref List<bool> memoryError, ref List<bool> wrongOutputs, ref List<string> outputs, ref List<string> memoryErrorOutput, int submissionID, int numberOfTestCases) {
+		public void CreateSubmissionTestCases(ref List<bool> timeLimitExceeded, /*ref List<bool> memoryError,*/ ref List<bool> wrongOutputs, ref List<string> outputs, /*ref List<string> memoryErrorOutput,*/ int submissionID, int numberOfTestCases) {
 			for(int i = 0; i < numberOfTestCases; i++) {
 				var submissionTestCase = new SubmissionTestCase() {
 					TimeLimitExceeded = timeLimitExceeded[i],
-					MemoryError = memoryError[i],
+					/*MemoryError = memoryError[i],*/
 					WrongOutput = wrongOutputs[i],
 					Output = outputs[i],
-					MemoryErrorOutput = memoryErrorOutput[i],
+					/*MemoryErrorOutput = memoryErrorOutput[i],*/
 					SubmissionID = submissionID
 				};
 				_db.SubmissionTestCases.Add(submissionTestCase);

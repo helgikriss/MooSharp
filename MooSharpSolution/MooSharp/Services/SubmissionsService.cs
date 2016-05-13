@@ -72,7 +72,7 @@ namespace MooSharp.Services
 			var submission = new Submission() {
 				Compiled = true,
 				CompilerOutput = compileOutput,
-				Status = GetStatusOfSubmission(ref timeLimitExceeded, ref memoryError, ref wrongOutput, numberOfTestCases),
+				Status = GetStatusOfSubmission(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, numberOfTestCases),
 				MilestoneID = viewModel.MilestoneID,
 				SubmissionDateTime = viewModel.SubmissionDateTime,
 				SubmissionPath = viewModel.SubmissionPath,
@@ -84,7 +84,7 @@ namespace MooSharp.Services
 
 			int submissionID = _db.Submissions.Max(item => item.ID);
 
-			_testCasesService.CreateSubmissionTestCases(ref timeLimitExceeded, ref memoryError, ref wrongOutput, ref outputs, ref memoryErrorOutputs, submissionID, numberOfTestCases);
+			_testCasesService.CreateSubmissionTestCases(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, ref outputs, /*ref memoryErrorOutputs,*/ submissionID, numberOfTestCases);
 
 			return submissionID;
 		}
@@ -206,19 +206,23 @@ namespace MooSharp.Services
 			}
 		}
 
-		public string GetStatusOfSubmission(ref List<bool> timeLimitExceeded, ref List<bool> memoryError, ref List<bool> wrongOutput, int numberOfTestCases) {
+		public string GetStatusOfSubmission(ref List<bool> timeLimitExceeded, /*ref List<bool> memoryError,*/ ref List<bool> wrongOutput, int numberOfTestCases) {
 			for(int i = 0; i < numberOfTestCases; i++) {
 				if(timeLimitExceeded[i] == true) {
 					return TIMELIMIT_EXCEEDED;
 				}
-				else if(memoryError[i] == true) {
+				/*else if(memoryError[i] == true) {
 					return MEMORY_ERROR;
-				}
+				}*/
 				else if(wrongOutput[i] == true) {
 					return WRONG_OUTPUT;
 				}
 			}
 			return ACCEPTED;
 		}
+
+		/*public SubmissionResultsViewModel GetSubmissionById(int submissionID) {
+
+		}*/
 	}
 }
