@@ -26,7 +26,9 @@
                 <li role="presentation">
                     <a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i + 1) + ". " + Model.Milestones[i].Title + " (" + Model.Milestones[i].Weight + "%)")</a>
                 </li>
-}
+            }
+            <li role="presentation" class="">
+                <a data-target="#addMilestone"aria-controls="home" role="tab" data-toggle="modal">+</a></li>
         </ul>
         <!--Tab headers end-->
 
