@@ -11,7 +11,7 @@ namespace MooSharp.Models.ViewModels.Students
 
 		public int MilestoneID { get; set; }
 
-		public int UserID { get; set; }
+		public string UserID { get; set; }
 		
 		public DateTime SubmissionDateTime { get; set; }
 
@@ -21,7 +21,7 @@ namespace MooSharp.Models.ViewModels.Students
 
 		public string CompilerOutput { get; set; }
 
-		List<SubmissionTestCaseViewModel> SubmissionTestCases { get; set; }
+		public List<SubmissionTestCaseViewModel> SubmissionTestCases { get; set; }
 
 
 	}
