@@ -18,7 +18,7 @@ namespace MooSharp.Models.ViewModels
 
 		public List<MilestoneViewModel> Milestones { get; set; }
 
-		public DateTime OpeningTime { get; set; }
+		public DateTime OpeningDate { get; set; }
 
         public DateTime DueDate { get; set; }
 
