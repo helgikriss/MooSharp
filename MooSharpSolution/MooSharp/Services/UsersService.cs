@@ -9,12 +9,16 @@ using System.Web;
 namespace MooSharp.Services
 {
 	public class UsersService {
-		private ApplicationDbContext _db;
+		private readonly IAppDataContext _db;
 		private IdentityManager _manager;
 
 		public UsersService() {
 			_db = new ApplicationDbContext();
 			_manager = new IdentityManager();
+		}
+		
+		public UsersService(IAppDataContext context) {
+			_db = context;
 		}
 		/// <summary>
 		/// GetAllUsers() gets a list of all users in the database and their roles
@@ -23,18 +27,21 @@ namespace MooSharp.Services
 		public List<UserViewModel> GetAllUsers() {
 			var users = _db.Users.ToList();
 			var viewmodels = new List<UserViewModel>();
-
 			foreach (ApplicationUser user in users) {
 				var viewmodel = new UserViewModel() {
 					userId = user.Id,
 					email = user.Email,
 					username = user.UserName,
-					roles = _manager.GetUserRoles(user.Id).ToList()
-				};
+					roles = (from roles in _db.Roles
+							join connection in _db.UserRoles on roles.Id equals connection.RoleId
+							where user.Id == connection.UserId
+							select roles.Name.ToString()).ToList()
+			};
 				viewmodels.Add(viewmodel);
 			}
 			return viewmodels;
 		}
+		
 
 		public List<UserViewModel> GetAllTeachers() {
 			var users = _db.Users.ToList();
@@ -68,7 +75,7 @@ namespace MooSharp.Services
 			if (_manager.UserExists(viewModel.UserName)) {
 				return false;
 			}
-
+			ApplicationUser user = new ApplicationUser();
 			ApplicationUser newUser = new ApplicationUser();
 			newUser.UserName = viewModel.UserName;
 			newUser.Email = viewModel.Email;
@@ -138,7 +145,8 @@ namespace MooSharp.Services
 		}
 
 		public List<UserViewModel> GetStudentsByCourse(int courseID) {
-			if (_db.Courses.Find(courseID) == null) {
+			var course = _db.Courses.Where(x => x.ID == courseID).FirstOrDefault();
+			if (course == null) {
 				throw new HttpException(400, "Bad Request");
 			}
 
@@ -150,7 +158,11 @@ namespace MooSharp.Services
 			var viewModels = new List<UserViewModel>();
 
 			foreach (ApplicationUser u in users) {
-				var role = _manager.GetUserRoles(u.Id).ToList();
+				var role = (from roles in _db.Roles
+							join connection in _db.UserRoles on roles.Id equals connection.RoleId
+							where u.Id == connection.UserId
+							select roles.Name.ToString()).ToList();
+
 				foreach (string r in role) {
 					if (r == "Students") {
 						var viewmodel = new UserViewModel() {

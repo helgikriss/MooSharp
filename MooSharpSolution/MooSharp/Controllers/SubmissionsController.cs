@@ -21,8 +21,7 @@ namespace MooSharp.Controllers
 		SubmissionsService _submissionsService = new SubmissionsService();
 
 		// GET: Submissions
-		public ActionResult Index()
-        {
+		public ActionResult Index(){
             return View();
         }
 

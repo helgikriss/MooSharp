@@ -155,7 +155,7 @@ textarea {
     width: 50%;
     margin: auto auto;
     vertical-align: middle;
-    box-shadow:rgba(0,0,0,0.3) 2px 3px;
+    box-shadow:rgba(0,0,0,0.8) 1px 1.5px;
 }
 #loginForm label {
     font-family: Roboto;
@@ -165,10 +165,12 @@ textarea {
 #loginForm input[type=text]{
     background-color: rgba(0,0,0,0.5);
     color: white;
+    box-shadow:rgba(0,0,0,0.5) 1px 1.5px;
 }
 #loginForm input[type=password]{
     background-color: rgba(0,0,0,0.5);
     color: white;
+    box-shadow:rgba(0,0,0,0.5) 1px 1.5px;
 }
 #loginForm .text-danger {
     color: #d71921;
