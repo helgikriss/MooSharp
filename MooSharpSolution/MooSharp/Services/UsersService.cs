@@ -145,7 +145,8 @@ namespace MooSharp.Services
 		}
 
 		public List<UserViewModel> GetStudentsByCourse(int courseID) {
-			if (_db.Courses.Find(courseID) == null) {
+			var course = _db.Courses.Where(x => x.ID == courseID).FirstOrDefault();
+			if (course == null) {
 				throw new HttpException(400, "Bad Request");
 			}
 
@@ -157,7 +158,11 @@ namespace MooSharp.Services
 			var viewModels = new List<UserViewModel>();
 
 			foreach (ApplicationUser u in users) {
-				var role = _manager.GetUserRoles(u.Id).ToList();
+				var role = (from roles in _db.Roles
+							join connection in _db.UserRoles on roles.Id equals connection.RoleId
+							where u.Id == connection.UserId
+							select roles.Name.ToString()).ToList();
+
 				foreach (string r in role) {
 					if (r == "Students") {
 						var viewmodel = new UserViewModel() {
