@@ -4,12 +4,12 @@
     ViewBag.Title = "AssignmentDetails";
 }
 
-<h1> @Model.AssignmentTitle</h1>
+<h1> @Model.AssignmentTitle - @Model.CourseTitle</h1>
 <hr />
-
-<h4>@Model.CourseTitle</h4>
-<h4>Assignment Description</h4>
+<br />
+<h3>Assignment Description</h3>
 <p>@Model.AssignmentDescription</p>
+<br />
 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addMilestone">Create Milestone</button>
 <button type="button" id="delete-assignment" class="btn btn-danger" value="@Model.ID"> Delete Assignment</button>
 <br /><br />
@@ -23,11 +23,11 @@
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
                 <a data-target="@("#" + Model.Milestones[0].ID)" aria-controls="home" role="tab" data-toggle="tab">@("1. " + Model.Milestones[0].Title + " (" + Model.Milestones[0].Weight + "%)")
-                &nbsp; <span class="delete" id="@Model.Milestones[0].ID"><i class="fa fa-trash-o fa-2" aria-hidden="true"></i></span></a>
+              </a>
             </li>
             @for (var i = 1; i < Model.Milestones.Count; i++) {
                 <li role="presentation">
-                    <a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i + 1) + ". " + Model.Milestones[i].Title + " (" + Model.Milestones[i].Weight + "%)") &nbsp; <span class="delete" id="@Model.Milestones[i].ID"><i class="fa fa-trash-o fa-2" aria-hidden="true"></i></span></a>
+                    <a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i + 1) + ". " + Model.Milestones[i].Title + " (" + Model.Milestones[i].Weight + "%)")</a>
                 </li>
             }
             <li role="presentation" class="">
@@ -40,17 +40,66 @@
             <div role="tabpanel" class="tab-pane active" id="@Model.Milestones[0].ID">
                 <br />
                 <p>@Model.Milestones[0].Description</p>
-                <ul>
-                    <li>Submission stuff</li>
-                </ul>
+                <button type="button" id="delete-milestone" class="btn btn-danger" value="@Model.Milestones[0].ID">Delete milestone</button>
+                <br />
+                <br />
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Submission</th>
+                            <th>Status</th>
+                            <th>Submission time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{ var count = Model.Milestones[0].Submissions.Count;}
+                        @for (var i = 0; i < Model.Milestones[0].Submissions.Count; i++) {
+                            <tr>
+                                <td>@Model.Milestones[0].Submissions[i].UserName</td>
+                                <td>@Html.ActionLink("Submission " + count, "SubmissionResults", new { submissionID = Model.Milestones[0].Submissions[i].ID })</td>
+                                <td>@Model.Milestones[0].Submissions[i].Status</td>
+                                <td>@Model.Milestones[0].Submissions[i].SubmissionDateTime</td>
+                            </tr>count--;
+                        }
+                    </tbody>
+                </table>
+                @if (Model.Milestones[0].Submissions.Count == 0) {
+                    <p class="text-danger">No submissions exist</p>
+}
             </div>
             @for (var i = 1; i < Model.Milestones.Count; i++) {
                 <div role="tabpanel" class="tab-pane" id="@Model.Milestones[i].ID">
                     <br />
                     <p>@Model.Milestones[i].Description</p>
-                    <ul>
-                        <li>Submission stuff</li>
-                    </ul>
+                    <button type="button" id="delete-milestone" class="btn btn-danger" value="@Model.Milestones[0].ID">Delete milestone</button>
+                    <br />
+                    <br />
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Submission</th>
+                                <th>Status</th>
+                                <th>Submission time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var count2 = Model.Milestones[i].Submissions.Count;}
+                            @for (var j = 0; j < Model.Milestones[i].Submissions.Count; j++) {
+                                <tr>
+                                    <td>@Model.Milestones[i].Submissions[j].UserName</td>
+                                    <td>@Html.ActionLink("Submission " + count, "SubmissionResults", new { submissionID = Model.Milestones[0].Submissions[i].ID })</td>
+                                    <td>@Model.Milestones[i].Submissions[j].Status</td>
+                                    <td>@Model.Milestones[i].Submissions[j].SubmissionDateTime</td>
+                                </tr>count2--;
+                            }
+                        </tbody>
+                    </table>
+                    @if (Model.Milestones[i].Submissions.Count == 0) {
+                        <p class="text-danger">No submissions exist</p>
+}
                 </div>
             }
         </div>
@@ -124,9 +173,9 @@
 <script>
 
     $(document).ready(function () {
-        $("span.delete").click(function () {
-            var currentID = (this.id);
-            $.post('@Url.Action("DeleteMilestone", "Teachers")', { milestoneID: currentID });
+        $("button#delete-milestone").click(function () {
+            var assID = (this.value);
+            $.post('@Url.Action("DeleteMilestone", "Teachers")', { assignmentID: assID });
             location.reload();
         });
 

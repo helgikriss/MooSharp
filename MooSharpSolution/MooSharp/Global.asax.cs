@@ -20,7 +20,6 @@ namespace MooSharp
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AccountInitializer.Init();
         }
-		/*
 		public void Application_Error(Object sender, EventArgs e) {
 			Exception exception = Server.GetLastError();
 			Server.ClearError();
@@ -41,6 +40,6 @@ namespace MooSharp
 			IController controller = new ErrorPagesController();
 			controller.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
 			Response.End();
-		}*/
+		}
 	}
 }

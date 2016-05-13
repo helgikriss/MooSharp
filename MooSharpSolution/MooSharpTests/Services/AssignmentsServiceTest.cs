@@ -148,18 +148,6 @@ namespace MooSharpTests.Services
 		}
 
 		[TestMethod]
-		public void TestGetAssignmentById() {
-			// Arrange
-			var assignmentID = 2;
-
-			// Act
-			var result = _service.GetAssignmentByID(assignmentID);
-
-			// Assert
-			Assert.AreEqual("Lab 2", result.Title);
-		}
-
-		[TestMethod]
 		public void TestCreateAssignment() {
 			// Arrange
 			var viewModel = new CreateAssignmentViewModel(){
