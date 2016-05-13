@@ -15,6 +15,8 @@ namespace MooSharp.Models.ViewModels
 
         public int Weight { get; set; }
 
+		public int AssignmentId { get; set; }
+
 		public List<SubmissionViewModel> Submissions { get; set; }
     }
 }

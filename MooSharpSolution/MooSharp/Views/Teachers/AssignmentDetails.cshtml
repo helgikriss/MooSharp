@@ -24,9 +24,11 @@
             </li>
             @for (var i = 1; i < Model.Milestones.Count; i++) {
                 <li role="presentation">
-                    <a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i + 1) + ". " + Model.Milestones[i].Title + " (" + Model.Milestones[i].Weight + "%)")</a>
+                    <a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i + 1) + ". " + Model.Milestones[i].Title + " (" + Model.Milestones[i].Weight + "%)") &nbsp; <span class="delete"><i class="fa fa-trash-o fa-2" aria-hidden="true"></i></span></a>
                 </li>
-}
+            }
+            <li role="presentation" class="">
+                <a data-target="#addMilestone"aria-controls="home" role="tab" data-toggle="modal">+</a></li>
         </ul>
         <!--Tab headers end-->
 
@@ -46,6 +48,7 @@
                     <ul>
                         <li>Submission stuff</li>
                     </ul>
+                    @Html.ActionLink("Delete Milestone", "DeleteMilestone", new { milestoneID = @Model.Milestones[i].ID });
                 </div>
 }
         </div>
@@ -115,3 +118,16 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+
+    $(document).ready(function () {
+        $("span.delete").hover(function () {
+            $('i[class^="fa"]', this).addClass('fa-2');
+        });
+
+        $("span.delete").click(function () {
+            alert("Handler for .click() called.");
+            
+        });
+    });
+</script>

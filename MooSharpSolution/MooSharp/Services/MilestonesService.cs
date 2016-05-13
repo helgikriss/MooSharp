@@ -97,7 +97,8 @@ namespace MooSharp.Services
                 Title = milestone.Title,
                 Description = milestone.Description,
                 Weight = milestone.Weight,
-                ID = milestone.ID
+                ID = milestone.ID,
+				AssignmentId = milestone.AssignmentID
             };
 
             return viewModel;
@@ -116,11 +117,9 @@ namespace MooSharp.Services
 		}
 
 		public int DeleteMilestone(int milestoneID) {
-			var viewModel = GetMilestonetByID(milestoneID);
-			var milestone = new Milestone {
-				ID = viewModel.ID
-			};
 			var assignmentID = GetAssignmentIdForMilestone(milestoneID);
+			var milestone = GetMilestoneEntityById(milestoneID);
+
 			var result = _db.Milestones.Remove(milestone);
 			_db.SaveChanges();
 
@@ -129,6 +128,10 @@ namespace MooSharp.Services
 
 		public int GetAssignmentIdForMilestone(int milestoneID) {
 			return _db.Milestones.Where(x => x.ID == milestoneID).Select(x => x.AssignmentID).FirstOrDefault();
+		}
+
+		private Milestone GetMilestoneEntityById(int milestoneID) {
+			return (from mile in _db.Milestones where mile.ID == milestoneID select mile).FirstOrDefault();
 		}
 	}
 }
