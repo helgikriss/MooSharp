@@ -33,6 +33,7 @@ namespace MooSharp.Controllers
 			var courseTitle = _coursesService.GetCourseById(courseID).Title;
 			var assignmentTitle = _assignmentsService.GetAssignmentByID(assignmentID).Title;
 			var milestoneTitle = _milestonesService.GetMilestonetByID(milestoneID).Title;
+			var extension = Path.GetExtension(file.FileName);
 
 			string path = "";
 
@@ -47,8 +48,7 @@ namespace MooSharp.Controllers
 				if (!Directory.Exists(mapPath)) {
 					Directory.CreateDirectory(mapPath);
 				}
-
-				string extension = Path.GetExtension(fileName);
+				
 				int i = 0;
 				while (System.IO.File.Exists(path)) {
 					if(i == 0) {
@@ -58,11 +58,6 @@ namespace MooSharp.Controllers
 						path = path.Replace("(" + i + ")" + extension, "(" + ++i + ")" + extension);
 					}
 				}
-				/*
-				if (System.IO.File.Exists(path)) {
-					string newFileName = Guid.NewGuid() + ".cpp";
-					path = path.Replace(fileName, newFileName);
-				}*/
 				file.SaveAs(path);
 			}
 
@@ -73,7 +68,7 @@ namespace MooSharp.Controllers
 				SubmissionPath = path
 			};
 
-			int submissionID = _submissionsService.CreateSubmission(submissionViewModel);
+			int submissionID = _submissionsService.CreateSubmission(submissionViewModel, extension);
 
 			string exeFileFullPath = path.Replace(".cpp", ".exe");
 			string objFileFullPath = path.Replace(".cpp", ".obj");
@@ -84,8 +79,6 @@ namespace MooSharp.Controllers
 			if (System.IO.File.Exists(objFileFullPath)) {
 				System.IO.File.Delete(objFileFullPath);
 			}
-
-			/*var submissionResultsViewModel = _submissionsService.GetSubmissionById(submissionID);*/
 
 			return RedirectToAction("Index", "Home");
 		}
