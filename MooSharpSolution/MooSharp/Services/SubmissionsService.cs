@@ -14,6 +14,8 @@ namespace MooSharp.Services
 	{
 		private ApplicationDbContext _db;
 		private TestCasesService _testCasesService;
+		private MilestonesService _milestonesService;
+		private AssignmentsService _assignmentsService;
 		const string ACCEPTED			= "Accepted";
 		const string WRONG_OUTPUT		= "Wrong Output";
 		const string COMPILE_ERROR		= "Compile Error";
@@ -23,14 +25,18 @@ namespace MooSharp.Services
 		public SubmissionsService() {
 			_db = new ApplicationDbContext();
 			_testCasesService = new TestCasesService();
+			_milestonesService = new MilestonesService();
+			_assignmentsService = new AssignmentsService();
 		}
 
-		public int CreateSubmission(CreateSubmissionViewModel viewModel) {
+		public int CreateSubmission(CreateSubmissionViewModel viewModel, string extension) {
 			// Compile program.
 			string compileOutput = "";
 			string exeFilePath = "";
+			bool compileSuccess;
+			int numberOfTestCases;
+			int submissionID = 0;
 			
-
 			List<string> outputs = new List<string>();
 			List<bool> timeLimitExceeded = new List<bool>();
 			List<bool> wrongOutput = new List<bool>();
@@ -39,20 +45,14 @@ namespace MooSharp.Services
 			List<bool> memoryError = new List<bool>();
 			List<string> memoryErrorOutputs = new List<string>();
 
-			bool compileSuccess = CompileSubmission(viewModel, ref compileOutput, ref exeFilePath);
-			if (compileSuccess) {
-				// Run program.
-				RunSubmission(viewModel.MilestoneID, exeFilePath, ref outputs, ref timeLimitExceeded);
+			// Check extension.
+			if(extension != ".cpp") {
+				// File extension is correct.
+				compileSuccess = false;
+				compileOutput = "File with incorrect file extension submitted, submissions should end with extension .cpp";
 
-				if (SameNumberOfOutputsAsTestCases(viewModel.MilestoneID, ref outputs)) {
-					// Check output.
-					CheckOutput(viewModel.MilestoneID, ref outputs, ref wrongOutput);
-				}
-			}
-			else {
-				// Program did not compile.
-				var compileErrorSubmission = new Submission() {
-					Compiled = false,
+				var submission = new Submission() {
+					Compiled = compileSuccess,
 					CompilerOutput = compileOutput,
 					Status = COMPILE_ERROR,
 					MilestoneID = viewModel.MilestoneID,
@@ -61,32 +61,61 @@ namespace MooSharp.Services
 					UserID = viewModel.UserID
 				};
 
-				_db.Submissions.Add(compileErrorSubmission);
+				_db.Submissions.Add(submission);
 				_db.SaveChanges();
 				return _db.Submissions.Max(item => item.ID);
 			}
+			else {
+				// File extension is correct.
+				// Compile program.
+				compileSuccess = CompileSubmission(viewModel, ref compileOutput, ref exeFilePath);
+				if (compileSuccess) {
+					// Program compiled.
+					// Run program.
+					RunSubmission(viewModel.MilestoneID, exeFilePath, ref outputs, ref timeLimitExceeded);
+					// Check output.
+					CheckOutput(viewModel.MilestoneID, ref outputs, ref wrongOutput);
+				}
+				else {
+					// Program did not compile.
+					var compileErrorSubmission = new Submission() {
+						Compiled = compileSuccess,
+						CompilerOutput = compileOutput,
+						Status = COMPILE_ERROR,
+						MilestoneID = viewModel.MilestoneID,
+						SubmissionDateTime = viewModel.SubmissionDateTime,
+						SubmissionPath = viewModel.SubmissionPath,
+						UserID = viewModel.UserID
+					};
 
-			int numberOfTestCases = _testCasesService.GetTestCasesByMilestoneId(viewModel.MilestoneID).Count;
+					_db.Submissions.Add(compileErrorSubmission);
+					_db.SaveChanges();
+					return _db.Submissions.Max(item => item.ID);
+				}
 
-			var submission = new Submission() {
-				Compiled = true,
-				CompilerOutput = compileOutput,
-				Status = GetStatusOfSubmission(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, numberOfTestCases),
-				MilestoneID = viewModel.MilestoneID,
-				SubmissionDateTime = viewModel.SubmissionDateTime,
-				SubmissionPath = viewModel.SubmissionPath,
-				UserID = viewModel.UserID
-			};
+				numberOfTestCases = _testCasesService.GetTestCasesByMilestoneId(viewModel.MilestoneID).Count;
 
-			_db.Submissions.Add(submission);
-			_db.SaveChanges();
+				var submission = new Submission() {
+					Compiled = compileSuccess,
+					CompilerOutput = compileOutput,
+					Status = GetStatusOfSubmission(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, numberOfTestCases),
+					MilestoneID = viewModel.MilestoneID,
+					SubmissionDateTime = viewModel.SubmissionDateTime,
+					SubmissionPath = viewModel.SubmissionPath,
+					UserID = viewModel.UserID
+				};
 
-			int submissionID = _db.Submissions.Max(item => item.ID);
+				_db.Submissions.Add(submission);
+				_db.SaveChanges();
 
-			_testCasesService.CreateSubmissionTestCases(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, ref outputs, /*ref memoryErrorOutputs,*/ submissionID, numberOfTestCases, viewModel.MilestoneID);
+				submissionID = _db.Submissions.Max(item => item.ID);
 
-			return submissionID;
+				_testCasesService.CreateSubmissionTestCases(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, ref outputs, /*ref memoryErrorOutputs,*/ submissionID, numberOfTestCases, viewModel.MilestoneID);
+
+				return submissionID;
+			}
 		}
+
 		public bool SubmissionIsInDbById(int id) {
 			var submission = _db.Submissions.Find(id);
 			if (submission == null) {
@@ -96,6 +125,8 @@ namespace MooSharp.Services
 		}
 
 		public bool CompileSubmission(CreateSubmissionViewModel viewModel, ref string output, ref string exeFilePath) {
+			
+			
 			// Write submission code into a string variable.
 			string submissionPath = viewModel.SubmissionPath;
 			System.IO.StreamReader myFile = new System.IO.StreamReader(submissionPath);
@@ -224,6 +255,7 @@ namespace MooSharp.Services
 			var submission = (from sub in _db.Submissions
 							  where sub.ID == submissionID
 							  select sub).FirstOrDefault();
+			var milestone = _milestonesService.GetMilestonetByID(submission.MilestoneID);
 
 			var submissionResultsViewModel = new SubmissionResultsViewModel() {
 				ID = submission.ID,
@@ -233,7 +265,9 @@ namespace MooSharp.Services
 				CompilerOutput = submission.CompilerOutput,
 				SubmissionDateTime = submission.SubmissionDateTime,
 				UserID = submission.UserID,
-				SubmissionTestCases = _testCasesService.GetSubmissionTestCasesBySubmissionId(submissionID)
+				SubmissionTestCases = _testCasesService.GetSubmissionTestCasesBySubmissionId(submissionID),
+				MilestoneTitle = milestone.Title,
+				AssignmentTitle = _assignmentsService.GetAssignmentByID(milestone.AssignmentId).Title
 			};
 			return submissionResultsViewModel;
 		}

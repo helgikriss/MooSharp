@@ -6,16 +6,17 @@
     ViewBag.Title = "AssignmentDetails";
 }
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<h1> @Model.Title</h1>
+<h1> @Model.Title - @Model.CourseTitle</h1>
 <hr />
-
-<h4>Course ID: @Model.CourseID</h4>
-<h4>Assignment Description</h4>
+<br />
+<h3>Assignment Description</h3>
 <p>@Model.Description</p>
-<hr />
-<h4>Milestones</h4>
+<br />
+<h3>Milestones</h3>
+<br />
 
 <div>
+    <!-- Tab headers -->
     @if (Model.Milestones.Count > 0) {
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a data-target="@("#" + Model.Milestones[0].ID)" aria-controls="home" role="tab" data-toggle="tab">@("1. " + Model.Milestones[0].Title)</a></li>
@@ -25,11 +26,15 @@
 
             }
         </ul>
+        <!-- Tab headers end -->
 
+        <!-- Tab content-->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="@Model.Milestones[0].ID">
                 <br />
+                <h4>Description</h4>
                 <p>@Model.Milestones[0].Description</p>
+                <br />
                 @if (DateTime.Compare(Model.DueDate, DateTime.Now) >= 0) {
                     using (Html.BeginForm("UploadSubmission", "Submissions", FormMethod.Post, new { @class = "form form-horizontal", role = "form", enctype = "multipart/form-data" })) {
                         <label for="file">Upload file for this milestone:</label>
@@ -43,13 +48,40 @@
                 else {
                     <p class="text-danger"> Due date has exceded</p>
                 }
-
+                <br />
+                <!-- Submissions list -->
+                @if (Model.Milestones[0].Submissions.Count == 0) {
+                    <p class="text-danger">No submissions exist</p>
+                 }
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Submission</th>
+                            <th>Status</th>
+                            <th>Submission time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @{ var count = Model.Milestones[0].Submissions.Count;}
+                    @for (var i = 0; i < Model.Milestones[0].Submissions.Count; i++) {
+                        <tr>
+                            <td>@Html.ActionLink("Submission " + count, "SubmissionResults", new { submissionID = Model.Milestones[0].Submissions[i].ID })</td>
+                            <td>@Model.Milestones[0].Submissions[i].Status</td>
+                            <td>@Model.Milestones[0].Submissions[i].SubmissionDateTime</td>
+                        </tr>
+                        count--;
+                    }
+                    </tbody>
+                </table>
             </div>
+            <!-- Start of loop -->
             @for (var i = 1; i < Model.Milestones.Count; i++) {
 
                 <div role="tabpanel" class="tab-pane" id="@Model.Milestones[i].ID">
                     <br />
+                    <h4>Description</h4>
                     <p>@Model.Milestones[i].Description</p>
+                    <br />
 
                     @if (DateTime.Compare(Model.DueDate, DateTime.Now) >= 0){
 
@@ -65,6 +97,7 @@
                     else {
                         <p class="text-danger"> Due date has exceded</p>
                     }
+
                 </div>
     }
         </div>
@@ -72,4 +105,5 @@
     else {
         <p class="text-danger">No milestones exist for this assignment</p>
     }
+    <!-- Tab content end -->
 </div>

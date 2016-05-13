@@ -11,6 +11,10 @@ namespace MooSharp.Models.ViewModels.Students
 
 		public int MilestoneID { get; set; }
 
+		public string AssignmentTitle { get; set; }
+
+		public string MilestoneTitle { get; set; }
+
 		public string UserID { get; set; }
 		
 		public DateTime SubmissionDateTime { get; set; }

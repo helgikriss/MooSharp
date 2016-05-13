@@ -97,7 +97,8 @@ namespace MooSharp.Services
                 Title = milestone.Title,
                 Description = milestone.Description,
                 Weight = milestone.Weight,
-                ID = milestone.ID
+                ID = milestone.ID,
+				AssignmentId = milestone.AssignmentID
             };
 
             return viewModel;
