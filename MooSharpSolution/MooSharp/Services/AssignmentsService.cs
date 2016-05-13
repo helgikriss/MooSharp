@@ -82,6 +82,7 @@ namespace MooSharp.Services
 				Description = assignment.Description,
 				CourseTitle = assignment.Title,
 				DueDate = assignment.ClosingTime,
+				OpeningDate = assignment.OpeningTime,
 				Milestones = milestones
 				
 			};
