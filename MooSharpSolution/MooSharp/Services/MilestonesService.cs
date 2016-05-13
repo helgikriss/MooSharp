@@ -30,7 +30,7 @@ namespace MooSharp.Services
 			HttpPostedFileBase inputFile = model.InputFile;
 			HttpPostedFileBase outputFile = model.OutputFile;
 
-			if (inputFile.ContentLength > 0 || inputFile.Equals(null)) {
+			if (inputFile.ContentLength > 0 || !inputFile.Equals(null)) {
 				BinaryReader b = new BinaryReader(inputFile.InputStream);
 				byte[] binData = b.ReadBytes(Convert.ToInt32(inputFile.InputStream.Length));
 				input = System.Text.Encoding.UTF8.GetString(binData);
