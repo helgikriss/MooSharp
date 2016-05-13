@@ -25,12 +25,12 @@ namespace MooSharp.Services
 			_testCasesService = new TestCasesService();
 		}
 
-		public int CreateSubmission(CreateSubmissionViewModel viewModel) {
+		public int CreateSubmission(CreateSubmissionViewModel viewModel, string extension) {
 			// Compile program.
 			string compileOutput = "";
 			string exeFilePath = "";
+			bool compileSuccess;
 			
-
 			List<string> outputs = new List<string>();
 			List<bool> timeLimitExceeded = new List<bool>();
 			List<bool> wrongOutput = new List<bool>();
@@ -39,37 +39,43 @@ namespace MooSharp.Services
 			List<bool> memoryError = new List<bool>();
 			List<string> memoryErrorOutputs = new List<string>();
 
-			bool compileSuccess = CompileSubmission(viewModel, ref compileOutput, ref exeFilePath);
-			if (compileSuccess) {
-				// Run program.
-				RunSubmission(viewModel.MilestoneID, exeFilePath, ref outputs, ref timeLimitExceeded);
-
-				if (SameNumberOfOutputsAsTestCases(viewModel.MilestoneID, ref outputs)) {
+			// Check extension.
+			if(extension != ".cpp") {
+				compileSuccess = false;
+				compileOutput = "File with incorrect file extension submitted, submissions should end with extension .cpp";
+			}
+			else {
+				// Compile program.
+				compileSuccess = CompileSubmission(viewModel, ref compileOutput, ref exeFilePath);
+				if (compileSuccess) {
+					// Program compiled.
+					// Run program.
+					RunSubmission(viewModel.MilestoneID, exeFilePath, ref outputs, ref timeLimitExceeded);
 					// Check output.
 					CheckOutput(viewModel.MilestoneID, ref outputs, ref wrongOutput);
 				}
-			}
-			else {
-				// Program did not compile.
-				var compileErrorSubmission = new Submission() {
-					Compiled = false,
-					CompilerOutput = compileOutput,
-					Status = COMPILE_ERROR,
-					MilestoneID = viewModel.MilestoneID,
-					SubmissionDateTime = viewModel.SubmissionDateTime,
-					SubmissionPath = viewModel.SubmissionPath,
-					UserID = viewModel.UserID
-				};
+				else {
+					// Program did not compile.
+					var compileErrorSubmission = new Submission() {
+						Compiled = compileSuccess,
+						CompilerOutput = compileOutput,
+						Status = COMPILE_ERROR,
+						MilestoneID = viewModel.MilestoneID,
+						SubmissionDateTime = viewModel.SubmissionDateTime,
+						SubmissionPath = viewModel.SubmissionPath,
+						UserID = viewModel.UserID
+					};
 
-				_db.Submissions.Add(compileErrorSubmission);
-				_db.SaveChanges();
-				return _db.Submissions.Max(item => item.ID);
+					_db.Submissions.Add(compileErrorSubmission);
+					_db.SaveChanges();
+					return _db.Submissions.Max(item => item.ID);
+				}
 			}
 
 			int numberOfTestCases = _testCasesService.GetTestCasesByMilestoneId(viewModel.MilestoneID).Count;
 
 			var submission = new Submission() {
-				Compiled = true,
+				Compiled = compileSuccess,
 				CompilerOutput = compileOutput,
 				Status = GetStatusOfSubmission(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, numberOfTestCases),
 				MilestoneID = viewModel.MilestoneID,
@@ -96,6 +102,8 @@ namespace MooSharp.Services
 		}
 
 		public bool CompileSubmission(CreateSubmissionViewModel viewModel, ref string output, ref string exeFilePath) {
+			
+			
 			// Write submission code into a string variable.
 			string submissionPath = viewModel.SubmissionPath;
 			System.IO.StreamReader myFile = new System.IO.StreamReader(submissionPath);
