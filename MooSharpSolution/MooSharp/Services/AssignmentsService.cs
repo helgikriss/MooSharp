@@ -68,7 +68,7 @@ namespace MooSharp.Services
 										SubmissionDateTime = z.SubmissionDateTime,
 										SubmissionPath = z.SubmissionPath,
 										UserID = z.UserID,
-										UserName =	_db.Users.Where(a => a.Id == z.UserID).Select(b => b.UserName).FirstOrDefault					().ToString()
+										UserName =	_db.Users.Where(a => a.Id == z.UserID).Select(b => b.UserName).FirstOrDefault().ToString()
 									}).ToList()
 
 				})
@@ -80,6 +80,8 @@ namespace MooSharp.Services
 				Title = assignment.Title,
 				CourseID = assignment.CourseID,
 				Description = assignment.Description,
+				CourseTitle = assignment.Title,
+				DueDate = assignment.ClosingTime,
 				Milestones = milestones
 				
 			};
