@@ -41,5 +41,11 @@ namespace MooSharp.Services
 
 			return inputs.Any();
 		}
+
+		public bool CreateSubmissionTestCases(List<string> outputs, List<bool> correctOutput, List<bool> timeLimitExceeded) {
+
+
+			return false;
+		}
 	}
 }

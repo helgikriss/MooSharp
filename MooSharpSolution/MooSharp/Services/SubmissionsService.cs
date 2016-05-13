@@ -63,8 +63,8 @@ namespace MooSharp.Services
 					UserID = viewModel.UserID
 				};
 			}
-
-			_testCasesService.CreateSubmissionTestCases(/*PARAMETERS GO HERE*/);
+			
+			_testCasesService.CreateSubmissionTestCases(outputs, correctOutput, timeLimitExceeded);
 
 			var submission = new Submission() {
 				ID = viewModel.ID,
