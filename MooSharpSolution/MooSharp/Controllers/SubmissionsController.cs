@@ -47,10 +47,22 @@ namespace MooSharp.Controllers
 				if (!Directory.Exists(mapPath)) {
 					Directory.CreateDirectory(mapPath);
 				}
+
+				string extension = Path.GetExtension(fileName);
+				int i = 0;
+				while (System.IO.File.Exists(path)) {
+					if(i == 0) {
+						path = path.Replace(extension, "(" + ++i + ")" + extension);
+					}
+					else {
+						path = path.Replace("(" + i + ")" + extension, "(" + ++i + ")" + extension);
+					}
+				}
+				/*
 				if (System.IO.File.Exists(path)) {
 					string newFileName = Guid.NewGuid() + ".cpp";
 					path = path.Replace(fileName, newFileName);
-				}
+				}*/
 				file.SaveAs(path);
 			}
 
@@ -63,8 +75,6 @@ namespace MooSharp.Controllers
 
 			int submissionID = _submissionsService.CreateSubmission(submissionViewModel);
 
-			/*var submissionResultsViewModel = _submissionsService.GetSubmissionById(submissionID);*/
-
 			string exeFileFullPath = path.Replace(".cpp", ".exe");
 			string objFileFullPath = path.Replace(".cpp", ".obj");
 			
@@ -74,6 +84,8 @@ namespace MooSharp.Controllers
 			if (System.IO.File.Exists(objFileFullPath)) {
 				System.IO.File.Delete(objFileFullPath);
 			}
+
+			/*var submissionResultsViewModel = _submissionsService.GetSubmissionById(submissionID);*/
 
 			return RedirectToAction("Index", "Home");
 		}
