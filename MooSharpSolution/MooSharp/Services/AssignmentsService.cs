@@ -12,12 +12,16 @@ namespace MooSharp.Services
 {
 	public class AssignmentsService
 	{
-		private ApplicationDbContext _db;
+		private IAppDataContext _db;
 		private MilestonesService _milestonesService;
 
 		public AssignmentsService()
 		{
 			_db = new ApplicationDbContext();
+			_milestonesService = new MilestonesService();
+		}
+		public AssignmentsService(IAppDataContext context) {
+			_db = context;
 			_milestonesService = new MilestonesService();
 		}
 
@@ -40,8 +44,7 @@ namespace MooSharp.Services
             return viewModels;
         }
 
-		public AssignmentViewModel GetAssignmentByID(int assignmentID)
-		{
+		public AssignmentViewModel GetAssignmentByID(int assignmentID) {
 			var assignment = _db.Assignments.SingleOrDefault(x => x.ID == assignmentID);
 			if (assignment == null)
 			{
@@ -171,7 +174,7 @@ namespace MooSharp.Services
 		}
 
 		public bool AssignmentIsInDbById(int id) {
-			var assignment = _db.Assignments.Find(id);
+			var assignment = _db.Assignments.Where(x => x.ID == id).FirstOrDefault();
 			if (assignment == null) {
 				return false;
 			}

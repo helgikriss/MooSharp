@@ -12,10 +12,14 @@ namespace MooSharp.Services
 {
     public class MilestonesService
     {
-		private ApplicationDbContext _db;
+		private IAppDataContext _db;
 
 		public MilestonesService() {
 			_db = new ApplicationDbContext();
+		}
+	
+		public MilestonesService(IAppDataContext context) {
+			_db = context;
 		}
 
 		public void CreateMilestone(CreateMilestoneViewModel model) {

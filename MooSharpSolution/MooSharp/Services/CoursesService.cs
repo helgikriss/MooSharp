@@ -16,12 +16,18 @@ namespace MooSharp.Services
 	/// </summary>
 	public class CoursesService
 	{
-		private ApplicationDbContext _db;
+		private readonly IAppDataContext _db;
 		private IdentityManager _manager;
 		private UsersService _usersService;
 
 		public CoursesService() {
 			_db = new ApplicationDbContext();
+			_manager = new IdentityManager();
+			_usersService = new UsersService();
+		}
+
+		public CoursesService(IAppDataContext context) {
+			_db = context;
 			_manager = new IdentityManager();
 			_usersService = new UsersService();
 		}
@@ -44,7 +50,7 @@ namespace MooSharp.Services
 		/// Returns a CourseViewModel by ID. Returns null if Course is not in database.
 		/// </summary>
 		public CourseViewModel GetCourseById(int id) {
-			var course = _db.Courses.Find(id);
+			var course = _db.Courses.Where(x => x.ID == id).FirstOrDefault();
 
 			if(course == null) {
 				return null;
@@ -76,7 +82,8 @@ namespace MooSharp.Services
 		/// <param name="userId"></param>
 		/// <returns></returns>
 		public List<CourseViewModel> GetCoursesByUser(string userId) {
-			if(_db.Users.Find(userId) == null) {
+			var user = _db.Users.Where(x => x.Id == userId).FirstOrDefault();
+			if(user == null) {
 				throw new HttpException(400, "Bad Request");
 			}
 
