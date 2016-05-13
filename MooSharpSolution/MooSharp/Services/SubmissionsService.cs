@@ -15,7 +15,6 @@ namespace MooSharp.Services
 		private TestCasesService _testCasesService;
 		const string ACCEPTED			= "Accepted";
 		const string WRONG_OUTPUT		= "Wrong Output";
-		const string RUNTIME_ERROR		= "Runtime Error";
 		const string COMPILE_ERROR		= "Compile Error";
 		const string TIMELIMIT_EXCEEDED = "Timelimit Exceeded";
 		const string MEMORY_ERROR		= "Memory Error";
@@ -33,7 +32,7 @@ namespace MooSharp.Services
 
 			List<string> outputs = new List<string>();
 			List<bool> timeLimitExceeded = new List<bool>();
-			List<bool> correctOutput = new List<bool>();
+			List<bool> wrongOutput = new List<bool>();
 
 			// TODO: Implement memory error check.
 			List<bool> memoryError = new List<bool>();
@@ -48,7 +47,7 @@ namespace MooSharp.Services
 
 				if (sameNumberOfOutputsAsTestCases(viewModel.MilestoneID, ref outputs)) {
 					// Check output.
-					CheckOutput(viewModel.MilestoneID, ref outputs, ref correctOutput);
+					CheckOutput(viewModel.MilestoneID, ref outputs, ref wrongOutput);
 				}
 			}
 			else {
@@ -63,17 +62,20 @@ namespace MooSharp.Services
 					UserID = viewModel.UserID
 				};
 			}
-			
-			_testCasesService.CreateSubmissionTestCases(outputs, correctOutput, timeLimitExceeded);
 
 			var submission = new Submission() {
-				ID = viewModel.ID,
+				Compiled = true,
+				CompilerOutput = compileOutput,
+				Status = GetStatusOfSubmission(ref timeLimitExceeded, ref memoryError, ref wrongOutput, _testCasesService.GetTestCasesByMilestoneId(viewModel.MilestoneID).Count),
 				MilestoneID = viewModel.MilestoneID,
-				UserID = viewModel.UserID,
 				SubmissionDateTime = viewModel.SubmissionDateTime,
-				Status = viewModel.Status,
-				SubmissionPath = viewModel.SubmissionPath
+				SubmissionPath = viewModel.SubmissionPath,
+				UserID = viewModel.UserID
 			};
+
+			_testCasesService.CreateSubmissionTestCases(outputs, wrongOutput, timeLimitExceeded);
+
+			
 			_db.Submissions.Add(submission);
 			_db.SaveChanges();
 		}
@@ -182,17 +184,36 @@ namespace MooSharp.Services
 			return false;
 		}
 
-		public void CheckOutput(int milestoneID, ref List<string>outputs, ref List<bool> correctOutput) {
+		public void CheckOutput(int milestoneID, ref List<string>outputs, ref List<bool> wrongOutput) {
 			var testCases = _testCasesService.GetTestCasesByMilestoneId(milestoneID);
 			
 			for (int i = 0; i < testCases.Count; i++) {
-				if(outputs[i] == testCases[i].Output) {
-					correctOutput.Add(true);
+				if(outputs[i] != testCases[i].Output) {
+					wrongOutput.Add(true);
 				}
 				else {
-					correctOutput.Add(false);
+					wrongOutput.Add(false);
 				}
 			}
+		}
+
+		public string GetStatusOfSubmission(ref List<bool> timeLimitExceeded, ref List<bool> memoryError, ref List<bool> wrongOutput, int numberOfTestCases) {
+			if(timeLimitExceeded.Count == numberOfTestCases &&
+				memoryError.Count == numberOfTestCases &&
+				wrongOutput.Count == numberOfTestCases) {
+				for(int i = 0; i < numberOfTestCases; i++) {
+					if(timeLimitExceeded[i] == true) {
+						return TIMELIMIT_EXCEEDED;
+					}
+					else if(memoryError[i] == true) {
+						return MEMORY_ERROR;
+					}
+					else if(wrongOutput[i] == true) {
+						return WRONG_OUTPUT;
+					}
+				}
+			}
+			return ACCEPTED;
 		}
 	}
 }
