@@ -46,6 +46,11 @@ namespace MooSharp.Models.Entities
 		public bool WrongOutput { get; set; }
 
 		/// <summary>
+		/// Contains the expected output for this test case.
+		/// </summary>
+		public string ExpectedOutput { get; set; }
+
+		/// <summary>
 		/// Navigation propery.
 		/// </summary>
 		[ForeignKey("SubmissionID")]
