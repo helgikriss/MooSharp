@@ -19,7 +19,7 @@ namespace MooSharp.Controllers
 		private AssignmentsService _assignmentsService = new AssignmentsService();
 		private CoursesService _coursesService = new CoursesService();
 		private MilestonesService _milestoneService = new MilestonesService();
-		
+		private SubmissionsService _submissionsService = new SubmissionsService();
         // GET: Teachers
         public ActionResult Index()
         {
@@ -140,6 +140,11 @@ namespace MooSharp.Controllers
 				return RedirectToAction("Index");
 			}
 			return View(assignmentID);
+		}
+		public ActionResult SubmissionResults(int submissionID) {
+			var viewModel = _submissionsService.GetSubmissionById(submissionID);
+
+			return View(viewModel);
 		}
 	}
 }
