@@ -200,5 +200,22 @@ namespace MooSharp.Services
 
 			return totalWeight;
 		}
+
+		public bool DeleteAssignment(int assignmentID) {
+			var assignment = GetAssignmentEntityById(assignmentID);
+
+			var result = _db.Assignments.Remove(assignment);
+			try {
+				_db.SaveChanges();
+				return true;
+			}
+			catch (Exception) {
+				return false;
+			}
+		}
+
+		private Assignment GetAssignmentEntityById(int assignmentID) {
+			return (from ass in _db.Assignments where ass.ID == assignmentID select ass).FirstOrDefault();
+		}
 	}
 }
