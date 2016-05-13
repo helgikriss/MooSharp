@@ -127,5 +127,11 @@ namespace MooSharp.Controllers
 			_milestoneService.CreateMilestone(newViewModel);
 			return RedirectToAction("AssignmentDetails", new { assignmentID = viewModel.ID });
 		}
+
+		[HttpPost]
+		public ActionResult DeleteMilestone(int milestoneID) {
+			var aID = _milestoneService.DeleteMilestone(milestoneID);
+			return RedirectToAction("AssignmentDetails", new { assignmentID = aID });
+		}
 	}
 }

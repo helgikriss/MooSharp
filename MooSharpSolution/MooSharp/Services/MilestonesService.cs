@@ -114,5 +114,21 @@ namespace MooSharp.Services
 
 			return milestones;
 		}
+
+		public int DeleteMilestone(int milestoneID) {
+			var viewModel = GetMilestonetByID(milestoneID);
+			var milestone = new Milestone {
+				ID = viewModel.ID
+			};
+			var assignmentID = GetAssignmentIdForMilestone(milestoneID);
+			var result = _db.Milestones.Remove(milestone);
+			_db.SaveChanges();
+
+			return assignmentID;
+		}
+
+		public int GetAssignmentIdForMilestone(int milestoneID) {
+			return _db.Milestones.Where(x => x.ID == milestoneID).Select(x => x.AssignmentID).FirstOrDefault();
+		}
 	}
 }

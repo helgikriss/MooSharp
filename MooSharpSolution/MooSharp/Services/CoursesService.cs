@@ -62,7 +62,9 @@ namespace MooSharp.Services
 					ID = x.ID,
 					Title = x.Title,
 					Description = x.Description,
-					DueDate = x.ClosingTime
+					DueDate = x.ClosingTime,
+					OpeningDate = x.OpeningTime
+					
 				})
 				.ToList();
 
