@@ -38,23 +38,29 @@ namespace MooSharp.Controllers
 
 			if (file.ContentLength > 0) {
 				var fileName = Path.GetFileName(file.FileName);
-				var mapPath = Server.MapPath(String.Format("~/App_Data/Submissions/{0}/{1}/{2}/{3}", userName, courseID + "-" + courseTitle, assignmentID + "-" + assignmentTitle, milestoneID + "-" + milestoneTitle));
+				var mapPath = Server.MapPath(String.Format("~/App_Data/Submissions/{0}/{1}/{2}/{3}", 
+															userName, 
+															courseTitle + "_" + courseID, 
+															assignmentID + "_" + assignmentTitle, 
+															milestoneID + "_" + milestoneTitle));
 				path = Path.Combine(mapPath, fileName);
 				if (!Directory.Exists(mapPath)) {
 					Directory.CreateDirectory(mapPath);
 				}
 				file.SaveAs(path);
-
-				var submissionViewModel = new CreateSubmissionViewModel() {
-					UserID = User.Identity.GetUserId(),
-					MilestoneID = milestoneID,
-					SubmissionDateTime = DateTime.Now,
-					SubmissionPath = path
-				};
-				_submissionsService.CompileSubmission(submissionViewModel);
 			}
-			
-			// TODO: Compile and check submission and return results
+
+			var submissionViewModel = new CreateSubmissionViewModel() {
+				UserID = User.Identity.GetUserId(),
+				MilestoneID = milestoneID,
+				SubmissionDateTime = DateTime.Now,
+				SubmissionPath = path
+			};
+
+			int submissionID = _submissionsService.CreateSubmission(submissionViewModel);
+
+			/*var submissionResultsViewModel = _submissionsService.GetSubmissionById(submissionID);*/
+
 			return RedirectToAction("Index", "Home");
 		}
 	}

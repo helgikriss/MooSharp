@@ -203,6 +203,7 @@
     <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Models\ViewModels\Students\CreateSubmissionViewModel.cs" />
     <Compile Include="Models\ViewModels\Students\StudentIndexViewModel.cs" />
+    <Compile Include="Models\ViewModels\Students\SubmissionResultsViewModel.cs" />
     <Compile Include="Models\ViewModels\SubmissionViewModel.cs" />
     <Compile Include="Models\ViewModels\Teachers\AssignmentDetailsCreateMilestoneViewModel.cs" />
     <Compile Include="Models\ViewModels\Teachers\CreateAssignmentViewModel.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Services\CoursesService.cs" />
     <Compile Include="Services\MilestonesService.cs" />
     <Compile Include="Services\SubmissionsService.cs" />
+    <Compile Include="Services\TestCasesService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utilities\AccessDeniedAttribute.cs" />
@@ -259,7 +261,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Services\favicon.ico" />
     <Content Include="Static\img\favicon.png" />
     <Content Include="Static\img\moosharp-banner.png" />
     <Content Include="Static\img\moosharp-large.png" />

@@ -51,6 +51,16 @@ namespace MooSharp.Models.Entities
 		public string Status { get; set; }
 
 		/// <summary>
+		/// True if submission was able to be compiled, false otherwise.
+		/// </summary>
+		public bool Compiled { get; set; }
+
+		/// <summary>
+		/// The output from the compiler.
+		/// </summary>
+		public string CompilerOutput { get; set; }
+
+		/// <summary>
 		/// Navigation property.
 		/// </summary>
 		[ForeignKey("MilestoneID")]
@@ -65,6 +75,6 @@ namespace MooSharp.Models.Entities
 		/// <summary>
 		/// Navigation property.
 		/// </summary>
-		public ICollection<SubmissionTestCase> SubmissionOutputs { get; set; }
+		public ICollection<SubmissionTestCase> SubmissionTestCases { get; set; }
 	}
 }

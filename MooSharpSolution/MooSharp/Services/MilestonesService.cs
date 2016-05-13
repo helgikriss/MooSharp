@@ -7,15 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.IO;
+using System.Diagnostics;
 
 namespace MooSharp.Services
 {
     public class MilestonesService
     {
+		private TestCasesService _testCasesService;
 		private IAppDataContext _db;
 
 		public MilestonesService() {
 			_db = new ApplicationDbContext();
+			_testCasesService = new TestCasesService();
 		}
 	
 		public MilestonesService(IAppDataContext context) {
@@ -26,18 +29,17 @@ namespace MooSharp.Services
 
 			string input = "";
 			string output = "";
-
-			HttpPostedFileBase inputFile = model.InputFile;
-			HttpPostedFileBase outputFile = model.OutputFile;
-
-			if (inputFile.ContentLength > 0 || !inputFile.Equals(null)) {
-				BinaryReader b = new BinaryReader(inputFile.InputStream);
-				byte[] binData = b.ReadBytes(Convert.ToInt32(inputFile.InputStream.Length));
+			bool inputFileIncluded = false;
+			
+			if (model.InputFile != null && model.InputFile.ContentLength > 0) {
+				BinaryReader b = new BinaryReader(model.InputFile.InputStream);
+				byte[] binData = b.ReadBytes(Convert.ToInt32(model.InputFile.InputStream.Length));
 				input = System.Text.Encoding.UTF8.GetString(binData);
+				inputFileIncluded = true;
 			}
-			if (outputFile.ContentLength > 0 || outputFile.Equals(null)) {
-				BinaryReader b = new BinaryReader(outputFile.InputStream);
-				byte[] binData = b.ReadBytes(Convert.ToInt32(outputFile.InputStream.Length));
+			if (model.OutputFile != null && model.OutputFile.ContentLength > 0) {
+				BinaryReader b = new BinaryReader(model.OutputFile.InputStream);
+				byte[] binData = b.ReadBytes(Convert.ToInt32(model.OutputFile.InputStream.Length));
 				output = System.Text.Encoding.UTF8.GetString(binData);
 			}
 
@@ -50,14 +52,25 @@ namespace MooSharp.Services
 			_db.Milestones.Add(milestone);
 			_db.SaveChanges();
 
-			var testCase = new TestCase() {
-				MilestoneID = _db.Milestones.Max(item => item.ID),
-				Input = input,
-				Output = output
-			};
-
-			_db.TestCases.Add(testCase);
-			_db.SaveChanges();
+			if (inputFileIncluded) {
+				var testCase = new TestCase() {
+					MilestoneID = _db.Milestones.Max(item => item.ID),
+					Input = input,
+					Output = output,
+					HasInput = true
+				};
+				_db.TestCases.Add(testCase);
+				_db.SaveChanges();
+			}
+			else {
+				var testCase = new TestCase() {
+					MilestoneID = _db.Milestones.Max(item => item.ID),
+					Output = output,
+					HasInput = false
+				};
+				_db.TestCases.Add(testCase);
+				_db.SaveChanges();
+			}
 		}
 
 		public bool MilestoneIsInDbById(int id) {
