@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Diagnostics;
 using System.IO;
+using MooSharp.Models.ViewModels;
 
 namespace MooSharp.Services
 {
