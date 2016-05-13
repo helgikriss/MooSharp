@@ -34,6 +34,8 @@ namespace MooSharp.Services
 			string compileOutput = "";
 			string exeFilePath = "";
 			bool compileSuccess;
+			int numberOfTestCases;
+			int submissionID = 0;
 			
 			List<string> outputs = new List<string>();
 			List<bool> timeLimitExceeded = new List<bool>();
@@ -45,10 +47,26 @@ namespace MooSharp.Services
 
 			// Check extension.
 			if(extension != ".cpp") {
+				// File extension is correct.
 				compileSuccess = false;
 				compileOutput = "File with incorrect file extension submitted, submissions should end with extension .cpp";
+
+				var submission = new Submission() {
+					Compiled = compileSuccess,
+					CompilerOutput = compileOutput,
+					Status = COMPILE_ERROR,
+					MilestoneID = viewModel.MilestoneID,
+					SubmissionDateTime = viewModel.SubmissionDateTime,
+					SubmissionPath = viewModel.SubmissionPath,
+					UserID = viewModel.UserID
+				};
+
+				_db.Submissions.Add(submission);
+				_db.SaveChanges();
+				return _db.Submissions.Max(item => item.ID);
 			}
 			else {
+				// File extension is correct.
 				// Compile program.
 				compileSuccess = CompileSubmission(viewModel, ref compileOutput, ref exeFilePath);
 				if (compileSuccess) {
@@ -74,29 +92,30 @@ namespace MooSharp.Services
 					_db.SaveChanges();
 					return _db.Submissions.Max(item => item.ID);
 				}
+
+				numberOfTestCases = _testCasesService.GetTestCasesByMilestoneId(viewModel.MilestoneID).Count;
+
+				var submission = new Submission() {
+					Compiled = compileSuccess,
+					CompilerOutput = compileOutput,
+					Status = GetStatusOfSubmission(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, numberOfTestCases),
+					MilestoneID = viewModel.MilestoneID,
+					SubmissionDateTime = viewModel.SubmissionDateTime,
+					SubmissionPath = viewModel.SubmissionPath,
+					UserID = viewModel.UserID
+				};
+
+				_db.Submissions.Add(submission);
+				_db.SaveChanges();
+
+				submissionID = _db.Submissions.Max(item => item.ID);
+
+				_testCasesService.CreateSubmissionTestCases(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, ref outputs, /*ref memoryErrorOutputs,*/ submissionID, numberOfTestCases, viewModel.MilestoneID);
+
+				return submissionID;
 			}
-
-			int numberOfTestCases = _testCasesService.GetTestCasesByMilestoneId(viewModel.MilestoneID).Count;
-
-			var submission = new Submission() {
-				Compiled = compileSuccess,
-				CompilerOutput = compileOutput,
-				Status = GetStatusOfSubmission(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, numberOfTestCases),
-				MilestoneID = viewModel.MilestoneID,
-				SubmissionDateTime = viewModel.SubmissionDateTime,
-				SubmissionPath = viewModel.SubmissionPath,
-				UserID = viewModel.UserID
-			};
-
-			_db.Submissions.Add(submission);
-			_db.SaveChanges();
-
-			int submissionID = _db.Submissions.Max(item => item.ID);
-
-			_testCasesService.CreateSubmissionTestCases(ref timeLimitExceeded, /*ref memoryError,*/ ref wrongOutput, ref outputs, /*ref memoryErrorOutputs,*/ submissionID, numberOfTestCases, viewModel.MilestoneID);
-
-			return submissionID;
 		}
+
 		public bool SubmissionIsInDbById(int id) {
 			var submission = _db.Submissions.Find(id);
 			if (submission == null) {
