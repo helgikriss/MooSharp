@@ -11,20 +11,23 @@
 <p>@Model.AssignmentDescription</p>
 <br />
 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addMilestone">Create Milestone</button>
+<button type="button" id="delete-assignment" class="btn btn-danger" value="@Model.ID"> Delete Assignment</button>
 <br /><br />
 <h4>Milestones</h4>
 <h5>Total weight of milestones: @Model.TotalWeightOfMilestones/100</h5>
+
 
 <!--Tab headers-->
 <div>
     @if (Model.Milestones.Count > 0) {
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
-                <a data-target="@("#" + Model.Milestones[0].ID)" aria-controls="home" role="tab" data-toggle="tab">@("1. " + Model.Milestones[0].Title + " (" + Model.Milestones[0].Weight + "%)")</a>
+                <a data-target="@("#" + Model.Milestones[0].ID)" aria-controls="home" role="tab" data-toggle="tab">@("1. " + Model.Milestones[0].Title + " (" + Model.Milestones[0].Weight + "%)")
+                &nbsp; <span class="delete" id="@Model.Milestones[0].ID"><i class="fa fa-trash-o fa-2" aria-hidden="true"></i></span></a>
             </li>
             @for (var i = 1; i < Model.Milestones.Count; i++) {
                 <li role="presentation">
-                    <a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i + 1) + ". " + Model.Milestones[i].Title + " (" + Model.Milestones[i].Weight + "%)") &nbsp; <span class="delete"><i class="fa fa-trash-o fa-2" aria-hidden="true"></i></span></a>
+                    <a data-target="@("#" + Model.Milestones[i].ID)" aria-controls="home" role="tab" data-toggle="tab">@((i + 1) + ". " + Model.Milestones[i].Title + " (" + Model.Milestones[i].Weight + "%)") &nbsp; <span class="delete" id="@Model.Milestones[i].ID"><i class="fa fa-trash-o fa-2" aria-hidden="true"></i></span></a>
                 </li>
             }
             <li role="presentation" class="">
@@ -48,9 +51,8 @@
                     <ul>
                         <li>Submission stuff</li>
                     </ul>
-                    @Html.ActionLink("Delete Milestone", "DeleteMilestone", new { milestoneID = @Model.Milestones[i].ID });
                 </div>
-}
+            }
         </div>
         <!--Tab content ends-->
     }
@@ -118,16 +120,20 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
 <script>
 
     $(document).ready(function () {
-        $("span.delete").hover(function () {
-            $('i[class^="fa"]', this).addClass('fa-2');
+        $("span.delete").click(function () {
+            var currentID = (this.id);
+            $.post('@Url.Action("DeleteMilestone", "Teachers")', { milestoneID: currentID });
+            location.reload();
         });
 
-        $("span.delete").click(function () {
-            alert("Handler for .click() called.");
-            
+        $("button#delete-assignment").click(function () {
+            var assID = (this.value);
+            $.post('@Url.Action("DeleteAssignment", "Teachers")', { assignmentID: assID });
+            window.location.href = '@Url.Action("Index", "Teachers")';
         });
     });
 </script>
