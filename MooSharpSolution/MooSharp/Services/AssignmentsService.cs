@@ -132,6 +132,7 @@ namespace MooSharp.Services
 					Description = a.Description,
 					Title = a.Title,
 					ID = a.ID,
+					OpeningTime = a.OpeningTime,
                     DueDate = a.ClosingTime
 				};
 				var result = DateTime.Compare(a.ClosingTime, DateTime.Today);
