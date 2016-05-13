@@ -21,7 +21,7 @@ namespace MooSharp.Models.ViewModels.Students
 
 		public string CompilerOutput { get; set; }
 
-		List<SubmissionTestCaseViewModel> SubmissionTestCases { get; set; }
+		public List<SubmissionTestCaseViewModel> SubmissionTestCases { get; set; }
 
 
 	}

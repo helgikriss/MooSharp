@@ -92,5 +92,11 @@ namespace MooSharp.Controllers
 
 			return View(viewModel);
 		}
+
+		public ActionResult SubmissionResults(int submissionID) {
+			var viewModel = _submissionsService.GetSubmissionById(submissionID);
+
+			return View(viewModel);
+		}
 	}
 }
