@@ -90,9 +90,10 @@ namespace MooSharp.Controllers
 				Title = assignmentViewModel.Title
 			};
 
-			// Sort submissions by date
+			// Sort submissions by date and get current user's submissions
 			foreach(MilestoneViewModel milestone in viewModel.Milestones) {
 				milestone.Submissions.Sort((y, x) => DateTime.Compare(x.SubmissionDateTime, y.SubmissionDateTime));
+				milestone.Submissions = milestone.Submissions.Where(x => x.UserID == User.Identity.GetUserId()).ToList();
 			}
 
 			return View(viewModel);
