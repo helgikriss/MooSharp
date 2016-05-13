@@ -14,6 +14,8 @@ namespace MooSharp.Services
 	{
 		private ApplicationDbContext _db;
 		private TestCasesService _testCasesService;
+		private MilestonesService _milestonesService;
+		private AssignmentsService _assignmentsService;
 		const string ACCEPTED			= "Accepted";
 		const string WRONG_OUTPUT		= "Wrong Output";
 		const string COMPILE_ERROR		= "Compile Error";
@@ -23,6 +25,8 @@ namespace MooSharp.Services
 		public SubmissionsService() {
 			_db = new ApplicationDbContext();
 			_testCasesService = new TestCasesService();
+			_milestonesService = new MilestonesService();
+			_assignmentsService = new AssignmentsService();
 		}
 
 		public int CreateSubmission(CreateSubmissionViewModel viewModel) {
@@ -224,6 +228,7 @@ namespace MooSharp.Services
 			var submission = (from sub in _db.Submissions
 							  where sub.ID == submissionID
 							  select sub).FirstOrDefault();
+			var milestone = _milestonesService.GetMilestonetByID(submission.MilestoneID);
 
 			var submissionResultsViewModel = new SubmissionResultsViewModel() {
 				ID = submission.ID,
@@ -233,7 +238,9 @@ namespace MooSharp.Services
 				CompilerOutput = submission.CompilerOutput,
 				SubmissionDateTime = submission.SubmissionDateTime,
 				UserID = submission.UserID,
-				SubmissionTestCases = _testCasesService.GetSubmissionTestCasesBySubmissionId(submissionID)
+				SubmissionTestCases = _testCasesService.GetSubmissionTestCasesBySubmissionId(submissionID),
+				MilestoneTitle = milestone.Title,
+				AssignmentTitle = _assignmentsService.GetAssignmentByID(milestone.AssignmentId).Title
 			};
 			return submissionResultsViewModel;
 		}

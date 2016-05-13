@@ -1,0 +1,73 @@
+1. C
+Sbr. "The model represents the data, and does nothing else. The model does NOT depend on the controller or the view."
+http://www.tomdalling.com/blog/software-design/model-view-controller-explained/
+
+2. E
+Sbr. Home/Edit í verkefninu þegar klikkað er á nafn í listanum þá er kallað á Edit methodið í HomeController
+
+3. B
+Sbr. kafla "5.2.4 View" bls 96 í bókinni Webprogrammin 1.15
+
+4. C
+Ekki viss, en fann ekkert um "PODS" á google í samræmi við Model class í MVC
+PODS = Plain Old Data Structure
+Skilst það sé þegar klasi nota bara innbyggð tög o.fl.
+
+5. C
+sbr. bls 97 í Webprogramming 1.15
+@model Application.Models. Student
+"The first line is not regular HTML. It is Razor code that specifies the type of object
+that the view expects, hence strongly typed, and will also provide us with intellisense
+help in the view editor."
+
+Auk þess:
+http://stackoverflow.com/questions/2896544/what-is-strongly-typed-view-in-asp-net-mvc
+http://www.asp.net/mvc/overview/views/dynamic-v-strongly-typed-views
+http://www.c-sharpcorner.com/UploadFile/abhikumarvatsa/strongly-typed-views-in-mvc/
+
+6. E
+sbr. 
+http://haacked.com/archive/2011/01/06/razor-syntax-quick-reference.aspx/
+
+7. D
+sbr. 
+https://msdn.microsoft.com/en-us/library/system.web.webpages.html.htmlhelper.listbox(v=vs.111).aspx
+
+8. A
+sbr. bls 107 í Webprogramming 1.15
+"Example: ~/Images/Link.png. In this case, the file is found in
+the Images folder, which is located in the root of the application. Note that the root of the
+application doesn’t have to be the same as the root on the web server."
+
+9. D
+sbr. bls 109 í Webprogramming 1.15
+"We can use the Request.Form collection, which is a legacy from classic ASP. It
+contains all variables entered by the user into the form that was submitted.
+
+Example:
+string name = Request.Form[ "Name" ];
+
+will return the content of the <input> variable (or <textarea>/<select>) with the
+name/id "Name". Using this method has the disadvantage that unit testing the
+controller action becomes harder, since the action is now using the Request.Form
+collection directly, but it might not be accessible in a unit test. Therefore, this method
+is discouraged."
+
+10. E
+sbr. bls 111 í Webprogramming 1.15
+"A common problem when handling POST request is what happens if the user refreshes the
+page afterwards. By default, the browser will reissue
+the POST request, since that was the
+last request he made. This is usually not what the user wants, and he might end up having
+completed the same transaction twice (for instance, added the same comment twice to a
+blog post). One way to get around this is to use the Post/Redirect/Get pattern. This pattern
+gets its name from the fact that we use three steps to prevent this problem:
+
+● first, the POST request is processed
+● then, a redirect response is generated (HTTP 303 answer is sent back to the client)
+● the client takes the 303 response, and fetches the page he is told to redirect to
+(issues a HTTP GET)
+
+By following these steps, if the user refreshes the page after issuing a POST request, he will
+essentially refresh the page he was redirected to, instead of reissuing
+the POST request."
