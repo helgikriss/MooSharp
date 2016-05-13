@@ -7,17 +7,34 @@ using System.Web.Mvc;
 using MooSharp.Models.Entities;
 
 namespace MooSharp.Models.ViewModels.Admins {
-	public class ConnectUserToCourseViewModel {
-		[Required]
+
+    /// <summary>
+    /// This class connects a certain user to a certain course
+    /// </summary>
+    public class ConnectUserToCourseViewModel {
+
+        /// <summary>
+        /// Contains a CourseID which is required to find a certain course
+        /// </summary>
+        [Required]
 		[Display(Name = "CourseID")]
 		public int CourseID { get; set; }
 
-		[Required]
+        /// <summary>
+        /// Contains UserID which is required
+        /// </summary>
+        [Required]
 		[Display(Name = "UserID")]
 		public string UserID { get; set; }
 
-		public List<CourseViewModel> AllCourses { get; set; }
+        /// <summary>
+        /// A list that holds all courses
+        /// </summary>
+        public List<CourseViewModel> AllCourses { get; set; }
 
-		public List<UserViewModel> AllUsers { get; set; }
+        /// <summary>
+        /// A list that holds all the users
+        /// </summary>
+        public List<UserViewModel> AllUsers { get; set; }
 	}
 }

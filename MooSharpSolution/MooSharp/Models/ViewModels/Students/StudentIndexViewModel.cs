@@ -21,7 +21,10 @@ namespace MooSharp.Models.ViewModels.Students
         /// A list of all the assignments that have been 
         /// </summary>
         public List<AssignmentViewModel> FinishedAssignments { get; set; }
-
+        
+        /// <summary>
+        /// A list of all the courses which the student is assigned to
+        /// </summary>
 		public List<CourseViewModel> MyCourses { get; set; }
 	}
 }

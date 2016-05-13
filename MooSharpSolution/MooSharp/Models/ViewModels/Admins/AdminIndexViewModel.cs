@@ -5,9 +5,20 @@ using System.Web;
 
 namespace MooSharp.Models.ViewModels.Admins
 {
-	public class AdminIndexViewModel
+    /// <summary>
+    /// This class holds lists of all users and all courses
+    /// that appear on the admin index page
+    /// </summary>
+    public class AdminIndexViewModel
 	{
-		public List<CourseViewModel> AllCourses { get; set; }
-		public List<UserViewModel> AllUsers { get; set; }
+        /// <summary>
+        /// A list that holds all courses
+        /// </summary>
+        public List<CourseViewModel> AllCourses { get; set; }
+
+        /// <summary>
+        /// a list that holds all users
+        /// </summary>
+        public List<UserViewModel> AllUsers { get; set; }
 	}
 }

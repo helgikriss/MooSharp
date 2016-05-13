@@ -8,18 +8,33 @@ using MooSharp.Models.Entities;
 
 namespace MooSharp.Models.ViewModels.Admins
 {
-	public class ConnectTeacherToCourseViewModel
+    /// <summary>
+    /// This class connects teachers by username to a certain course
+    /// </summary>
+    public class ConnectTeacherToCourseViewModel
 	{
-		[Required]
+        /// <summary>
+        /// CourseID is required to find a certain course
+        /// </summary>
+        [Required]
 		[Display(Name = "CourseID")]
 		public int CourseID { get; set; }
 
-		[Required]
+        /// <summary>
+        /// UserID is required to find a certain teacher
+        /// </summary>
+        [Required]
 		[Display(Name = "UserID")]
 		public string UserID { get; set; }
 
-		public string CourseTitle { get; set; }
+        /// <summary>
+        /// The title of the course that the teacher will be assigned to
+        /// </summary>
+        public string CourseTitle { get; set; }
 
-		public List<UserViewModel> AllTeachers { get; set; }
+        /// <summary>
+        /// A list that holds all the teachers 
+        /// </summary>
+        public List<UserViewModel> AllTeachers { get; set; }
 	}
 }
