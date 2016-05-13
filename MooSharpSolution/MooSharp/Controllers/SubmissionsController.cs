@@ -82,5 +82,9 @@ namespace MooSharp.Controllers
 
 			return RedirectToAction("AssignmentDetails", "Students", new { assignmentID = assignmentID });
 		}
+		public ActionResult DisplayHistory(string userID) {
+			var submissions = _submissionsService.GetSubmissionsByUser(userID);
+			return View(submissions);
+		}
 	}
 }

@@ -8,6 +8,7 @@ using System.Web;
 using System.Diagnostics;
 using System.IO;
 using MooSharp.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace MooSharp.Services
 {
@@ -271,6 +272,24 @@ namespace MooSharp.Services
 				AssignmentTitle = _assignmentsService.GetAssignmentByID(milestone.AssignmentId).Title
 			};
 			return submissionResultsViewModel;
+		}
+		public List<SubmissionViewModel> GetSubmissionsByUser(string userID) {
+			var submissions = _db.Submissions.Where(x => x.UserID == userID).ToList();
+			submissions.Sort((y, x) => DateTime.Compare(x.SubmissionDateTime, y.SubmissionDateTime));
+
+			var viewModels = new List<SubmissionViewModel>();
+			foreach (Submission a in submissions) {
+				var viewModel = new SubmissionViewModel() {
+					ID = a.ID,
+					MilestoneID = a.MilestoneID,
+					UserID = a.UserID,
+					Status = a.Status,
+					SubmissionDateTime = a.SubmissionDateTime,
+					SubmissionPath = a.SubmissionPath
+				};
+				viewModels.Add(viewModel);
+			}
+			return viewModels;
 		}
 	}
 }

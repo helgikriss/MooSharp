@@ -1,0 +1,28 @@
+﻿@using MooSharp.Models.ViewModels
+@model List<SubmissionViewModel>
+@{
+    ViewBag.Title = "DisplayHistory";
+}
+
+<h2>My history</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Submission</th>
+            <th>Status</th>
+            <th>Submission time</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{ var count = Model.Count;}
+        @for (var i = 0; i < Model.Count; i++) {
+            <tr>
+                <td>@Html.ActionLink("Submission " + count, "SubmissionResults", new { submissionID = Model[i].ID })</td>
+                <td>@Model[i].Status</td>
+                <td>@Model[i].SubmissionDateTime</td>
+            </tr>count--;
+        }
+    </tbody>
+</table>

@@ -1,5 +1,6 @@
 ﻿@model MooSharp.Models.ViewModels.Students.StudentIndexViewModel
 @using MooSharp.Models.ViewModels
+@using Microsoft.AspNet.Identity;
 
 <h3>@Html.ActionLink("Home", "Index", "Home")</h3>
 <hr />
@@ -8,6 +9,6 @@
         <li class="list-group"><a href="@Url.Action("CourseDetails", "Students", new { id = course.ID })">@course.Title</a></li>
     }
 <hr />
-<li>@Html.ActionLink("My History", "DisplayHistory", "Submissions")</li>
+<li><a href="@Url.Action("DisplayHistory", "Submissions", new { userID = User.Identity.GetUserId() })">My history</a></li>
 <hr />
 
