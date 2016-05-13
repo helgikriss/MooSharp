@@ -42,10 +42,19 @@ namespace MooSharp.Services
 			return inputs.Any();
 		}
 
-		public bool CreateSubmissionTestCases(List<string> outputs, List<bool> correctOutput, List<bool> timeLimitExceeded) {
-
-
-			return false;
+		public void CreateSubmissionTestCases(ref List<bool> timeLimitExceeded, ref List<bool> memoryError, ref List<bool> wrongOutputs, ref List<string> outputs, ref List<string> memoryErrorOutput, int submissionID, int numberOfTestCases) {
+			for(int i = 0; i < numberOfTestCases; i++) {
+				var submissionTestCase = new SubmissionTestCase() {
+					TimeLimitExceeded = timeLimitExceeded[i],
+					MemoryError = memoryError[i],
+					WrongOutput = wrongOutputs[i],
+					Output = outputs[i],
+					MemoryErrorOutput = memoryErrorOutput[i],
+					SubmissionID = submissionID
+				};
+				_db.SubmissionTestCases.Add(submissionTestCase);
+				_db.SaveChanges();
+			}
 		}
 	}
 }

@@ -58,7 +58,9 @@ namespace MooSharp.Controllers
 				SubmissionPath = path
 			};
 
-			_submissionsService.CreateSubmission(submissionViewModel);
+			int submissionID = _submissionsService.CreateSubmission(submissionViewModel);
+
+			var submission = _submissionsService.GetSubmissionById(submissionID);
 
 			return RedirectToAction("Index", "Home");
 		}

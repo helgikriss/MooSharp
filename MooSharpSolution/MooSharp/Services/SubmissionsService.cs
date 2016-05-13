@@ -24,7 +24,7 @@ namespace MooSharp.Services
 			_testCasesService = new TestCasesService();
 		}
 
-		public void CreateSubmission(CreateSubmissionViewModel viewModel) {
+		public int CreateSubmission(CreateSubmissionViewModel viewModel) {
 			// Compile program.
 			string compileOutput = "";
 			string exeFilePath = "";
@@ -34,7 +34,7 @@ namespace MooSharp.Services
 			List<bool> timeLimitExceeded = new List<bool>();
 			List<bool> wrongOutput = new List<bool>();
 
-			// TODO: Implement memory error check.
+			// TODO: Implement memory error check and fill these lists.
 			List<bool> memoryError = new List<bool>();
 			List<string> memoryErrorOutputs = new List<string>();
 
@@ -45,14 +45,14 @@ namespace MooSharp.Services
 				// Run program.
 				RunSubmission(viewModel.MilestoneID, exeFilePath, ref outputs, ref timeLimitExceeded);
 
-				if (sameNumberOfOutputsAsTestCases(viewModel.MilestoneID, ref outputs)) {
+				if (SameNumberOfOutputsAsTestCases(viewModel.MilestoneID, ref outputs)) {
 					// Check output.
 					CheckOutput(viewModel.MilestoneID, ref outputs, ref wrongOutput);
 				}
 			}
 			else {
 				// Program did not compile.
-				var sub = new Submission() {
+				var compileErrorSubmission = new Submission() {
 					Compiled = false,
 					CompilerOutput = compileOutput,
 					Status = COMPILE_ERROR,
@@ -61,23 +61,32 @@ namespace MooSharp.Services
 					SubmissionPath = viewModel.SubmissionPath,
 					UserID = viewModel.UserID
 				};
+
+				_db.Submissions.Add(compileErrorSubmission);
+				_db.SaveChanges();
+				return _db.Submissions.Max(item => item.ID);
 			}
+
+			int numberOfTestCases = _testCasesService.GetTestCasesByMilestoneId(viewModel.MilestoneID).Count;
 
 			var submission = new Submission() {
 				Compiled = true,
 				CompilerOutput = compileOutput,
-				Status = GetStatusOfSubmission(ref timeLimitExceeded, ref memoryError, ref wrongOutput, _testCasesService.GetTestCasesByMilestoneId(viewModel.MilestoneID).Count),
+				Status = GetStatusOfSubmission(ref timeLimitExceeded, ref memoryError, ref wrongOutput, numberOfTestCases),
 				MilestoneID = viewModel.MilestoneID,
 				SubmissionDateTime = viewModel.SubmissionDateTime,
 				SubmissionPath = viewModel.SubmissionPath,
 				UserID = viewModel.UserID
 			};
 
-			_testCasesService.CreateSubmissionTestCases(outputs, wrongOutput, timeLimitExceeded);
-
-			
 			_db.Submissions.Add(submission);
 			_db.SaveChanges();
+
+			int submissionID = _db.Submissions.Max(item => item.ID);
+
+			_testCasesService.CreateSubmissionTestCases(ref timeLimitExceeded, ref memoryError, ref wrongOutput, ref outputs, ref memoryErrorOutputs, submissionID, numberOfTestCases);
+
+			return submissionID;
 		}
 		public bool SubmissionIsInDbById(int id) {
 			var submission = _db.Submissions.Find(id);
@@ -177,7 +186,7 @@ namespace MooSharp.Services
 			}
 		}
 
-		public bool sameNumberOfOutputsAsTestCases(int milestoneID, ref List<string> outputs) {
+		public bool SameNumberOfOutputsAsTestCases(int milestoneID, ref List<string> outputs) {
 			if(outputs.Count == _testCasesService.GetTestCasesByMilestoneId(milestoneID).Count) {
 				return true;
 			}
@@ -198,19 +207,15 @@ namespace MooSharp.Services
 		}
 
 		public string GetStatusOfSubmission(ref List<bool> timeLimitExceeded, ref List<bool> memoryError, ref List<bool> wrongOutput, int numberOfTestCases) {
-			if(timeLimitExceeded.Count == numberOfTestCases &&
-				memoryError.Count == numberOfTestCases &&
-				wrongOutput.Count == numberOfTestCases) {
-				for(int i = 0; i < numberOfTestCases; i++) {
-					if(timeLimitExceeded[i] == true) {
-						return TIMELIMIT_EXCEEDED;
-					}
-					else if(memoryError[i] == true) {
-						return MEMORY_ERROR;
-					}
-					else if(wrongOutput[i] == true) {
-						return WRONG_OUTPUT;
-					}
+			for(int i = 0; i < numberOfTestCases; i++) {
+				if(timeLimitExceeded[i] == true) {
+					return TIMELIMIT_EXCEEDED;
+				}
+				else if(memoryError[i] == true) {
+					return MEMORY_ERROR;
+				}
+				else if(wrongOutput[i] == true) {
+					return WRONG_OUTPUT;
 				}
 			}
 			return ACCEPTED;
