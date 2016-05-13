@@ -23,7 +23,8 @@ namespace MooSharp.Controllers
         public ActionResult Index()
         {
 			var viewModel = new StudentIndexViewModel() {
-				ActiveAssignments = _assignmentsService.GetActiveAssignments(User.Identity.GetUserId()),
+				ActiveAssignments = _assignmentsService.GetActiveAssignments(User.Identity.GetUserId())
+									.Where(x => DateTime.Compare(x.OpeningDate,DateTime.Today) <= 0).ToList(),
 				FinishedAssignments = _assignmentsService.GetFinishedAssignments(User.Identity.GetUserId()),
 				MyCourses = _coursesService.GetCoursesByUser(User.Identity.GetUserId())
 				
