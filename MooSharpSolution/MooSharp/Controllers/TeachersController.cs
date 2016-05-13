@@ -128,10 +128,18 @@ namespace MooSharp.Controllers
 			return RedirectToAction("AssignmentDetails", new { assignmentID = viewModel.ID });
 		}
 
-		
+		[HttpPost]
 		public ActionResult DeleteMilestone(int milestoneID) {
 			var aID = _milestoneService.DeleteMilestone(milestoneID);
 			return RedirectToAction("AssignmentDetails", new { assignmentID = aID });
+		}
+
+		[HttpPost]
+		public ActionResult DeleteAssignment(int assignmentID) {
+			if (_assignmentsService.DeleteAssignment(assignmentID)) {
+				return RedirectToAction("Index");
+			}
+			return View(assignmentID);
 		}
 	}
 }
